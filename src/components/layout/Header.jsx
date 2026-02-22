@@ -4,9 +4,18 @@ import { Menu, X, LogOut } from 'lucide-react';
 import { useAuth } from '../../hooks/useAuth';
 
 export default function Header() {
-  const { user, signOut } = useAuth();
+  const { user, signIn, signOut } = useAuth();
   const navigate = useNavigate();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+
+  const handleSignIn = async () => {
+    try {
+      await signIn();
+    } catch (error) {
+      console.error('Sign in error:', error);
+      alert('Sign in failed: ' + error.message);
+    }
+  };
 
   const handleLogout = async () => {
     try {
@@ -86,7 +95,7 @@ export default function Header() {
               </div>
             ) : (
               <button
-                onClick={() => navigate('/')}
+                onClick={handleSignIn}
                 className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition"
               >
                 Sign In
