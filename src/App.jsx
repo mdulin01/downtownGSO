@@ -2,6 +2,7 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './hooks/useAuth';
 import Header from './components/layout/Header';
 import MobileNav from './components/layout/MobileNav';
+import BuildFooter from './components/layout/BuildFooter';
 
 // Pages
 import Home from './pages/Home';
@@ -37,6 +38,7 @@ export default function App() {
             </Routes>
           </main>
 
+          <BuildFooter />
           <MobileNav />
         </div>
       </Router>
