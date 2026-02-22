@@ -32,7 +32,7 @@ export default function About() {
           <h2 className="text-2xl font-black text-white">Our Story</h2>
           <div className="text-slate-300 leading-relaxed space-y-4">
             <p>
-              We're Mike and Adam — friends, neighbors, and downtown Greensboro residents who
+              We're Mike and Adam — neighbors and downtown Greensboro residents who
               got tired of hearing people say "there's nothing to do downtown." We know that's
               not true. We walk these streets every day. We eat at the restaurants, grab coffee
               at the cafes, catch shows at the venues, and run into friends on Elm Street.
@@ -90,7 +90,7 @@ export default function About() {
               </div>
               <h3 className="text-white font-bold">A Labor of Love</h3>
               <p className="text-slate-400 text-sm leading-relaxed">
-                No investors, no corporate backing. Just two guys who love where they live
+                No investors, no corporate backing. Just two people who love where they live
                 and want to give back to the community that makes downtown special.
               </p>
             </div>
