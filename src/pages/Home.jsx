@@ -12,7 +12,6 @@ import BusinessCard from '../components/businesses/BusinessCard';
 import BusinessDetail from '../components/businesses/BusinessDetail';
 import EventCard from '../components/events/EventCard';
 import EventDetail from '../components/events/EventDetail';
-import MapView from '../components/map/MapView';
 
 export default function Home() {
   const navigate = useNavigate();
@@ -64,14 +63,18 @@ export default function Home() {
 
   return (
     <div className="w-full pb-24 md:pb-8">
-      {/* Hero Section with Map Background */}
+      {/* Hero Section with Downtown Photo Background */}
       <div className="relative overflow-hidden">
-        {/* Map background */}
-        <div className="absolute inset-0 opacity-30">
-          <MapView markers={[]} showOverlays={true} />
+        {/* Photo background */}
+        <div className="absolute inset-0">
+          <img
+            src="https://images.unsplash.com/photo-1572111003510-f71cc42795d7?w=1920&q=80&fit=crop"
+            alt="Downtown Greensboro"
+            className="w-full h-full object-cover"
+          />
         </div>
         {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-950/70 via-slate-950/80 to-slate-950" />
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-950/60 via-slate-950/75 to-slate-950" />
 
         <div className="relative z-10 px-4 py-20 md:py-32">
           <div className="max-w-4xl mx-auto text-center space-y-8">
