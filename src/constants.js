@@ -1,4 +1,4 @@
-export const MAPBOX_TOKEN = 'YOUR_MAPBOX_TOKEN';
+export const MAPBOX_TOKEN = import.meta.env.VITE_MAPBOX_TOKEN || '';
 
 export const DOWNTOWN_CENTER = [-79.7920, 36.0726];
 export const DOWNTOWN_BOUNDS = [[-79.815, 36.055], [-79.770, 36.090]];
