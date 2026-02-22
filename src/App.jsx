@@ -10,6 +10,7 @@ import Feed from './pages/Feed';
 import Suggestions from './pages/Suggestions';
 import Businesses from './pages/Businesses';
 import Events from './pages/Events';
+import Admin from './pages/Admin';
 
 // Forms
 import CreatePost from './components/posts/CreatePost';
@@ -32,6 +33,7 @@ export default function App() {
               <Route path="/events" element={<Events />} />
               <Route path="/post/new" element={<CreatePost />} />
               <Route path="/suggestion/new" element={<SuggestionForm />} />
+              <Route path="/admin" element={<Admin />} />
             </Routes>
           </main>
 
