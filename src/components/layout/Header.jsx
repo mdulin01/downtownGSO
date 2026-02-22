@@ -84,6 +84,12 @@ export default function Header() {
                   </button>
                   <div className="absolute right-0 mt-2 w-48 bg-slate-800 rounded-lg shadow-xl opacity-0 invisible group-hover:opacity-100 group-hover:visible transition">
                     <button
+                      onClick={() => navigate('/admin')}
+                      className="w-full text-left px-4 py-2 text-slate-300 hover:text-white flex items-center gap-2 hover:bg-slate-700"
+                    >
+                      Admin
+                    </button>
+                    <button
                       onClick={handleLogout}
                       className="w-full text-left px-4 py-2 text-slate-300 hover:text-white flex items-center gap-2 rounded-lg hover:bg-slate-700"
                     >
@@ -126,15 +132,23 @@ export default function Header() {
               </Link>
             ))}
             {user ? (
-              <button
-                onClick={handleLogout}
-                className="block w-full text-left px-4 py-2 text-slate-300 hover:text-white transition"
-              >
-                Sign Out
-              </button>
+              <>
+                <button
+                  onClick={() => { navigate('/admin'); setMobileMenuOpen(false); }}
+                  className="block w-full text-left px-4 py-2 text-slate-300 hover:text-white transition"
+                >
+                  Admin
+                </button>
+                <button
+                  onClick={handleLogout}
+                  className="block w-full text-left px-4 py-2 text-slate-300 hover:text-white transition"
+                >
+                  Sign Out
+                </button>
+              </>
             ) : (
               <button
-                onClick={() => navigate('/')}
+                onClick={handleSignIn}
                 className="block w-full text-left px-4 py-2 text-blue-400 hover:text-blue-300 font-medium transition"
               >
                 Sign In
