@@ -4,7 +4,7 @@ import { db } from '../firebase-config';
 import { useAuth } from '../hooks/useAuth';
 import { seedBusinesses, seedSuggestions, seedEvents } from '../seed-data';
 
-const ADMIN_EMAILS = ['mdulin@gmail.com']; // add Adam's email here
+const ADMIN_EMAILS = ['mdulin@gmail.com', 'adamjosephbritten@gmail.com'];
 
 export default function Admin() {
   const { user } = useAuth();
