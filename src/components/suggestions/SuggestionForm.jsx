@@ -32,7 +32,7 @@ export default function SuggestionForm() {
         <p className="text-slate-300 mb-4">Please sign in to create a suggestion.</p>
         <button
           onClick={() => navigate('/')}
-          className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition"
+          className="px-6 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg font-medium transition"
         >
           Go Home
         </button>
@@ -109,7 +109,7 @@ export default function SuggestionForm() {
           <select
             value={formData.category}
             onChange={(e) => setFormData((prev) => ({ ...prev, category: e.target.value }))}
-            className="w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white focus:outline-none focus:border-blue-500"
+            className="w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white focus:outline-none focus:border-emerald-500"
           >
             {SUGGESTION_CATEGORIES.map((cat) => (
               <option key={cat} value={cat}>
@@ -132,7 +132,7 @@ export default function SuggestionForm() {
             value={formData.title}
             onChange={(e) => setFormData((prev) => ({ ...prev, title: e.target.value }))}
             placeholder="Summarize your idea..."
-            className="w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:border-blue-500"
+            className="w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:border-emerald-500"
             required
           />
         </div>
@@ -147,7 +147,7 @@ export default function SuggestionForm() {
             onChange={(e) => setFormData((prev) => ({ ...prev, problem: e.target.value }))}
             placeholder="Describe the issue you've noticed..."
             rows={3}
-            className="w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:border-blue-500"
+            className="w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:border-emerald-500"
             required
           />
         </div>
@@ -162,7 +162,7 @@ export default function SuggestionForm() {
             onChange={(e) => setFormData((prev) => ({ ...prev, suggestion: e.target.value }))}
             placeholder="What would improve the situation?"
             rows={3}
-            className="w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:border-blue-500"
+            className="w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:border-emerald-500"
             required
           />
         </div>
@@ -175,7 +175,7 @@ export default function SuggestionForm() {
           <select
             value={formData.impact}
             onChange={(e) => setFormData((prev) => ({ ...prev, impact: e.target.value }))}
-            className="w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white focus:outline-none focus:border-blue-500"
+            className="w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white focus:outline-none focus:border-emerald-500"
           >
             {SUGGESTION_IMPACT.map((impact) => (
               <option key={impact} value={impact}>
@@ -209,7 +209,7 @@ export default function SuggestionForm() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full px-6 py-3 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-600 text-white rounded-lg font-bold transition"
+          className="w-full px-6 py-3 bg-emerald-600 hover:bg-emerald-700 disabled:bg-slate-600 text-white rounded-lg font-bold transition"
         >
           {loading ? 'Submitting...' : 'Submit Suggestion'}
         </button>

@@ -48,7 +48,7 @@ export default function EventCard({ event }) {
             className="w-full h-full object-cover hover:scale-105 transition"
           />
           {/* Date Badge */}
-          <div className="absolute top-3 left-3 bg-blue-600 text-white px-3 py-2 rounded-lg font-bold text-center">
+          <div className="absolute top-3 left-3 bg-emerald-600 text-white px-3 py-2 rounded-lg font-bold text-center">
             <div className="text-sm">{(formatDate(event.date) || '').split(' ')[0]}</div>
             <div className="text-lg">{(formatDate(event.date) || '').split(' ')[1]}</div>
           </div>
@@ -90,7 +90,7 @@ export default function EventCard({ event }) {
               target="_blank"
               rel="noopener noreferrer"
               onClick={(e) => e.stopPropagation()}
-              className="text-blue-400 hover:text-blue-300 text-sm font-medium transition"
+              className="text-emerald-400 hover:text-emerald-300 text-sm font-medium transition"
             >
               Learn More
             </a>

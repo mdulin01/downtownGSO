@@ -73,7 +73,7 @@ export default function Suggestions() {
             {user && (
               <button
                 onClick={() => navigate('/suggestion/new')}
-                className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-bold transition flex-shrink-0"
+                className="flex items-center gap-2 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg font-bold transition flex-shrink-0"
               >
                 <Plus size={20} />
                 Add Suggestion
@@ -108,7 +108,7 @@ export default function Suggestions() {
               onClick={() => setSelectedCategory(null)}
               className={`px-4 py-2 rounded-lg font-medium transition ${
                 selectedCategory === null
-                  ? 'bg-blue-600 text-white'
+                  ? 'bg-emerald-600 text-white'
                   : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
               }`}
             >
@@ -120,7 +120,7 @@ export default function Suggestions() {
                 onClick={() => setSelectedCategory(cat)}
                 className={`px-4 py-2 rounded-lg font-medium transition ${
                   selectedCategory === cat
-                    ? 'bg-blue-600 text-white'
+                    ? 'bg-emerald-600 text-white'
                     : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
                 }`}
               >
@@ -136,7 +136,7 @@ export default function Suggestions() {
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value)}
-            className="px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white focus:outline-none focus:border-blue-500"
+            className="px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white focus:outline-none focus:border-emerald-500"
           >
             <option value="trending">Most Popular</option>
             <option value="newest">Newest</option>

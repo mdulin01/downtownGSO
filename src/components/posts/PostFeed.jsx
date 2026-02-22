@@ -37,7 +37,7 @@ export default function PostFeed() {
             onClick={() => setSelectedCategory(null)}
             className={`px-4 py-2 rounded-lg font-medium transition ${
               selectedCategory === null
-                ? 'bg-blue-600 text-white'
+                ? 'bg-emerald-600 text-white'
                 : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
             }`}
           >
@@ -49,7 +49,7 @@ export default function PostFeed() {
               onClick={() => setSelectedCategory(cat)}
               className={`px-4 py-2 rounded-lg font-medium transition ${
                 selectedCategory === cat
-                  ? 'bg-blue-600 text-white'
+                  ? 'bg-emerald-600 text-white'
                   : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
               }`}
             >
@@ -65,7 +65,7 @@ export default function PostFeed() {
         <select
           value={sortBy}
           onChange={(e) => setSortBy(e.target.value)}
-          className="px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white focus:outline-none focus:border-blue-500"
+          className="px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white focus:outline-none focus:border-emerald-500"
         >
           <option value="recent">Recent</option>
           <option value="trending">Trending (Most Upvotes)</option>

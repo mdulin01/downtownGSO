@@ -14,7 +14,7 @@ export default function MobileNav() {
         <Link
           to="/"
           className={`flex flex-col items-center justify-center w-20 h-20 ${
-            isActive('/') ? 'text-blue-400' : 'text-slate-400 hover:text-slate-300'
+            isActive('/') ? 'text-emerald-400' : 'text-slate-400 hover:text-slate-300'
           } transition`}
         >
           <Home size={24} />
@@ -24,7 +24,7 @@ export default function MobileNav() {
         <Link
           to="/map"
           className={`flex flex-col items-center justify-center w-20 h-20 ${
-            isActive('/map') ? 'text-blue-400' : 'text-slate-400 hover:text-slate-300'
+            isActive('/map') ? 'text-emerald-400' : 'text-slate-400 hover:text-slate-300'
           } transition`}
         >
           <Map size={24} />
@@ -33,7 +33,7 @@ export default function MobileNav() {
 
         <Link
           to={user ? '/post/new' : '/'}
-          className="flex flex-col items-center justify-center w-20 h-20 bg-blue-600 hover:bg-blue-700 text-white rounded-full transform -translate-y-8 transition"
+          className="flex flex-col items-center justify-center w-20 h-20 bg-emerald-600 hover:bg-emerald-700 text-white rounded-full transform -translate-y-8 transition"
         >
           <Plus size={28} />
           <span className="text-xs mt-1">Add</span>
@@ -42,7 +42,7 @@ export default function MobileNav() {
         <Link
           to="/businesses"
           className={`flex flex-col items-center justify-center w-20 h-20 ${
-            isActive('/businesses') ? 'text-blue-400' : 'text-slate-400 hover:text-slate-300'
+            isActive('/businesses') ? 'text-emerald-400' : 'text-slate-400 hover:text-slate-300'
           } transition`}
         >
           <Store size={24} />
@@ -52,7 +52,7 @@ export default function MobileNav() {
         <Link
           to={user ? '/profile' : '/'}
           className={`flex flex-col items-center justify-center w-20 h-20 ${
-            isActive('/profile') ? 'text-blue-400' : 'text-slate-400 hover:text-slate-300'
+            isActive('/profile') ? 'text-emerald-400' : 'text-slate-400 hover:text-slate-300'
           } transition`}
         >
           <User size={24} />

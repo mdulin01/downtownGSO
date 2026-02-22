@@ -91,7 +91,7 @@ export default function Home() {
   return (
     <div className="w-full space-y-12 pb-24 md:pb-8">
       {/* Hero Section */}
-      <div className="bg-gradient-to-br from-slate-900 via-blue-900/20 to-slate-900 px-4 py-16 md:py-24 border-b border-slate-700">
+      <div className="bg-gradient-to-br from-slate-900 via-emerald-900/20 to-slate-900 px-4 py-16 md:py-24 border-b border-slate-700">
         <div className="max-w-4xl mx-auto text-center space-y-6">
           <div className="space-y-2">
             <h1 className="text-4xl md:text-5xl font-bold text-white">
@@ -116,7 +116,7 @@ export default function Home() {
             </button>
             <button
               onClick={() => user ? navigate('/post/new') : navigate('/')}
-              className="flex items-center justify-center gap-2 px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-bold transition"
+              className="flex items-center justify-center gap-2 px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg font-bold transition"
             >
               Share Something
               <ArrowRight size={20} />
@@ -129,7 +129,7 @@ export default function Home() {
       <div className="max-w-6xl mx-auto px-4">
         <div className="grid grid-cols-3 gap-4">
           <div className="bg-slate-800/50 rounded-lg p-4 text-center border border-slate-700">
-            <div className="text-3xl font-bold text-blue-400">{stats.posts}</div>
+            <div className="text-3xl font-bold text-emerald-400">{stats.posts}</div>
             <div className="text-sm text-slate-400 mt-1">Posts</div>
           </div>
           <div className="bg-slate-800/50 rounded-lg p-4 text-center border border-slate-700">
@@ -150,7 +150,7 @@ export default function Home() {
             <h2 className="text-2xl font-bold text-white">Recent Activity</h2>
             <button
               onClick={() => navigate('/feed')}
-              className="text-blue-400 hover:text-blue-300 font-medium transition flex items-center gap-2"
+              className="text-emerald-400 hover:text-emerald-300 font-medium transition flex items-center gap-2"
             >
               View All <ArrowRight size={18} />
             </button>
@@ -170,7 +170,7 @@ export default function Home() {
             <h2 className="text-2xl font-bold text-white">Trending Suggestions</h2>
             <button
               onClick={() => navigate('/suggestions')}
-              className="text-blue-400 hover:text-blue-300 font-medium transition flex items-center gap-2"
+              className="text-emerald-400 hover:text-emerald-300 font-medium transition flex items-center gap-2"
             >
               View All <ArrowRight size={18} />
             </button>
@@ -190,7 +190,7 @@ export default function Home() {
             <h2 className="text-2xl font-bold text-white">Discover Local</h2>
             <button
               onClick={() => navigate('/businesses')}
-              className="text-blue-400 hover:text-blue-300 font-medium transition flex items-center gap-2"
+              className="text-emerald-400 hover:text-emerald-300 font-medium transition flex items-center gap-2"
             >
               View All <ArrowRight size={18} />
             </button>
@@ -210,7 +210,7 @@ export default function Home() {
             <h2 className="text-2xl font-bold text-white">Upcoming Events</h2>
             <button
               onClick={() => navigate('/events')}
-              className="text-blue-400 hover:text-blue-300 font-medium transition flex items-center gap-2"
+              className="text-emerald-400 hover:text-emerald-300 font-medium transition flex items-center gap-2"
             >
               View All <ArrowRight size={18} />
             </button>

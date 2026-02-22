@@ -32,7 +32,7 @@ export default function CreatePost() {
         <p className="text-slate-300 mb-4">Please sign in to create a post.</p>
         <button
           onClick={() => navigate('/')}
-          className="px-6 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition"
+          className="px-6 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg font-medium transition"
         >
           Go Home
         </button>
@@ -108,7 +108,7 @@ export default function CreatePost() {
             value={formData.title}
             onChange={(e) => setFormData((prev) => ({ ...prev, title: e.target.value }))}
             placeholder="What would you like to share?"
-            className="w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:border-blue-500"
+            className="w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:border-emerald-500"
             required
           />
         </div>
@@ -123,7 +123,7 @@ export default function CreatePost() {
             onChange={(e) => setFormData((prev) => ({ ...prev, description: e.target.value }))}
             placeholder="Tell us more about what you're sharing..."
             rows={4}
-            className="w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:border-blue-500"
+            className="w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:border-emerald-500"
             required
           />
         </div>
@@ -136,7 +136,7 @@ export default function CreatePost() {
           <select
             value={formData.category}
             onChange={(e) => setFormData((prev) => ({ ...prev, category: e.target.value }))}
-            className="w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white focus:outline-none focus:border-blue-500"
+            className="w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white focus:outline-none focus:border-emerald-500"
           >
             {POST_CATEGORIES.map((cat) => (
               <option key={cat} value={cat}>
@@ -180,7 +180,7 @@ export default function CreatePost() {
               value={formData.videoUrl}
               onChange={(e) => setFormData((prev) => ({ ...prev, videoUrl: e.target.value }))}
               placeholder="Paste YouTube or TikTok URL..."
-              className="w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:border-blue-500"
+              className="w-full px-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:border-emerald-500"
             />
           )}
         </div>
@@ -197,7 +197,7 @@ export default function CreatePost() {
         <button
           type="submit"
           disabled={loading}
-          className="w-full px-6 py-3 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-600 text-white rounded-lg font-bold transition"
+          className="w-full px-6 py-3 bg-emerald-600 hover:bg-emerald-700 disabled:bg-slate-600 text-white rounded-lg font-bold transition"
         >
           {loading ? 'Posting...' : 'Post'}
         </button>

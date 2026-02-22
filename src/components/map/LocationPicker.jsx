@@ -129,14 +129,14 @@ export default function LocationPicker({ onChange }) {
         <button
           onClick={handleUseLocation}
           disabled={loading}
-          className="absolute top-4 right-4 bg-blue-600 hover:bg-blue-700 disabled:bg-slate-600 text-white p-2 rounded-lg transition"
+          className="absolute top-4 right-4 bg-emerald-600 hover:bg-emerald-700 disabled:bg-slate-600 text-white p-2 rounded-lg transition"
         >
           <Crosshair size={20} />
         </button>
       </div>
       {address && (
         <div className="flex items-start gap-2 p-3 bg-slate-800 rounded-lg">
-          <MapPin size={18} className="text-blue-400 flex-shrink-0 mt-0.5" />
+          <MapPin size={18} className="text-emerald-400 flex-shrink-0 mt-0.5" />
           <div>
             <p className="text-sm text-slate-400">Selected Location</p>
             <p className="text-slate-200 font-medium">{address}</p>

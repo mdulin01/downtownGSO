@@ -39,7 +39,7 @@ export default function Header() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <Link to="/" className="flex items-center gap-2 text-2xl font-bold text-blue-400 hover:text-blue-300 transition">
+          <Link to="/" className="flex items-center gap-2 text-2xl font-bold text-emerald-400 hover:text-emerald-300 transition">
             <span>🏙️</span>
             <span>DowntownGSO</span>
           </Link>
@@ -63,7 +63,7 @@ export default function Header() {
               <div className="flex items-center gap-4">
                 <button
                   onClick={() => navigate('/post/new')}
-                  className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition"
+                  className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg font-medium transition"
                 >
                   Share Something
                 </button>
@@ -102,7 +102,7 @@ export default function Header() {
             ) : (
               <button
                 onClick={handleSignIn}
-                className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg font-medium transition"
+                className="px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg font-medium transition"
               >
                 Sign In
               </button>
@@ -149,7 +149,7 @@ export default function Header() {
             ) : (
               <button
                 onClick={handleSignIn}
-                className="block w-full text-left px-4 py-2 text-blue-400 hover:text-blue-300 font-medium transition"
+                className="block w-full text-left px-4 py-2 text-emerald-400 hover:text-emerald-300 font-medium transition"
               >
                 Sign In
               </button>

@@ -95,7 +95,7 @@ export default function Events() {
               onClick={() => setFilterTab('week')}
               className={`px-4 py-2 rounded-lg font-medium transition ${
                 filterTab === 'week'
-                  ? 'bg-blue-600 text-white'
+                  ? 'bg-emerald-600 text-white'
                   : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
               }`}
             >
@@ -105,7 +105,7 @@ export default function Events() {
               onClick={() => setFilterTab('month')}
               className={`px-4 py-2 rounded-lg font-medium transition ${
                 filterTab === 'month'
-                  ? 'bg-blue-600 text-white'
+                  ? 'bg-emerald-600 text-white'
                   : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
               }`}
             >
@@ -115,7 +115,7 @@ export default function Events() {
               onClick={() => setFilterTab('all')}
               className={`px-4 py-2 rounded-lg font-medium transition ${
                 filterTab === 'all'
-                  ? 'bg-blue-600 text-white'
+                  ? 'bg-emerald-600 text-white'
                   : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
               }`}
             >

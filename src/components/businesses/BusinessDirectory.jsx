@@ -70,7 +70,7 @@ export default function BusinessDirectory() {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search businesses..."
-            className="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:border-blue-500"
+            className="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:border-emerald-500"
           />
         </div>
       </div>
@@ -84,7 +84,7 @@ export default function BusinessDirectory() {
               onClick={() => setSelectedCategory(null)}
               className={`px-4 py-2 rounded-lg font-medium transition ${
                 selectedCategory === null
-                  ? 'bg-blue-600 text-white'
+                  ? 'bg-emerald-600 text-white'
                   : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
               }`}
             >
@@ -96,7 +96,7 @@ export default function BusinessDirectory() {
                 onClick={() => setSelectedCategory(cat)}
                 className={`px-4 py-2 rounded-lg font-medium transition ${
                   selectedCategory === cat
-                    ? 'bg-blue-600 text-white'
+                    ? 'bg-emerald-600 text-white'
                     : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
                 }`}
               >
@@ -112,7 +112,7 @@ export default function BusinessDirectory() {
             onClick={() => setViewMode('grid')}
             className={`p-2 rounded-lg transition ${
               viewMode === 'grid'
-                ? 'bg-blue-600 text-white'
+                ? 'bg-emerald-600 text-white'
                 : 'bg-slate-700 text-slate-400 hover:text-slate-300'
             }`}
           >
@@ -122,7 +122,7 @@ export default function BusinessDirectory() {
             onClick={() => setViewMode('map')}
             className={`p-2 rounded-lg transition ${
               viewMode === 'map'
-                ? 'bg-blue-600 text-white'
+                ? 'bg-emerald-600 text-white'
                 : 'bg-slate-700 text-slate-400 hover:text-slate-300'
             }`}
           >

@@ -64,7 +64,7 @@ export default function BusinessCard({ business }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
-                className="text-blue-400 hover:text-blue-300 transition"
+                className="text-emerald-400 hover:text-emerald-300 transition"
               >
                 <LinkIcon size={18} />
               </a>
@@ -86,7 +86,7 @@ export default function BusinessCard({ business }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={(e) => e.stopPropagation()}
-                className="text-blue-500 hover:text-blue-400 transition text-sm font-medium"
+                className="text-emerald-500 hover:text-emerald-400 transition text-sm font-medium"
               >
                 FB
               </a>

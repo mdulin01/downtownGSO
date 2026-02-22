@@ -45,7 +45,7 @@ export default function VideoEmbed({ url }) {
         href={url}
         target="_blank"
         rel="noopener noreferrer"
-        className="text-blue-400 hover:text-blue-300 truncate break-all"
+        className="text-emerald-400 hover:text-emerald-300 truncate break-all"
       >
         {url}
       </a>

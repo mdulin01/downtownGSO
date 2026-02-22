@@ -205,7 +205,7 @@ export default function MapExplore() {
       {user && (
         <button
           onClick={() => navigate('/post/new')}
-          className="absolute bottom-20 md:bottom-8 right-4 bg-blue-600 hover:bg-blue-700 text-white p-4 rounded-full shadow-lg transition transform hover:scale-110"
+          className="absolute bottom-20 md:bottom-8 right-4 bg-emerald-600 hover:bg-emerald-700 text-white p-4 rounded-full shadow-lg transition transform hover:scale-110"
         >
           <Plus size={28} />
         </button>
