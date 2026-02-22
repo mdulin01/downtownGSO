@@ -62,8 +62,8 @@ export default function Suggestions() {
                 <Lightbulb size={24} className="text-amber-400" />
               </div>
               <div>
-                <h1 className="text-3xl font-black text-white">Improve Downtown</h1>
-                <p className="text-slate-400 text-sm">Share your ideas for making downtown Greensboro better</p>
+                <h1 className="text-3xl font-black text-white">Ideas for Downtown</h1>
+                <p className="text-slate-400 text-sm">Share and upvote ideas for making downtown Greensboro better</p>
               </div>
             </div>
             {user && (

@@ -29,10 +29,11 @@ export default function Header() {
 
   const navLinks = [
     { label: 'Explore', href: '/map' },
-    { label: 'Feed', href: '/feed' },
-    { label: 'Suggestions', href: '/suggestions' },
+    { label: 'Forum', href: '/forum' },
+    { label: 'Ideas', href: '/ideas' },
     { label: 'Businesses', href: '/businesses' },
-    { label: 'Events', href: '/events' }
+    { label: 'Events', href: '/events' },
+    { label: 'About', href: '/about' }
   ];
 
   const isActive = (path) => location.pathname === path;

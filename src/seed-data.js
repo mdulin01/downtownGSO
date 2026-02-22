@@ -12,6 +12,7 @@ export const seedBusinesses = [
     description: "Craft brewery and pub since 2004 featuring rotating craft beers and comfort food classics.",
     website: "https://nattygreenes.com/",
     hours: "Mon-Thu 11am-11pm, Fri-Sat 11am-12am, Sun 11am-10pm",
+    photoUrl: "https://images.unsplash.com/photo-1555658636-6e4a36218be7?w=600&h=400&fit=crop",
     featured: true
   },
   {
@@ -22,6 +23,7 @@ export const seedBusinesses = [
     description: "Contemporary American cuisine with an emphasis on fresh, local ingredients.",
     website: "https://thewhiteandwood.com/",
     hours: "Tue-Thu 5pm-10pm, Fri-Sat 5pm-11pm, Sun 5pm-9pm",
+    photoUrl: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&h=400&fit=crop",
     featured: true
   },
   {
@@ -32,6 +34,7 @@ export const seedBusinesses = [
     description: "Peruvian restaurant specializing in ceviches, tiraditos, and traditional Andean dishes.",
     website: "https://inkagrill-greensboro.com/",
     hours: "Tue-Thu 5pm-10pm, Fri-Sat 5pm-11pm, Sun 5pm-9pm",
+    photoUrl: "https://images.unsplash.com/photo-1535399831218-d5bd36d1a6b3?w=600&h=400&fit=crop",
     featured: true
   },
   {
@@ -42,6 +45,7 @@ export const seedBusinesses = [
     description: "Farm-to-table restaurant featuring seasonal menus with locally sourced ingredients.",
     website: "https://www.undercurrentrestaurant.com/",
     hours: "Tue-Thu 5pm-10pm, Fri-Sat 5pm-11pm, Sun 5pm-9pm",
+    photoUrl: "https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=600&h=400&fit=crop",
     featured: true
   },
   {
@@ -52,6 +56,7 @@ export const seedBusinesses = [
     description: "French-inspired brunch and dinner spot with classic European cuisine.",
     website: "https://www.chezgenese.com/",
     hours: "Mon-Fri 7am-3pm, Sat-Sun 8am-4pm",
+    photoUrl: "https://images.unsplash.com/photo-1550507992-eb63ffee0847?w=600&h=400&fit=crop",
     featured: false
   },
   {
@@ -62,6 +67,7 @@ export const seedBusinesses = [
     description: "Latin American restaurant with fresh seafood and seasonal preparations.",
     website: "https://machetegso.com/",
     hours: "Tue-Thu 5pm-10pm, Fri-Sat 5pm-11pm, Sun 5pm-9pm",
+    photoUrl: "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&h=400&fit=crop",
     featured: false
   },
   {
@@ -72,6 +78,7 @@ export const seedBusinesses = [
     description: "Classic American diner with comfort food favorites, breakfast, and sandwiches.",
     website: "https://jakes-diner-gso.com/",
     hours: "Mon-Fri 6am-9pm, Sat-Sun 7am-9pm",
+    photoUrl: "https://images.unsplash.com/photo-1525610553efc-dcd4530f1bdf?w=600&h=400&fit=crop",
     featured: false
   },
   {
@@ -82,6 +89,7 @@ export const seedBusinesses = [
     description: "Mexican street food with artisanal tacos, fresh salsas, and craft beverages.",
     website: "https://crafted-taco.com/",
     hours: "Mon-Thu 11am-10pm, Fri-Sat 11am-11pm, Sun 11am-9pm",
+    photoUrl: "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=600&h=400&fit=crop",
     featured: false
   },
   {
@@ -92,6 +100,7 @@ export const seedBusinesses = [
     description: "Casual gastropub with creative cocktails, burgers, and lively atmosphere.",
     website: "https://stumblestilskins.com/",
     hours: "Mon-Fri 4pm-2am, Sat-Sun 11am-2am",
+    photoUrl: "https://images.unsplash.com/photo-1514933651103-005eec06c04b?w=600&h=400&fit=crop",
     featured: false
   },
   {
@@ -102,6 +111,7 @@ export const seedBusinesses = [
     description: "Mediterranean market and casual dining with fresh Middle Eastern cuisine.",
     website: "http://www.jerusalemarket.com/on-elm/",
     hours: "Mon-Sat 10am-8pm, Sun 12pm-6pm",
+    photoUrl: "https://images.unsplash.com/photo-1540914124281-342587941389?w=600&h=400&fit=crop",
     featured: false
   },
   {
@@ -112,6 +122,7 @@ export const seedBusinesses = [
     description: "Wine bar and cheese shop with seasonal light fare and curated wine selection.",
     website: "https://lewisandelm.com/home",
     hours: "Tue-Thu 5pm-11pm, Fri-Sat 5pm-12am, Sun 5pm-10pm",
+    photoUrl: "https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=600&h=400&fit=crop",
     featured: false
   },
   {
@@ -122,6 +133,7 @@ export const seedBusinesses = [
     description: "European-style café and bar with lunch, dinner, Sunday brunch, and full bar service.",
     website: "https://europagso.com/",
     hours: "Mon-Fri 11am-11pm, Sat-Sun 10am-11pm",
+    photoUrl: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=600&h=400&fit=crop",
     featured: false
   },
   {
@@ -132,6 +144,7 @@ export const seedBusinesses = [
     description: "Cocktail bar specializing in craft drinks and craft spirits.",
     website: "https://www.thesagemule.com/",
     hours: "Tue-Thu 5pm-12am, Fri-Sat 5pm-1am, Sun 5pm-11pm",
+    photoUrl: "https://images.unsplash.com/photo-1470337458703-46ad1756a187?w=600&h=400&fit=crop",
     featured: false
   },
   {
@@ -142,6 +155,7 @@ export const seedBusinesses = [
     description: "Neighborhood bar with craft beers, food, and community-focused vibe.",
     website: "https://www.neighborsgso.com/",
     hours: "Mon-Fri 4pm-2am, Sat-Sun 12pm-2am",
+    photoUrl: "https://images.unsplash.com/photo-1572116469696-31de0f17cc34?w=600&h=400&fit=crop",
     featured: false
   },
   {
@@ -152,6 +166,7 @@ export const seedBusinesses = [
     description: "Prime steakhouse and cocktail bar with upscale atmosphere.",
     website: "https://www.prymegso.com/",
     hours: "Mon-Thu 5pm-10pm, Fri-Sat 5pm-11pm, Sun 5pm-9pm",
+    photoUrl: "https://images.unsplash.com/photo-1544025162-d76694265947?w=600&h=400&fit=crop",
     featured: false
   },
 
@@ -164,6 +179,7 @@ export const seedBusinesses = [
     description: "Specialty coffee shop with espresso drinks, pastries, and comfortable workspace.",
     website: "https://commongroundsgso.com/",
     hours: "Mon-Fri 6:30am-6pm, Sat-Sun 8am-5pm",
+    photoUrl: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=600&h=400&fit=crop",
     featured: false
   },
   {
@@ -174,6 +190,7 @@ export const seedBusinesses = [
     description: "Cozy coffee shop known for specialty drinks and local pastries.",
     website: "https://awoocoffeegso.com/",
     hours: "Mon-Fri 7am-7pm, Sat-Sun 8am-6pm",
+    photoUrl: "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=600&h=400&fit=crop",
     featured: false
   },
   {
@@ -184,6 +201,7 @@ export const seedBusinesses = [
     description: "Specialty café with third-wave coffee, catering, and community events.",
     website: "https://unioncoffeecogso.com/",
     hours: "Mon-Fri 6:30am-7pm, Sat 7am-6pm, Sun 8am-5pm",
+    photoUrl: "https://images.unsplash.com/photo-1442512595331-e89e73853f31?w=600&h=400&fit=crop",
     featured: false
   },
   {
@@ -194,6 +212,7 @@ export const seedBusinesses = [
     description: "Artisan bakery with fresh pastries, coffee, and light lunch options.",
     website: "https://bakedbyperrin.com/",
     hours: "Mon-Fri 7am-6pm, Sat-Sun 8am-5pm",
+    photoUrl: "https://images.unsplash.com/photo-1509440159596-0249088772ff?w=600&h=400&fit=crop",
     featured: false
   },
   {
@@ -204,6 +223,7 @@ export const seedBusinesses = [
     description: "Organic and fair-trade coffee shop with relaxed atmosphere.",
     website: "https://www.greensborocoffeeandtea.com/",
     hours: "Mon-Fri 7am-6pm, Sat-Sun 9am-5pm",
+    photoUrl: "https://images.unsplash.com/photo-1559496417-e7f25cb247f3?w=600&h=400&fit=crop",
     featured: false
   },
 
@@ -216,6 +236,7 @@ export const seedBusinesses = [
     description: "Boutique specializing in U.S. made, fair trade, and handcrafted gifts and apparel.",
     website: "https://onlyjustbe.com/",
     hours: "Mon-Sat 10am-6pm, Sun 12pm-5pm",
+    photoUrl: "https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600&h=400&fit=crop",
     featured: false
   },
   {
@@ -226,6 +247,7 @@ export const seedBusinesses = [
     description: "Art print gallery and gift shop featuring local and regional artists.",
     website: "https://thousandsoprints.com/",
     hours: "Mon-Sat 10am-6pm, Sun 12pm-5pm",
+    photoUrl: "https://images.unsplash.com/photo-1513364776144-60967b0f800f?w=600&h=400&fit=crop",
     featured: false
   },
   {
@@ -236,6 +258,7 @@ export const seedBusinesses = [
     description: "Curated selection of one-of-a-kind pieces and special collections.",
     website: "https://www.hometownstore.com/",
     hours: "Mon-Sat 10am-6pm, Sun 12pm-5pm",
+    photoUrl: "https://images.unsplash.com/photo-1528698827591-e19cef51a699?w=600&h=400&fit=crop",
     featured: false
   },
   {
@@ -246,6 +269,7 @@ export const seedBusinesses = [
     description: "Fine jewelry store with custom designs and repair services.",
     website: "https://www.schiffmansjewelers.com/",
     hours: "Mon-Sat 10am-5:30pm",
+    photoUrl: "https://images.unsplash.com/photo-1515562141589-67f0d569b6c2?w=600&h=400&fit=crop",
     featured: false
   },
   {
@@ -256,6 +280,7 @@ export const seedBusinesses = [
     description: "Children's boutique with toys, books, clothing, and accessories.",
     website: "https://www.littlepoliskids.com/",
     hours: "Mon-Sat 10am-6pm, Sun 12pm-5pm",
+    photoUrl: "https://images.unsplash.com/photo-1596461404969-9ae70f2830c1?w=600&h=400&fit=crop",
     featured: false
   },
 
@@ -268,6 +293,7 @@ export const seedBusinesses = [
     description: "Immersive living art museum and artist residency in a historic thrift store building.",
     website: "https://www.elsewheremuseum.org/",
     hours: "Wed-Sat 12pm-5pm, Sun 1pm-5pm",
+    photoUrl: "https://images.unsplash.com/photo-1518998053901-5348d3961a04?w=600&h=400&fit=crop",
     featured: true
   },
   {
@@ -278,6 +304,7 @@ export const seedBusinesses = [
     description: "Modern event venue in historic textile factory with 11,000 sq ft of flexible space for cultural events.",
     website: "https://www.elmandbain.com/",
     hours: "By appointment",
+    photoUrl: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&h=400&fit=crop",
     featured: false
   },
   {
@@ -288,6 +315,7 @@ export const seedBusinesses = [
     description: "State-of-the-art performing arts center with 3,000 seats hosting Broadway, concerts, and symphonies.",
     website: "https://www.tangercenter.com/",
     hours: "Box Office: Mon-Fri 10am-5pm, Sat-Sun call for hours",
+    photoUrl: "https://images.unsplash.com/photo-1507676184212-d03ab07a01bf?w=600&h=400&fit=crop",
     featured: true
   },
   {
@@ -298,6 +326,7 @@ export const seedBusinesses = [
     description: "Multipurpose arts facility with galleries, dance studios, pottery studios, and black box theater.",
     website: "https://www.greensborocultural.com/",
     hours: "Mon-Fri 9am-5pm, Sat 10am-3pm",
+    photoUrl: "https://images.unsplash.com/photo-1460661419201-fd4cecdf8a8b?w=600&h=400&fit=crop",
     featured: true
   },
   {
@@ -308,6 +337,7 @@ export const seedBusinesses = [
     description: "Historic theater hosting concerts, classic films, independent movies, and community performances.",
     website: "https://www.odeontheatre.com/",
     hours: "Box Office: Tue-Fri 2pm-6pm, Sat 1pm-5pm",
+    photoUrl: "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=600&h=400&fit=crop",
     featured: false
   },
   {
@@ -318,6 +348,7 @@ export const seedBusinesses = [
     description: "Premier downtown park with splash pad, gardens, and hosts 400+ community programs annually.",
     website: "https://www.greensborodowntownparks.org/",
     hours: "Dawn to dusk; programs vary",
+    photoUrl: "https://images.unsplash.com/photo-1588714477688-cf28a50e94f7?w=600&h=400&fit=crop",
     featured: true
   },
   {
@@ -328,6 +359,7 @@ export const seedBusinesses = [
     description: "Urban green space with events, art installations, and community gatherings.",
     website: "https://www.greensborodowntownparks.org/",
     hours: "24/7",
+    photoUrl: "https://images.unsplash.com/photo-1519331379826-f10be5486c6f?w=600&h=400&fit=crop",
     featured: false
   },
   {
@@ -338,6 +370,7 @@ export const seedBusinesses = [
     description: "Museum dedicated to the Civil Rights Movement with interactive exhibits and educational programs.",
     website: "https://www.sitinmovement.org/",
     hours: "Tue-Sat 10am-4pm, Sun 1pm-5pm",
+    photoUrl: "https://images.unsplash.com/photo-1575505586569-646b2ca898fc?w=600&h=400&fit=crop",
     featured: true
   }
 ];

@@ -11,6 +11,7 @@ import Feed from './pages/Feed';
 import Suggestions from './pages/Suggestions';
 import Businesses from './pages/Businesses';
 import Events from './pages/Events';
+import About from './pages/About';
 import Admin from './pages/Admin';
 
 // Forms
@@ -28,10 +29,13 @@ export default function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/map" element={<MapExplore />} />
+              <Route path="/forum" element={<Feed />} />
               <Route path="/feed" element={<Feed />} />
+              <Route path="/ideas" element={<Suggestions />} />
               <Route path="/suggestions" element={<Suggestions />} />
               <Route path="/businesses" element={<Businesses />} />
               <Route path="/events" element={<Events />} />
+              <Route path="/about" element={<About />} />
               <Route path="/post/new" element={<CreatePost />} />
               <Route path="/suggestion/new" element={<SuggestionForm />} />
               <Route path="/admin" element={<Admin />} />

@@ -139,9 +139,9 @@ export default function Home() {
             <div className="text-white font-bold text-sm">Businesses</div>
             <div className="text-slate-400 text-xs mt-1">Local directory</div>
           </button>
-          <button onClick={() => navigate('/suggestions')} className="group p-4 rounded-xl bg-gradient-to-br from-amber-500/20 to-amber-600/10 border border-amber-500/20 hover:border-amber-500/40 transition backdrop-blur-sm text-left">
+          <button onClick={() => navigate('/ideas')} className="group p-4 rounded-xl bg-gradient-to-br from-amber-500/20 to-amber-600/10 border border-amber-500/20 hover:border-amber-500/40 transition backdrop-blur-sm text-left">
             <Lightbulb size={24} className="text-amber-400 mb-2" />
-            <div className="text-white font-bold text-sm">Suggestions</div>
+            <div className="text-white font-bold text-sm">Ideas</div>
             <div className="text-slate-400 text-xs mt-1">Shape downtown</div>
           </button>
         </div>
@@ -213,12 +213,12 @@ export default function Home() {
                   <TrendingUp size={20} className="text-amber-400" />
                 </div>
                 <div>
-                  <h2 className="text-2xl font-black text-white">Trending Suggestions</h2>
+                  <h2 className="text-2xl font-black text-white">Trending Ideas</h2>
                   <p className="text-sm text-slate-400">Ideas for improving downtown</p>
                 </div>
               </div>
               <button
-                onClick={() => navigate('/suggestions')}
+                onClick={() => navigate('/ideas')}
                 className="group text-emerald-400 hover:text-emerald-300 font-medium transition flex items-center gap-2 text-sm"
               >
                 View All <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
@@ -246,7 +246,7 @@ export default function Home() {
                 </div>
               </div>
               <button
-                onClick={() => navigate('/feed')}
+                onClick={() => navigate('/forum')}
                 className="group text-emerald-400 hover:text-emerald-300 font-medium transition flex items-center gap-2 text-sm"
               >
                 View All <ArrowRight size={16} className="group-hover:translate-x-1 transition-transform" />
