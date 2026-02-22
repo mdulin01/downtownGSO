@@ -30,53 +30,50 @@ export const DOWNTOWN_BOUNDARY = [
 ];
 
 // Downtown Greenway trail path [lng, lat] - 4-mile loop
-// Phase 1: Southern Trace (railroad corridor / Bragg St / Carolyn Coleman Way)
-// Phase 2: Eastern Way (Murrow Blvd, south to north)
-// Phase 3: Northern Passage (Lindsay/Smith St, Fisher Park area)
-// Phase 4: Western Branch (western railroad corridor)
+// Traced from confirmed Google Maps intersection coordinates
+// East: Murrow Blvd | South: Carolyn Coleman Way | West: Freeman Mill Rd/railroad | North: Smith/Eugene/Fisher
 export const GREENWAY_PATH = [
-  // Start at Five Points area (SE, Phase 1/2 junction)
-  [-79.7815, 36.0648],  // Five Points / Eugene & Bragg
-  // Phase 2: Eastern Way - north along Murrow Blvd
-  [-79.7808, 36.0665],
-  [-79.7800, 36.0685],
-  [-79.7795, 36.0705],  // Murrow & E Market St
-  [-79.7792, 36.0725],
-  [-79.7790, 36.0745],
-  [-79.7788, 36.0762],
-  [-79.7790, 36.0778],  // Murrow near Lindsay
-  [-79.7795, 36.0795],
-  [-79.7800, 36.0808],  // Murrow & Fisher Ave
-  // Phase 3: Northern Passage - west along Smith/Lindsay/Fisher Park
-  [-79.7812, 36.0818],
-  [-79.7830, 36.0825],
-  [-79.7850, 36.0828],  // near N Elm & Lindsay
-  [-79.7870, 36.0830],
-  [-79.7890, 36.0830],
-  [-79.7910, 36.0828],  // N Elm & Smith area
-  [-79.7930, 36.0825],
-  [-79.7950, 36.0820],
-  [-79.7968, 36.0812],  // near Spring & Friendly
-  [-79.7982, 36.0800],
-  // Phase 4: Western Branch - south along western rail corridor
-  [-79.7992, 36.0785],
-  [-79.8000, 36.0768],
-  [-79.8005, 36.0748],
-  [-79.8008, 36.0728],  // near Spring Garden & railroad
-  [-79.8008, 36.0708],
-  [-79.8005, 36.0690],
-  [-79.8000, 36.0672],  // SW area near railroad
-  [-79.7990, 36.0658],
-  [-79.7975, 36.0648],  // Morehead Park / Spring Garden area
-  // Phase 1: Southern Trace - east along Bragg/railroad
-  [-79.7955, 36.0642],
-  [-79.7935, 36.0638],
-  [-79.7915, 36.0636],  // S Elm & rail crossing
-  [-79.7895, 36.0636],
-  [-79.7875, 36.0638],
-  [-79.7855, 36.0640],
-  [-79.7835, 36.0643],  // Bragg St area
-  [-79.7815, 36.0648]   // close loop at Five Points
+  // Start at NE corner: Murrow Blvd & Fisher Ave
+  [-79.7874, 36.0793],  // Murrow & Fisher Ave (NE start)
+
+  // EAST LEG - South on Murrow Blvd
+  [-79.7868, 36.0778],  // Murrow south of Fisher
+  [-79.7860, 36.0762],  // Murrow near Lindsay St
+  [-79.7850, 36.0745],  // Murrow between Lindsay & Friendly
+  [-79.7835, 36.0730],  // Murrow & Friendly Ave
+  [-79.7835, 36.0721],  // Murrow & Market St
+  [-79.7838, 36.0705],  // Murrow south of Market
+  [-79.7840, 36.0690],  // Murrow near Sycamore
+  [-79.7842, 36.0675],  // Murrow near Washington St
+  [-79.7846, 36.0649],  // Murrow & Gate City Blvd
+
+  // SOUTH LEG - SW along Carolyn Coleman Way to Freeman Mill
+  [-79.7855, 36.0642],  // trail leaves Murrow heading SW
+  [-79.7870, 36.0635],  // approaching Carolyn Coleman Way
+  [-79.7886, 36.0630],  // Carolyn Coleman Way
+  [-79.7910, 36.0630],  // Carolyn Coleman heading west
+  [-79.7935, 36.0632],  // continuing west
+  [-79.7960, 36.0636],  // approaching Freeman Mill
+  [-79.7996, 36.0641],  // Freeman Mill & Gate City Blvd
+
+  // WEST LEG - North along Freeman Mill Rd / railroad corridor
+  [-79.7985, 36.0660],  // Freeman Mill heading north
+  [-79.7975, 36.0689],  // Freeman Mill & Spring St
+  [-79.7980, 36.0700],  // railroad corridor north of Spring Garden
+  [-79.7991, 36.0710],  // College Bridge Way
+  [-79.7990, 36.0725],  // railroad corridor continuing north
+  [-79.7985, 36.0740],  // north along tracks
+  [-79.7978, 36.0755],  // approaching W Friendly area
+  [-79.7968, 36.0768],  // nearing Smith St
+
+  // NORTH LEG - East along Smith St / Eugene St / Fisher Ave
+  [-79.7955, 36.0778],  // Smith St west of Eugene
+  [-79.7937, 36.0783],  // N Eugene & W Smith St
+  [-79.7936, 36.0793],  // N Eugene heading north to Fisher
+  [-79.7936, 36.0800],  // N Eugene & W Fisher Ave
+  [-79.7920, 36.0798],  // Fisher Ave heading east
+  [-79.7900, 36.0796],  // Fisher Ave continuing east
+  [-79.7874, 36.0793]   // close loop at Murrow & Fisher
 ];
 
 export const POST_CATEGORIES = [
