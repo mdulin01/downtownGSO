@@ -38,14 +38,16 @@ export default function BusinessDirectory() {
     });
   }, [businesses, searchTerm, selectedCategory]);
 
-  const markers = filteredBusinesses.map((business) => ({
-    id: business.id,
-    lat: business.lat,
-    lng: business.lng,
-    type: 'business',
-    title: business.name,
-    preview: business.name
-  }));
+  const markers = filteredBusinesses
+    .filter((b) => b.lat || b.location?.lat)
+    .map((business) => ({
+      id: business.id,
+      lat: business.lat || business.location?.lat,
+      lng: business.lng || business.location?.lng,
+      type: 'business',
+      title: business.name,
+      preview: business.name
+    }));
 
   if (loading) {
     return (

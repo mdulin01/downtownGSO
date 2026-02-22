@@ -3,8 +3,16 @@ import { collection, query, orderBy, onSnapshot } from 'firebase/firestore';
 import { db } from '../firebase-config';
 import EventCard from '../components/events/EventCard';
 
+function toDate(val) {
+  if (!val) return null;
+  if (val.toDate) return val.toDate();
+  if (val.seconds) return new Date(val.seconds * 1000);
+  return new Date(val);
+}
+
 function formatDateGroup(date) {
-  const d = new Date(date);
+  const d = toDate(date);
+  if (!d || isNaN(d)) return 'Upcoming';
   return d.toLocaleDateString('en-US', {
     weekday: 'long',
     year: 'numeric',
@@ -41,7 +49,8 @@ export default function Events() {
     const oneMonth = new Date(now.getTime() + 30 * 24 * 60 * 60 * 1000);
 
     return events.filter((event) => {
-      const eventDate = new Date(event.date);
+      const eventDate = toDate(event.date);
+      if (!eventDate || isNaN(eventDate)) return filterTab === 'all';
       if (filterTab === 'week') {
         return eventDate >= now && eventDate <= oneWeek;
       } else if (filterTab === 'month') {
