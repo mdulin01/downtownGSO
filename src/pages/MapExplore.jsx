@@ -131,7 +131,7 @@ export default function MapExplore() {
   return (
     <div className="relative w-full h-screen pt-16">
       {/* Map */}
-      <MapView markers={markers} onMarkerClick={handleMarkerClick} />
+      <MapView />
 
       {/* Floating Sidebar */}
       <div className="absolute top-4 left-4 z-10 max-w-xs">

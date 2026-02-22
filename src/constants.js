@@ -66,13 +66,16 @@ export const GREENWAY_PATH = [
   [-79.7978, 36.0755],  // approaching W Friendly area
   [-79.7968, 36.0768],  // nearing Smith St
 
-  // NORTH LEG - East along Smith St / Eugene St / Fisher Ave
+  // NORTH LEG - East along Smith St / Eugene St / Fisher Ave / Murrow curve
   [-79.7955, 36.0778],  // Smith St west of Eugene
   [-79.7937, 36.0783],  // N Eugene & W Smith St
   [-79.7936, 36.0793],  // N Eugene heading north to Fisher
   [-79.7936, 36.0800],  // N Eugene & W Fisher Ave
-  [-79.7920, 36.0798],  // Fisher Ave heading east
-  [-79.7900, 36.0796],  // Fisher Ave continuing east
+  [-79.7920, 36.0802],  // Fisher Ave heading east
+  [-79.7905, 36.0804],  // Fisher approaching Murrow curve
+  [-79.7892, 36.0805],  // Murrow Blvd curve (north apex)
+  [-79.7882, 36.0803],  // Murrow curving southeast
+  [-79.7876, 36.0799],  // Murrow continuing to curve
   [-79.7874, 36.0793]   // close loop at Murrow & Fisher
 ];
 
