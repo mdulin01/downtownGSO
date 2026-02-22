@@ -5,9 +5,13 @@ import { collection, query, limit, onSnapshot, orderBy } from 'firebase/firestor
 import { db } from '../firebase-config';
 import { useAuth } from '../hooks/useAuth';
 import PostCard from '../components/posts/PostCard';
+import PostDetail from '../components/posts/PostDetail';
 import SuggestionCard from '../components/suggestions/SuggestionCard';
+import SuggestionDetail from '../components/suggestions/SuggestionDetail';
 import BusinessCard from '../components/businesses/BusinessCard';
+import BusinessDetail from '../components/businesses/BusinessDetail';
 import EventCard from '../components/events/EventCard';
+import EventDetail from '../components/events/EventDetail';
 import MapView from '../components/map/MapView';
 
 export default function Home() {
@@ -18,6 +22,10 @@ export default function Home() {
   const [featuredBusinesses, setFeaturedBusinesses] = useState([]);
   const [upcomingEvents, setUpcomingEvents] = useState([]);
   const [stats, setStats] = useState({ posts: 0, businesses: 0, suggestions: 0 });
+  const [selectedPost, setSelectedPost] = useState(null);
+  const [selectedSuggestion, setSelectedSuggestion] = useState(null);
+  const [selectedBusiness, setSelectedBusiness] = useState(null);
+  const [selectedEvent, setSelectedEvent] = useState(null);
 
   useEffect(() => {
     const q = query(collection(db, 'posts'), orderBy('createdAt', 'desc'), limit(6));
@@ -170,7 +178,7 @@ export default function Home() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {upcomingEvents.slice(0, 3).map((event) => (
-                <EventCard key={event.id} event={event} />
+                <EventCard key={event.id} event={event} onOpenDetail={setSelectedEvent} />
               ))}
             </div>
           </section>
@@ -198,7 +206,7 @@ export default function Home() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
               {featuredBusinesses.map((business) => (
-                <BusinessCard key={business.id} business={business} />
+                <BusinessCard key={business.id} business={business} onOpenDetail={setSelectedBusiness} />
               ))}
             </div>
           </section>
@@ -226,7 +234,7 @@ export default function Home() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {trendingSuggestions.map((suggestion) => (
-                <SuggestionCard key={suggestion.id} suggestion={suggestion} />
+                <SuggestionCard key={suggestion.id} suggestion={suggestion} onOpenDetail={setSelectedSuggestion} />
               ))}
             </div>
           </section>
@@ -254,12 +262,16 @@ export default function Home() {
             </div>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
               {recentPosts.map((post) => (
-                <PostCard key={post.id} post={post} />
+                <PostCard key={post.id} post={post} onOpenDetail={setSelectedPost} />
               ))}
             </div>
           </section>
         )}
       </div>
+      <EventDetail event={selectedEvent} isOpen={!!selectedEvent} onClose={() => setSelectedEvent(null)} />
+      <BusinessDetail business={selectedBusiness} isOpen={!!selectedBusiness} onClose={() => setSelectedBusiness(null)} />
+      <SuggestionDetail suggestion={selectedSuggestion} isOpen={!!selectedSuggestion} onClose={() => setSelectedSuggestion(null)} />
+      <PostDetail post={selectedPost} isOpen={!!selectedPost} onClose={() => setSelectedPost(null)} />
     </div>
   );
 }

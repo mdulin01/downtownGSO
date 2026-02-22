@@ -6,6 +6,7 @@ import { db } from '../firebase-config';
 import { useAuth } from '../hooks/useAuth';
 import { SUGGESTION_CATEGORIES } from '../constants';
 import SuggestionCard from '../components/suggestions/SuggestionCard';
+import SuggestionDetail from '../components/suggestions/SuggestionDetail';
 
 export default function Suggestions() {
   const navigate = useNavigate();
@@ -14,6 +15,7 @@ export default function Suggestions() {
   const [loading, setLoading] = useState(true);
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [sortBy, setSortBy] = useState('trending');
+  const [selectedSuggestion, setSelectedSuggestion] = useState(null);
 
   useEffect(() => {
     const q = query(collection(db, 'suggestions'), orderBy('createdAt', 'desc'));
@@ -161,11 +163,12 @@ export default function Suggestions() {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {filteredSuggestions.map((suggestion) => (
-              <SuggestionCard key={suggestion.id} suggestion={suggestion} />
+              <SuggestionCard key={suggestion.id} suggestion={suggestion} onOpenDetail={setSelectedSuggestion} />
             ))}
           </div>
         )}
       </div>
+      <SuggestionDetail suggestion={selectedSuggestion} isOpen={!!selectedSuggestion} onClose={() => setSelectedSuggestion(null)} />
     </div>
   );
 }

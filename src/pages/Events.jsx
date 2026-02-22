@@ -3,6 +3,7 @@ import { Calendar } from 'lucide-react';
 import { collection, query, orderBy, onSnapshot } from 'firebase/firestore';
 import { db } from '../firebase-config';
 import EventCard from '../components/events/EventCard';
+import EventDetail from '../components/events/EventDetail';
 
 function toDate(val) {
   if (!val) return null;
@@ -26,6 +27,7 @@ export default function Events() {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [filterTab, setFilterTab] = useState('week');
+  const [selectedEvent, setSelectedEvent] = useState(null);
 
   useEffect(() => {
     const q = query(collection(db, 'events'), orderBy('date', 'asc'));
@@ -120,13 +122,14 @@ export default function Events() {
               <h3 className="text-lg font-bold text-white border-b border-white/5 pb-3">{dateGroup}</h3>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {dateEvents.map((event) => (
-                  <EventCard key={event.id} event={event} />
+                  <EventCard key={event.id} event={event} onOpenDetail={setSelectedEvent} />
                 ))}
               </div>
             </div>
           ))
         )}
       </div>
+      <EventDetail event={selectedEvent} isOpen={!!selectedEvent} onClose={() => setSelectedEvent(null)} />
     </div>
   );
 }

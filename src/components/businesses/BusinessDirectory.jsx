@@ -2,6 +2,7 @@ import { useState, useMemo } from 'react';
 import { Map, List, Store, Search } from 'lucide-react';
 import { BUSINESS_CATEGORIES } from '../../constants';
 import BusinessCard from './BusinessCard';
+import BusinessDetail from './BusinessDetail';
 import MapView from '../map/MapView';
 import { collection, query, onSnapshot } from 'firebase/firestore';
 import { db } from '../../firebase-config';
@@ -13,6 +14,7 @@ export default function BusinessDirectory() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [viewMode, setViewMode] = useState('grid');
+  const [selectedBusiness, setSelectedBusiness] = useState(null);
 
   useEffect(() => {
     const q = query(collection(db, 'businesses'));
@@ -149,11 +151,12 @@ export default function BusinessDirectory() {
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {filteredBusinesses.map((business) => (
-              <BusinessCard key={business.id} business={business} />
+              <BusinessCard key={business.id} business={business} onOpenDetail={setSelectedBusiness} />
             ))}
           </div>
         )}
       </div>
+      <BusinessDetail business={selectedBusiness} isOpen={!!selectedBusiness} onClose={() => setSelectedBusiness(null)} />
     </div>
   );
 }

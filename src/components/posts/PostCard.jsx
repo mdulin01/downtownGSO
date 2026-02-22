@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router-dom';
 import { MessageCircle, MapPin, Heart, Newspaper } from 'lucide-react';
 import CategoryBadge from '../common/CategoryBadge';
 import Upvote from '../common/Upvote';
@@ -33,12 +32,11 @@ const categoryGradients = {
   'Business Spotlight': 'from-amber-600/30 to-yellow-600/10',
 };
 
-export default function PostCard({ post }) {
-  const navigate = useNavigate();
+export default function PostCard({ post, onOpenDetail }) {
   const gradient = categoryGradients[post.category] || 'from-emerald-600/30 to-green-600/10';
 
   const handleClick = () => {
-    navigate(`/post/${post.id}`);
+    if (onOpenDetail) onOpenDetail(post);
   };
 
   return (

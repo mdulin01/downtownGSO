@@ -1,13 +1,10 @@
-import { useNavigate } from 'react-router-dom';
 import { MapPin, Lightbulb, ChevronUp } from 'lucide-react';
 import CategoryBadge from '../common/CategoryBadge';
 import Upvote from '../common/Upvote';
 
-export default function SuggestionCard({ suggestion }) {
-  const navigate = useNavigate();
-
+export default function SuggestionCard({ suggestion, onOpenDetail }) {
   const handleClick = () => {
-    navigate(`/suggestion/${suggestion.id}`);
+    if (onOpenDetail) onOpenDetail(suggestion);
   };
 
   return (

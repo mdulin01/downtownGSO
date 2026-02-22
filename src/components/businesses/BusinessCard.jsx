@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router-dom';
 import { MapPin, Clock, ExternalLink, Store } from 'lucide-react';
 import CategoryBadge from '../common/CategoryBadge';
 
@@ -14,12 +13,11 @@ const categoryGradients = {
   'Fitness & Wellness': 'from-teal-600/40 to-cyan-600/20',
 };
 
-export default function BusinessCard({ business }) {
-  const navigate = useNavigate();
+export default function BusinessCard({ business, onOpenDetail }) {
   const gradient = categoryGradients[business.category] || 'from-purple-600/40 to-indigo-600/20';
 
   const handleClick = () => {
-    navigate(`/business/${business.id}`);
+    if (onOpenDetail) onOpenDetail(business);
   };
 
   return (

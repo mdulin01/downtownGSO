@@ -2,10 +2,12 @@ import { useState, useMemo } from 'react';
 import { usePosts } from '../../hooks/usePosts';
 import { POST_CATEGORIES } from '../../constants';
 import PostCard from './PostCard';
+import PostDetail from './PostDetail';
 
 export default function PostFeed() {
   const [selectedCategory, setSelectedCategory] = useState(null);
   const [sortBy, setSortBy] = useState('recent'); // 'recent' or 'trending'
+  const [selectedPost, setSelectedPost] = useState(null);
 
   const { posts, loading } = usePosts(
     selectedCategory ? { category: selectedCategory } : {}
@@ -80,10 +82,11 @@ export default function PostFeed() {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {sortedPosts.map((post) => (
-            <PostCard key={post.id} post={post} />
+            <PostCard key={post.id} post={post} onOpenDetail={setSelectedPost} />
           ))}
         </div>
       )}
+      <PostDetail post={selectedPost} isOpen={!!selectedPost} onClose={() => setSelectedPost(null)} />
     </div>
   );
 }

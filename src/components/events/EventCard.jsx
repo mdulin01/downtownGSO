@@ -1,4 +1,3 @@
-import { useNavigate } from 'react-router-dom';
 import { MapPin, Clock, Calendar, ArrowUpRight } from 'lucide-react';
 
 function toDate(val) {
@@ -36,12 +35,11 @@ function getMonthDay(date) {
   };
 }
 
-export default function EventCard({ event }) {
-  const navigate = useNavigate();
+export default function EventCard({ event, onOpenDetail }) {
   const { month, day } = getMonthDay(event.date);
 
   const handleClick = () => {
-    navigate(`/event/${event.id}`);
+    if (onOpenDetail) onOpenDetail(event);
   };
 
   return (
