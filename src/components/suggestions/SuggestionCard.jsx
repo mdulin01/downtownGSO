@@ -32,11 +32,11 @@ export default function SuggestionCard({ suggestion }) {
         <div className="space-y-2">
           <div>
             <p className="text-xs text-slate-400 font-semibold uppercase">Problem</p>
-            <p className="text-slate-300 text-sm line-clamp-2">{suggestion.problem}</p>
+            <p className="text-slate-300 text-sm line-clamp-2">{suggestion.problem || suggestion.description}</p>
           </div>
           <div>
             <p className="text-xs text-slate-400 font-semibold uppercase">Suggestion</p>
-            <p className="text-slate-300 text-sm line-clamp-2">{suggestion.suggestion}</p>
+            <p className="text-slate-300 text-sm line-clamp-2">{suggestion.suggestion || suggestion.improvement}</p>
           </div>
         </div>
 
@@ -44,19 +44,21 @@ export default function SuggestionCard({ suggestion }) {
         {suggestion.location && (
           <div className="flex items-center gap-2 text-slate-400 text-sm">
             <MapPin size={16} />
-            <span className="truncate">{suggestion.location}</span>
+            <span className="truncate">
+              {typeof suggestion.location === 'string' ? suggestion.location : suggestion.location.address || 'Downtown GSO'}
+            </span>
           </div>
         )}
 
         {/* Mini Map Preview */}
-        {suggestion.lat && suggestion.lng && (
+        {(suggestion.lat || suggestion.location?.lat) && (suggestion.lng || suggestion.location?.lng) && (
           <div className="h-32 rounded-lg overflow-hidden bg-slate-900 border border-slate-700">
             <MapView
               markers={[
                 {
                   id: suggestion.id,
-                  lat: suggestion.lat,
-                  lng: suggestion.lng,
+                  lat: suggestion.lat || suggestion.location?.lat,
+                  lng: suggestion.lng || suggestion.location?.lng,
                   type: 'suggestion',
                   title: suggestion.title
                 }

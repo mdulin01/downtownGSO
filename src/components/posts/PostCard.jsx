@@ -5,7 +5,9 @@ import Upvote from '../common/Upvote';
 import VideoEmbed from '../common/VideoEmbed';
 
 function timeAgo(date) {
-  const seconds = Math.floor((new Date() - new Date(date)) / 1000);
+  if (!date) return '';
+  const d = date.toDate ? date.toDate() : date.seconds ? new Date(date.seconds * 1000) : new Date(date);
+  const seconds = Math.floor((new Date() - d) / 1000);
   const intervals = {
     year: 31536000,
     month: 2592000,
@@ -69,7 +71,9 @@ export default function PostCard({ post }) {
         {post.location && (
           <div className="flex items-center gap-2 text-slate-400 text-sm">
             <MapPin size={16} />
-            <span className="truncate">{post.location}</span>
+            <span className="truncate">
+              {typeof post.location === 'string' ? post.location : post.location.address || 'Downtown GSO'}
+            </span>
           </div>
         )}
 

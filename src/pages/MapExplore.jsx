@@ -71,41 +71,45 @@ export default function MapExplore() {
 
   // Build markers array
   const markers = [];
+  // Helper to extract lat/lng from either flat fields or nested location object
+  const getLat = (item) => item.lat || item.location?.lat;
+  const getLng = (item) => item.lng || item.location?.lng;
+
   if (layers.posts) {
-    markers.push(...posts.map((p) => ({
+    markers.push(...posts.filter((p) => getLat(p) && getLng(p)).map((p) => ({
       id: p.id,
-      lat: p.lat,
-      lng: p.lng,
-      type: 'post',
+      lat: getLat(p),
+      lng: getLng(p),
+      type: p.type === 'suggestion' ? 'suggestion' : 'post',
       title: p.title,
       preview: p.title
     })));
   }
   if (layers.suggestions) {
-    markers.push(...suggestions.map((s) => ({
+    markers.push(...suggestions.filter((s) => getLat(s) && getLng(s)).map((s) => ({
       id: s.id,
-      lat: s.lat,
-      lng: s.lng,
+      lat: getLat(s),
+      lng: getLng(s),
       type: 'suggestion',
       title: s.title,
       preview: s.title
     })));
   }
   if (layers.businesses) {
-    markers.push(...businesses.map((b) => ({
+    markers.push(...businesses.filter((b) => getLat(b) && getLng(b)).map((b) => ({
       id: b.id,
-      lat: b.lat,
-      lng: b.lng,
+      lat: getLat(b),
+      lng: getLng(b),
       type: 'business',
       title: b.name,
       preview: b.name
     })));
   }
   if (layers.events) {
-    markers.push(...events.map((e) => ({
+    markers.push(...events.filter((e) => getLat(e) && getLng(e)).map((e) => ({
       id: e.id,
-      lat: e.lat,
-      lng: e.lng,
+      lat: getLat(e),
+      lng: getLng(e),
       type: 'event',
       title: e.title,
       preview: e.title

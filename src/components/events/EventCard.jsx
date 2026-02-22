@@ -1,8 +1,16 @@
 import { useNavigate } from 'react-router-dom';
 import { MapPin, Clock } from 'lucide-react';
 
+function toDate(val) {
+  if (!val) return null;
+  if (val.toDate) return val.toDate(); // Firestore Timestamp
+  if (val.seconds) return new Date(val.seconds * 1000); // serialized Timestamp
+  return new Date(val);
+}
+
 function formatDate(date) {
-  const d = new Date(date);
+  const d = toDate(date);
+  if (!d || isNaN(d)) return '';
   return d.toLocaleDateString('en-US', {
     weekday: 'short',
     month: 'short',
@@ -10,13 +18,13 @@ function formatDate(date) {
   });
 }
 
-function formatTime(time) {
-  const [hours, minutes] = time.split(':');
-  const h = parseInt(hours);
-  const m = parseInt(minutes);
-  const period = h >= 12 ? 'PM' : 'AM';
-  const displayHours = h % 12 || 12;
-  return `${displayHours}:${minutes} ${period}`;
+function formatTime(date) {
+  const d = toDate(date);
+  if (!d || isNaN(d)) return '';
+  return d.toLocaleTimeString('en-US', {
+    hour: 'numeric',
+    minute: '2-digit'
+  });
 }
 
 export default function EventCard({ event }) {
@@ -41,8 +49,8 @@ export default function EventCard({ event }) {
           />
           {/* Date Badge */}
           <div className="absolute top-3 left-3 bg-blue-600 text-white px-3 py-2 rounded-lg font-bold text-center">
-            <div className="text-sm">{formatDate(event.date).split(' ')[0]}</div>
-            <div className="text-lg">{formatDate(event.date).split(' ')[1]}</div>
+            <div className="text-sm">{(formatDate(event.date) || '').split(' ')[0]}</div>
+            <div className="text-lg">{(formatDate(event.date) || '').split(' ')[1]}</div>
           </div>
         </div>
       )}
@@ -56,7 +64,7 @@ export default function EventCard({ event }) {
           <div className="flex items-center gap-2">
             <Clock size={16} />
             <span>
-              {formatDate(event.date)} at {formatTime(event.time)}
+              {formatDate(event.date)}{formatTime(event.date) ? ` at ${formatTime(event.date)}` : ''}
             </span>
           </div>
         </div>
@@ -65,7 +73,7 @@ export default function EventCard({ event }) {
         {event.location && (
           <div className="flex items-start gap-2 text-slate-400 text-sm">
             <MapPin size={16} className="flex-shrink-0 mt-0.5" />
-            <span>{event.location}</span>
+            <span>{typeof event.location === 'string' ? event.location : event.location?.address || 'Downtown GSO'}</span>
           </div>
         )}
 
