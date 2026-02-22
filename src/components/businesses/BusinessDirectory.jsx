@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { Map, List } from 'lucide-react';
+import { Map, List, Store, Search } from 'lucide-react';
 import { BUSINESS_CATEGORIES } from '../../constants';
 import BusinessCard from './BusinessCard';
 import MapView from '../map/MapView';
@@ -12,19 +12,14 @@ export default function BusinessDirectory() {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState(null);
-  const [viewMode, setViewMode] = useState('grid'); // 'grid' or 'map'
+  const [viewMode, setViewMode] = useState('grid');
 
   useEffect(() => {
     const q = query(collection(db, 'businesses'));
     const unsubscribe = onSnapshot(q, (snapshot) => {
-      const businessesData = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data()
-      }));
-      setBusinesses(businessesData);
+      setBusinesses(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
       setLoading(false);
     });
-
     return unsubscribe;
   }, []);
 
@@ -60,32 +55,43 @@ export default function BusinessDirectory() {
   return (
     <div className="space-y-6 pb-24 md:pb-8">
       {/* Header */}
-      <div className="bg-gradient-to-r from-slate-900 to-slate-800 px-4 py-8 border-b border-slate-700">
+      <div className="bg-gradient-to-br from-purple-900/30 via-slate-900 to-slate-900 px-4 py-10 border-b border-white/5">
         <div className="max-w-7xl mx-auto space-y-6">
-          <h1 className="text-3xl font-bold text-white">Discover Local Businesses</h1>
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center">
+              <Store size={24} className="text-purple-400" />
+            </div>
+            <div>
+              <h1 className="text-3xl font-black text-white">Discover Local</h1>
+              <p className="text-slate-400 text-sm">Downtown Greensboro businesses</p>
+            </div>
+          </div>
 
           {/* Search */}
-          <input
-            type="text"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-            placeholder="Search businesses..."
-            className="w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:border-emerald-500"
-          />
+          <div className="relative">
+            <Search size={18} className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500" />
+            <input
+              type="text"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              placeholder="Search businesses..."
+              className="w-full pl-11 pr-4 py-3 bg-white/5 border border-white/10 rounded-xl text-white placeholder-slate-500 focus:outline-none focus:border-purple-500/50 focus:ring-1 focus:ring-purple-500/25 transition"
+            />
+          </div>
         </div>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 space-y-6">
         {/* Category Filters */}
         <div className="space-y-3">
-          <h3 className="text-sm font-semibold text-slate-400 uppercase">Filter by Category</h3>
+          <h3 className="text-xs font-bold text-slate-500 uppercase tracking-wider">Filter by Category</h3>
           <div className="flex flex-wrap gap-2">
             <button
               onClick={() => setSelectedCategory(null)}
-              className={`px-4 py-2 rounded-lg font-medium transition ${
+              className={`px-3 py-1.5 rounded-lg text-sm font-medium transition ${
                 selectedCategory === null
-                  ? 'bg-emerald-600 text-white'
-                  : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
+                  ? 'bg-purple-500 text-white'
+                  : 'bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white'
               }`}
             >
               All
@@ -94,10 +100,10 @@ export default function BusinessDirectory() {
               <button
                 key={cat}
                 onClick={() => setSelectedCategory(cat)}
-                className={`px-4 py-2 rounded-lg font-medium transition ${
+                className={`px-3 py-1.5 rounded-lg text-sm font-medium transition ${
                   selectedCategory === cat
-                    ? 'bg-emerald-600 text-white'
-                    : 'bg-slate-700 text-slate-300 hover:bg-slate-600'
+                    ? 'bg-purple-500 text-white'
+                    : 'bg-white/5 text-slate-400 hover:bg-white/10 hover:text-white'
                 }`}
               >
                 {cat}
@@ -107,37 +113,38 @@ export default function BusinessDirectory() {
         </div>
 
         {/* View Toggle */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1 bg-white/5 rounded-lg p-1 w-fit">
           <button
             onClick={() => setViewMode('grid')}
-            className={`p-2 rounded-lg transition ${
+            className={`p-2 rounded-md transition ${
               viewMode === 'grid'
-                ? 'bg-emerald-600 text-white'
-                : 'bg-slate-700 text-slate-400 hover:text-slate-300'
+                ? 'bg-purple-500 text-white'
+                : 'text-slate-400 hover:text-white'
             }`}
           >
-            <List size={20} />
+            <List size={18} />
           </button>
           <button
             onClick={() => setViewMode('map')}
-            className={`p-2 rounded-lg transition ${
+            className={`p-2 rounded-md transition ${
               viewMode === 'map'
-                ? 'bg-emerald-600 text-white'
-                : 'bg-slate-700 text-slate-400 hover:text-slate-300'
+                ? 'bg-purple-500 text-white'
+                : 'text-slate-400 hover:text-white'
             }`}
           >
-            <Map size={20} />
+            <Map size={18} />
           </button>
         </div>
 
         {/* Content */}
         {viewMode === 'map' ? (
-          <div className="h-96 rounded-lg overflow-hidden border border-slate-700">
+          <div className="h-96 rounded-xl overflow-hidden border border-white/10">
             <MapView markers={markers} />
           </div>
         ) : filteredBusinesses.length === 0 ? (
-          <div className="text-center py-12 text-slate-400">
-            <p>No businesses found. Try adjusting your filters.</p>
+          <div className="text-center py-16">
+            <Store size={48} className="mx-auto text-slate-700 mb-4" />
+            <p className="text-slate-400">No businesses found. Try adjusting your filters.</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">

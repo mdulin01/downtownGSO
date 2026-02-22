@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Home, Map, Plus, Store, User } from 'lucide-react';
+import { Home, Map, Plus, Store, Calendar } from 'lucide-react';
 import { useAuth } from '../../hooks/useAuth';
 
 export default function MobileNav() {
@@ -9,54 +9,53 @@ export default function MobileNav() {
   const isActive = (path) => location.pathname === path;
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 md:hidden bg-slate-900 border-t border-slate-700 z-40">
-      <div className="flex items-center justify-around h-20">
+    <nav className="fixed bottom-0 left-0 right-0 md:hidden bg-slate-950/90 backdrop-blur-xl border-t border-white/5 z-40">
+      <div className="flex items-center justify-around h-16 px-2">
         <Link
           to="/"
-          className={`flex flex-col items-center justify-center w-20 h-20 ${
-            isActive('/') ? 'text-emerald-400' : 'text-slate-400 hover:text-slate-300'
-          } transition`}
+          className={`flex flex-col items-center justify-center w-16 py-1 rounded-lg transition ${
+            isActive('/') ? 'text-emerald-400' : 'text-slate-500 hover:text-slate-300'
+          }`}
         >
-          <Home size={24} />
-          <span className="text-xs mt-1">Home</span>
+          <Home size={20} />
+          <span className="text-[10px] mt-0.5 font-medium">Home</span>
         </Link>
 
         <Link
           to="/map"
-          className={`flex flex-col items-center justify-center w-20 h-20 ${
-            isActive('/map') ? 'text-emerald-400' : 'text-slate-400 hover:text-slate-300'
-          } transition`}
+          className={`flex flex-col items-center justify-center w-16 py-1 rounded-lg transition ${
+            isActive('/map') ? 'text-emerald-400' : 'text-slate-500 hover:text-slate-300'
+          }`}
         >
-          <Map size={24} />
-          <span className="text-xs mt-1">Map</span>
+          <Map size={20} />
+          <span className="text-[10px] mt-0.5 font-medium">Map</span>
         </Link>
 
         <Link
           to={user ? '/post/new' : '/'}
-          className="flex flex-col items-center justify-center w-20 h-20 bg-emerald-600 hover:bg-emerald-700 text-white rounded-full transform -translate-y-8 transition"
+          className="flex items-center justify-center w-12 h-12 bg-emerald-500 hover:bg-emerald-400 text-white rounded-xl transition shadow-lg shadow-emerald-500/30 -mt-4"
         >
-          <Plus size={28} />
-          <span className="text-xs mt-1">Add</span>
+          <Plus size={24} />
         </Link>
 
         <Link
           to="/businesses"
-          className={`flex flex-col items-center justify-center w-20 h-20 ${
-            isActive('/businesses') ? 'text-emerald-400' : 'text-slate-400 hover:text-slate-300'
-          } transition`}
+          className={`flex flex-col items-center justify-center w-16 py-1 rounded-lg transition ${
+            isActive('/businesses') ? 'text-emerald-400' : 'text-slate-500 hover:text-slate-300'
+          }`}
         >
-          <Store size={24} />
-          <span className="text-xs mt-1">Businesses</span>
+          <Store size={20} />
+          <span className="text-[10px] mt-0.5 font-medium">Local</span>
         </Link>
 
         <Link
-          to={user ? '/profile' : '/'}
-          className={`flex flex-col items-center justify-center w-20 h-20 ${
-            isActive('/profile') ? 'text-emerald-400' : 'text-slate-400 hover:text-slate-300'
-          } transition`}
+          to="/events"
+          className={`flex flex-col items-center justify-center w-16 py-1 rounded-lg transition ${
+            isActive('/events') ? 'text-emerald-400' : 'text-slate-500 hover:text-slate-300'
+          }`}
         >
-          <User size={24} />
-          <span className="text-xs mt-1">Profile</span>
+          <Calendar size={20} />
+          <span className="text-[10px] mt-0.5 font-medium">Events</span>
         </Link>
       </div>
     </nav>
