@@ -5,34 +5,25 @@ import 'mapbox-gl/dist/mapbox-gl.css';
 
 mapboxgl.accessToken = MAPBOX_TOKEN;
 
-// SVG icons for each marker type - pin shape with inner icon
-const markerIcons = {
-  post: {
-    color: '#22c55e',
-    svg: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="40" viewBox="0 0 32 40"><path d="M16 0C7.2 0 0 7.2 0 16c0 12 16 24 16 24s16-12 16-24C32 7.2 24.8 0 16 0z" fill="COLOR"/><circle cx="16" cy="15" r="8" fill="white" opacity="0.9"/><path d="M12 13h8M12 17h8M12 15h5" stroke="COLOR" stroke-width="1.5" stroke-linecap="round"/></svg>`
-  },
-  suggestion: {
-    color: '#f59e0b',
-    svg: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="40" viewBox="0 0 32 40"><path d="M16 0C7.2 0 0 7.2 0 16c0 12 16 24 16 24s16-12 16-24C32 7.2 24.8 0 16 0z" fill="COLOR"/><circle cx="16" cy="15" r="8" fill="white" opacity="0.9"/><circle cx="16" cy="12" r="3" stroke="COLOR" stroke-width="1.5" fill="none"/><path d="M14 16h4v2h-4z" fill="COLOR"/></svg>`
-  },
-  business: {
-    color: '#a855f7',
-    svg: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="40" viewBox="0 0 32 40"><path d="M16 0C7.2 0 0 7.2 0 16c0 12 16 24 16 24s16-12 16-24C32 7.2 24.8 0 16 0z" fill="COLOR"/><circle cx="16" cy="15" r="8" fill="white" opacity="0.9"/><path d="M11 19h10M11 12h10l-1 4H12l-1-4zM13 16v3M19 16v3" stroke="COLOR" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round"/></svg>`
-  },
-  event: {
-    color: '#ec4899',
-    svg: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="40" viewBox="0 0 32 40"><path d="M16 0C7.2 0 0 7.2 0 16c0 12 16 24 16 24s16-12 16-24C32 7.2 24.8 0 16 0z" fill="COLOR"/><circle cx="16" cy="15" r="8" fill="white" opacity="0.9"/><rect x="11" y="11" width="10" height="8" rx="1" stroke="COLOR" stroke-width="1.3" fill="none"/><path d="M11 14h10M14 9v3M18 9v3" stroke="COLOR" stroke-width="1.3" stroke-linecap="round"/></svg>`
-  }
+// Marker colors per type
+const markerColors = {
+  post: '#22c55e',
+  suggestion: '#f59e0b',
+  business: '#a855f7',
+  event: '#ec4899'
 };
 
 function createMarkerElement(type) {
-  const config = markerIcons[type] || markerIcons.post;
-  const svgStr = config.svg.replace(/COLOR/g, encodeURIComponent(config.color));
+  const color = markerColors[type] || markerColors.post;
   const el = document.createElement('div');
-  el.innerHTML = `<img src="data:image/svg+xml;charset=utf-8,${svgStr}" width="32" height="40" style="cursor:pointer;filter:drop-shadow(0 2px 4px rgba(0,0,0,0.4));" />`;
-  el.style.width = '32px';
-  el.style.height = '40px';
+  el.style.width = '28px';
+  el.style.height = '28px';
+  el.style.borderRadius = '50% 50% 50% 0';
+  el.style.backgroundColor = color;
+  el.style.transform = 'rotate(-45deg)';
+  el.style.border = '3px solid white';
   el.style.cursor = 'pointer';
+  el.style.boxShadow = '0 2px 8px rgba(0,0,0,0.4)';
   return el;
 }
 
