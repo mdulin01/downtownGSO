@@ -1,21 +1,5 @@
 # downtownGSO Project Guidelines
 
-## Project Switching Rule
-
-**When switching between projects, follow these steps:**
-
-1. Close all Chrome browser tabs and windows first
-2. Open only the tabs relevant to the current project:
-   - Vercel (deployment/hosting)
-   - Firebase Console (backend/database)
-   - Google Cloud Console (if applicable)
-   - GitHub (repository)
-   - Live site (the deployed application)
-
-This ensures Chrome only shows tabs for the active project, avoiding confusion and maintaining a clean workspace.
-
----
-
 ## Project Overview
 
 **downtownGSO** is a directory and community platform for downtown Greensboro, NC businesses and events. It provides a searchable, interactive map-based interface for discovering local businesses, events, and community resources.
@@ -30,7 +14,6 @@ This ensures Chrome only shows tabs for the active project, avoiding confusion a
 | **GitHub Repository** | https://github.com/mdulin01/downtownGSO |
 | **Firebase Console** | https://console.firebase.google.com/project/downtowngso-20d9c |
 | **Vercel Dashboard** | https://vercel.com/dashboard |
-| **Google Cloud Console** | https://console.cloud.google.com |
 
 ---
 
@@ -51,61 +34,43 @@ This ensures Chrome only shows tabs for the active project, avoiding confusion a
 ```
 downtowngso/
 ├── src/
-│   ├── components/      # React components
-│   ├── pages/           # Page components
-│   ├── utils/           # Utility functions
-│   ├── services/        # Firebase and API services
-│   ├── styles/          # Global styles
-│   └── App.jsx          # Main app component
-├── public/              # Static assets
-├── package.json         # Project dependencies
-├── vite.config.js       # Vite configuration
-├── tailwind.config.js   # Tailwind configuration
-├── .env                 # Environment variables (not in git)
-└── firestore.rules      # Firestore security rules
+│   ├── components/        # React components (auth, businesses, common, events, layout, map, posts, suggestions)
+│   ├── pages/             # Page components (Home, Feed, Businesses, Events, MapExplore, Admin, etc.)
+│   ├── hooks/             # Custom hooks (useAuth, usePosts, useUpvote)
+│   ├── utils/             # Utility functions (authUtils)
+│   ├── assets/            # Static assets
+│   ├── constants.js       # App constants
+│   ├── firebase-config.js # Firebase initialization
+│   ├── seed-data.js       # Seed data for development
+│   ├── App.jsx            # Main app component
+│   ├── main.jsx           # Entry point
+│   └── index.css          # Global styles
+├── public/                # Static assets
+├── package.json
+├── vite.config.js
+├── tailwind.config.js
+├── eslint.config.js
+└── CLAUDE.md
 ```
 
 ---
 
-## Development Commands
+## Infrastructure
 
-```bash
-# Install dependencies
-npm install
-
-# Start development server (typically http://localhost:5173)
-npm run dev
-
-# Build for production
-npm run build
-
-# Preview production build locally
-npm run preview
-
-# Lint code
-npm run lint
-```
-
----
-
-## Firebase Setup
-
-- **Project ID:** downtowngso-20d9c
+- **Firebase Project ID:** downtowngso-20d9c
+- **Firebase Storage Bucket:** `gs://downtowngso-20d9c.firebasestorage.app`
 - **Database:** Firestore
 - **Authentication:** Enabled
 - **Storage:** Enabled for uploads
-- **Security Rules:** See `firestore.rules` in project root
+- **Mapbox:** Requires API token (in environment variables)
+- **Firebase config** is hardcoded in `src/firebase-config.js` (public API keys only)
 
----
+## Architecture Notes
 
-## Environment Variables
-
-The `.env` file should contain:
-- Firebase API keys and configuration
-- Mapbox API token
-- Other sensitive configuration (not committed to git)
-
-Check with team members for current `.env` values if starting fresh.
+- **Pages:** Home, Feed, Businesses, Events, MapExplore, Admin, About, Suggestions
+- **Component groups:** auth, businesses, common, events, layout, map, posts, suggestions
+- **Custom hooks:** useAuth, usePosts, useUpvote
+- Uses Mapbox GL JS for interactive map views
 
 ---
 
@@ -118,10 +83,6 @@ Check with team members for current `.env` values if starting fresh.
 
 ---
 
-## Before Starting Work
+## File Scope Boundary
 
-1. Ensure all dependencies are installed: `npm install`
-2. Verify `.env` file has necessary API keys and tokens
-3. Check Firebase Console for Firestore data status
-4. Verify Vercel deployment health at https://vercel.com/dashboard
-5. Test the live site to confirm it's accessible
+**CRITICAL: When working on this project, ONLY access files within the `downtowngso/` directory.** Do not read, write, or reference files from any sibling project folder (dulinproperties, rainbow-rentals, lifedesigncourse, etc.). If you need something from another project, stop and ask first.
