@@ -7,11 +7,23 @@ import { BUSINESS_CATEGORIES } from '../../constants';
 import BaseModal from '../common/BaseModal';
 import { MapPin, Clock, ExternalLink, Pencil, Trash2, Save, X, Store } from 'lucide-react';
 
-export default function BusinessDetail({ business, isOpen, onClose }) {
+export default function BusinessDetail({ business: businessProp, isOpen, onClose }) {
   const { user } = useAuth();
   const [editing, setEditing] = useState(false);
   const [saving, setSaving] = useState(false);
   const [form, setForm] = useState({});
+  const [localOverrides, setLocalOverrides] = useState(null);
+
+  // Merge prop with any local edits so the view updates immediately after save
+  const business = localOverrides ? { ...businessProp, ...localOverrides } : businessProp;
+
+  // Reset local overrides when a different business is opened
+  const [lastId, setLastId] = useState(null);
+  if (businessProp?.id !== lastId) {
+    setLastId(businessProp?.id ?? null);
+    setLocalOverrides(null);
+    setEditing(false);
+  }
 
   if (!business) return null;
 
@@ -36,6 +48,7 @@ export default function BusinessDetail({ business, isOpen, onClose }) {
     setSaving(true);
     try {
       await updateDoc(doc(db, 'businesses', business.id), form);
+      setLocalOverrides({ ...form });
       setEditing(false);
     } catch (err) {
       alert('Error saving: ' + err.message);
