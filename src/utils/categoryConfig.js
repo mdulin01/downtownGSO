@@ -159,6 +159,22 @@ const businessAliases = {
   'wellness': 'Fitness & Wellness',
 };
 
+// Reverse map: title-case config key → list of aliases
+const reverseAliases = {};
+for (const [alias, configKey] of Object.entries(businessAliases)) {
+  if (!reverseAliases[configKey]) reverseAliases[configKey] = [];
+  reverseAliases[configKey].push(alias);
+}
+
+// Check if a Firestore category matches a filter category (title-case)
+export function matchesBusinessCategory(firestoreCategory, filterCategory) {
+  if (!firestoreCategory || !filterCategory) return false;
+  if (firestoreCategory === filterCategory) return true;
+  // Check if the Firestore value is an alias for the filter category
+  const resolved = businessAliases[firestoreCategory] || businessAliases[firestoreCategory.toLowerCase()];
+  return resolved === filterCategory;
+}
+
 export function getBusinessConfig(category) {
   if (!category) return defaultBusinessConfig;
   // Try exact match first, then alias, then lowercase alias

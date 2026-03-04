@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react';
 import { Map, List, Store, Search } from 'lucide-react';
 import { BUSINESS_CATEGORIES } from '../../constants';
+import { getBusinessConfig, matchesBusinessCategory } from '../../utils/categoryConfig';
 import BusinessCard from './BusinessCard';
 import BusinessDetail from './BusinessDetail';
 import MapView from '../map/MapView';
@@ -30,7 +31,7 @@ export default function BusinessDirectory() {
       const matchesSearch =
         business.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         business.description?.toLowerCase().includes(searchTerm.toLowerCase());
-      const matchesCategory = !selectedCategory || business.category === selectedCategory;
+      const matchesCategory = !selectedCategory || matchesBusinessCategory(business.category, selectedCategory);
       return matchesSearch && matchesCategory;
     });
   }, [businesses, searchTerm, selectedCategory]);
