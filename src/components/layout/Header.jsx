@@ -69,52 +69,50 @@ export default function Header() {
 
           {/* Right Side */}
           <div className="hidden md:flex items-center gap-3">
+            <button
+              onClick={() => navigate('/post/new')}
+              className="flex items-center gap-2 px-4 py-2 bg-emerald-500 hover:bg-emerald-400 text-white rounded-lg font-medium transition text-sm shadow-lg shadow-emerald-500/20"
+            >
+              <Plus size={16} />
+              Share
+            </button>
             {user ? (
-              <div className="flex items-center gap-3">
-                <button
-                  onClick={() => navigate('/post/new')}
-                  className="flex items-center gap-2 px-4 py-2 bg-emerald-500 hover:bg-emerald-400 text-white rounded-lg font-medium transition text-sm shadow-lg shadow-emerald-500/20"
-                >
-                  <Plus size={16} />
-                  Share
+              <div className="relative group">
+                <button className="flex items-center gap-2">
+                  {user.photoURL ? (
+                    <img
+                      src={user.photoURL}
+                      alt={user.displayName}
+                      className="w-8 h-8 rounded-full ring-2 ring-white/10"
+                    />
+                  ) : (
+                    <div className="w-8 h-8 bg-emerald-600/30 rounded-full flex items-center justify-center ring-2 ring-white/10">
+                      <span className="text-xs font-bold text-emerald-400">
+                        {user.displayName?.charAt(0) || 'U'}
+                      </span>
+                    </div>
+                  )}
                 </button>
-                <div className="relative group">
-                  <button className="flex items-center gap-2">
-                    {user.photoURL ? (
-                      <img
-                        src={user.photoURL}
-                        alt={user.displayName}
-                        className="w-8 h-8 rounded-full ring-2 ring-white/10"
-                      />
-                    ) : (
-                      <div className="w-8 h-8 bg-emerald-600/30 rounded-full flex items-center justify-center ring-2 ring-white/10">
-                        <span className="text-xs font-bold text-emerald-400">
-                          {user.displayName?.charAt(0) || 'U'}
-                        </span>
-                      </div>
-                    )}
+                <div className="absolute right-0 mt-2 w-48 bg-slate-900 rounded-xl shadow-2xl border border-white/10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition py-1">
+                  <button
+                    onClick={() => navigate('/admin')}
+                    className="w-full text-left px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-white/5 transition"
+                  >
+                    Admin
                   </button>
-                  <div className="absolute right-0 mt-2 w-48 bg-slate-900 rounded-xl shadow-2xl border border-white/10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition py-1">
-                    <button
-                      onClick={() => navigate('/admin')}
-                      className="w-full text-left px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-white/5 transition"
-                    >
-                      Admin
-                    </button>
-                    <button
-                      onClick={handleLogout}
-                      className="w-full text-left px-4 py-2 text-sm text-slate-300 hover:text-white flex items-center gap-2 hover:bg-white/5 transition"
-                    >
-                      <LogOut size={14} />
-                      Sign Out
-                    </button>
-                  </div>
+                  <button
+                    onClick={handleLogout}
+                    className="w-full text-left px-4 py-2 text-sm text-slate-300 hover:text-white flex items-center gap-2 hover:bg-white/5 transition"
+                  >
+                    <LogOut size={14} />
+                    Sign Out
+                  </button>
                 </div>
               </div>
             ) : (
               <button
                 onClick={handleSignIn}
-                className="px-4 py-2 bg-emerald-500 hover:bg-emerald-400 text-white rounded-lg font-medium transition text-sm"
+                className="px-4 py-2 bg-white/10 hover:bg-white/15 text-white rounded-lg font-medium transition text-sm border border-white/10"
               >
                 Sign In
               </button>

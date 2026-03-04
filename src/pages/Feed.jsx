@@ -7,8 +7,8 @@ export default function Feed() {
       <div className="bg-gradient-to-br from-emerald-900/30 via-slate-900 to-slate-900 px-4 py-10 border-b border-white/5">
         <div className="max-w-6xl mx-auto">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-xl bg-emerald-500/20 flex items-center justify-center">
-              <MessageSquare size={24} className="text-emerald-400" />
+            <div className="w-12 h-12 rounded-xl bg-emerald-500/20 flex items-center justify-center text-2xl">
+              🗣️
             </div>
             <div>
               <h1 className="text-3xl font-black text-white">Community Forum</h1>

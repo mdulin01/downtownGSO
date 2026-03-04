@@ -103,10 +103,10 @@ export default function Home() {
                 <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
               </button>
               <button
-                onClick={() => user ? navigate('/post/new') : navigate('/')}
+                onClick={() => navigate('/post/new')}
                 className="group flex items-center justify-center gap-2 px-8 py-4 bg-emerald-500 hover:bg-emerald-400 text-white rounded-xl font-bold transition shadow-lg shadow-emerald-500/25"
               >
-                Share Something
+                Share
                 <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
               </button>
             </div>
@@ -164,8 +164,8 @@ export default function Home() {
           <section className="max-w-6xl mx-auto px-4">
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-lg bg-pink-500/20 flex items-center justify-center">
-                  <Calendar size={20} className="text-pink-400" />
+                <div className="w-10 h-10 rounded-lg bg-pink-500/20 flex items-center justify-center text-xl">
+                  🎉
                 </div>
                 <div>
                   <h2 className="text-2xl font-black text-white">Upcoming Events</h2>
@@ -192,8 +192,8 @@ export default function Home() {
           <section className="max-w-6xl mx-auto px-4">
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center">
-                  <Store size={20} className="text-purple-400" />
+                <div className="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center text-xl">
+                  🏪
                 </div>
                 <div>
                   <h2 className="text-2xl font-black text-white">Discover Local</h2>
@@ -220,8 +220,8 @@ export default function Home() {
           <section className="max-w-6xl mx-auto px-4">
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-lg bg-amber-500/20 flex items-center justify-center">
-                  <TrendingUp size={20} className="text-amber-400" />
+                <div className="w-10 h-10 rounded-lg bg-amber-500/20 flex items-center justify-center text-xl">
+                  💡
                 </div>
                 <div>
                   <h2 className="text-2xl font-black text-white">Trending Ideas</h2>
@@ -248,8 +248,8 @@ export default function Home() {
           <section className="max-w-6xl mx-auto px-4">
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-lg bg-emerald-500/20 flex items-center justify-center">
-                  <Sparkles size={20} className="text-emerald-400" />
+                <div className="w-10 h-10 rounded-lg bg-emerald-500/20 flex items-center justify-center text-xl">
+                  🗣️
                 </div>
                 <div>
                   <h2 className="text-2xl font-black text-white">Recent Activity</h2>

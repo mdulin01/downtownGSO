@@ -1,13 +1,14 @@
 import { useEffect, useRef } from 'react';
 import mapboxgl from 'mapbox-gl';
-import { MAPBOX_TOKEN, DOWNTOWN_CENTER, DOWNTOWN_BOUNDS, GREENWAY_PATH } from '../../constants';
+import { MAPBOX_TOKEN, DOWNTOWN_CENTER, DOWNTOWN_BOUNDS, GREENWAY_PATH, MAP_MARKERS } from '../../constants';
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 mapboxgl.accessToken = MAPBOX_TOKEN;
 
-export default function MapView({ onMapClick, showOverlays = true }) {
+export default function MapView({ onMapClick, showOverlays = true, showMarkers = true }) {
   const mapContainer = useRef(null);
   const map = useRef(null);
+  const markersRef = useRef([]);
 
   useEffect(() => {
     if (map.current) return;
@@ -85,6 +86,39 @@ export default function MapView({ onMapClick, showOverlays = true }) {
           'text-halo-width': 1.5
         }
       });
+
+      // Add map markers for businesses and events
+      if (showMarkers) {
+        MAP_MARKERS.forEach((marker) => {
+          const color = marker.type === 'business' ? '#a855f7' : '#ec4899';
+          const emoji = marker.type === 'business' ? '🏪' : '🎉';
+
+          const el = document.createElement('div');
+          el.className = 'map-marker';
+          el.style.cssText = `
+            width: 32px; height: 32px; border-radius: 50%;
+            background: ${color}; border: 2px solid white;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 16px; cursor: pointer; box-shadow: 0 2px 8px rgba(0,0,0,0.4);
+          `;
+          el.textContent = emoji;
+
+          const popup = new mapboxgl.Popup({ offset: 20, closeButton: false })
+            .setHTML(`
+              <div style="padding: 4px 8px; font-family: system-ui; font-size: 13px;">
+                <strong>${marker.name}</strong>
+                ${marker.category ? `<br/><span style="color: #94a3b8; font-size: 11px;">${marker.category}</span>` : ''}
+              </div>
+            `);
+
+          const m = new mapboxgl.Marker(el)
+            .setLngLat([marker.lng, marker.lat])
+            .setPopup(popup)
+            .addTo(map.current);
+
+          markersRef.current.push(m);
+        });
+      }
     });
 
     if (onMapClick) {
@@ -94,7 +128,7 @@ export default function MapView({ onMapClick, showOverlays = true }) {
     }
 
     return () => {};
-  }, [onMapClick, showOverlays]);
+  }, [onMapClick, showOverlays, showMarkers]);
 
   return <div ref={mapContainer} className="w-full h-full" />;
 }

@@ -60,8 +60,8 @@ export default function BusinessDirectory() {
       <div className="bg-gradient-to-br from-purple-900/30 via-slate-900 to-slate-900 px-4 py-10 border-b border-white/5">
         <div className="max-w-7xl mx-auto space-y-6">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center">
-              <Store size={24} className="text-purple-400" />
+            <div className="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center text-2xl">
+              🏪
             </div>
             <div>
               <h1 className="text-3xl font-black text-white">Discover Local</h1>

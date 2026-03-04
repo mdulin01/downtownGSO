@@ -32,10 +32,11 @@ export default function MobileNav() {
         </Link>
 
         <Link
-          to={user ? '/post/new' : '/'}
-          className="flex items-center justify-center w-12 h-12 bg-emerald-500 hover:bg-emerald-400 text-white rounded-xl transition shadow-lg shadow-emerald-500/30 -mt-4"
+          to="/post/new"
+          className="flex flex-col items-center justify-center w-14 h-14 bg-emerald-500 hover:bg-emerald-400 text-white rounded-xl transition shadow-lg shadow-emerald-500/30 -mt-4"
         >
-          <Plus size={24} />
+          <Plus size={20} />
+          <span className="text-[9px] font-bold -mt-0.5">Share</span>
         </Link>
 
         <Link

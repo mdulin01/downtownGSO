@@ -82,8 +82,8 @@ export default function Events() {
       <div className="bg-gradient-to-br from-pink-900/30 via-slate-900 to-slate-900 px-4 py-10 border-b border-white/5">
         <div className="max-w-6xl mx-auto space-y-6">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-xl bg-pink-500/20 flex items-center justify-center">
-              <Calendar size={24} className="text-pink-400" />
+            <div className="w-12 h-12 rounded-xl bg-pink-500/20 flex items-center justify-center text-2xl">
+              🎉
             </div>
             <div>
               <h1 className="text-3xl font-black text-white">Upcoming Events</h1>

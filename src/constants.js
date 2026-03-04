@@ -66,17 +66,32 @@ export const GREENWAY_PATH = [
   [-79.7978, 36.0755],  // approaching W Friendly area
   [-79.7968, 36.0768],  // nearing Smith St
 
-  // NORTH LEG - East along Smith St / Eugene St / Fisher Ave / Murrow curve
+  // NORTH LEG - East along Smith St / Eugene St / Fisher Ave / Morrow Ave
   [-79.7955, 36.0778],  // Smith St west of Eugene
   [-79.7937, 36.0783],  // N Eugene & W Smith St
-  [-79.7936, 36.0793],  // N Eugene heading north to Fisher
-  [-79.7936, 36.0800],  // N Eugene & W Fisher Ave
-  [-79.7920, 36.0802],  // Fisher Ave heading east
-  [-79.7905, 36.0804],  // Fisher approaching Murrow curve
-  [-79.7892, 36.0805],  // Murrow Blvd curve (north apex)
-  [-79.7882, 36.0803],  // Murrow curving southeast
-  [-79.7876, 36.0799],  // Murrow continuing to curve
-  [-79.7874, 36.0793]   // close loop at Murrow & Fisher
+  [-79.7936, 36.0790],  // N Eugene heading north toward Fisher
+  [-79.7934, 36.0795],  // N Eugene & Fisher Ave
+  [-79.7920, 36.0795],  // Fisher Ave heading east
+  [-79.7905, 36.0794],  // Fisher Ave continuing east
+  [-79.7890, 36.0793],  // Fisher Ave at Morrow Ave
+  [-79.7880, 36.0793],  // Morrow Ave heading south
+  [-79.7874, 36.0793]   // close loop at Morrow & Fisher
+];
+
+// Sample map markers for businesses and events
+export const MAP_MARKERS = [
+  // Businesses
+  { id: 'b1', name: 'Natty Greene\'s Brewing', type: 'business', category: 'Bars & Breweries', lng: -79.7912, lat: 36.0724 },
+  { id: 'b2', name: 'Scrambled Southern Diner', type: 'business', category: 'Restaurants', lng: -79.7918, lat: 36.0730 },
+  { id: 'b3', name: 'Machete', type: 'business', category: 'Restaurants', lng: -79.7905, lat: 36.0718 },
+  { id: 'b4', name: 'Oden Brewing', type: 'business', category: 'Bars & Breweries', lng: -79.7895, lat: 36.0740 },
+  { id: 'b5', name: 'Geeksboro Coffeehouse', type: 'business', category: 'Coffee & Cafes', lng: -79.7920, lat: 36.0710 },
+  { id: 'b6', name: 'Vintage to Vogue', type: 'business', category: 'Retail', lng: -79.7908, lat: 36.0735 },
+  { id: 'b7', name: 'Carolina Theatre', type: 'business', category: 'Entertainment', lng: -79.7915, lat: 36.0728 },
+  // Events
+  { id: 'e1', name: 'First Friday Gallery Walk', type: 'event', lng: -79.7910, lat: 36.0745 },
+  { id: 'e2', name: 'Farmers Curb Market', type: 'event', lng: -79.7935, lat: 36.0715 },
+  { id: 'e3', name: 'Downtown Greenway 5K', type: 'event', lng: -79.7874, lat: 36.0793 },
 ];
 
 export const POST_CATEGORIES = [

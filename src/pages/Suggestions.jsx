@@ -60,23 +60,21 @@ export default function Suggestions() {
         <div className="max-w-6xl mx-auto space-y-6">
           <div className="flex items-start justify-between gap-4">
             <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-xl bg-amber-500/20 flex items-center justify-center">
-                <Lightbulb size={24} className="text-amber-400" />
+              <div className="w-12 h-12 rounded-xl bg-amber-500/20 flex items-center justify-center text-2xl">
+                💡
               </div>
               <div>
                 <h1 className="text-3xl font-black text-white">Ideas for Downtown</h1>
                 <p className="text-slate-400 text-sm">Share and upvote ideas for making downtown Greensboro better</p>
               </div>
             </div>
-            {user && (
-              <button
-                onClick={() => navigate('/suggestion/new')}
-                className="flex items-center gap-2 px-4 py-2 bg-amber-500 hover:bg-amber-400 text-white rounded-lg font-bold transition text-sm shadow-lg shadow-amber-500/20 flex-shrink-0"
-              >
-                <Plus size={16} />
-                Add Suggestion
-              </button>
-            )}
+            <button
+              onClick={() => navigate('/suggestion/new')}
+              className="flex items-center gap-2 px-4 py-2 bg-amber-500 hover:bg-amber-400 text-white rounded-lg font-bold transition text-sm shadow-lg shadow-amber-500/20 flex-shrink-0"
+            >
+              <Plus size={16} />
+              Add Idea
+            </button>
           </div>
 
           {/* Stats */}
