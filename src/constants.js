@@ -33,11 +33,10 @@ export const DOWNTOWN_BOUNDARY = [
 // Traced from confirmed Google Maps intersection coordinates
 // East: Murrow Blvd | South: Carolyn Coleman Way | West: Freeman Mill Rd/railroad | North: Smith/Eugene/Fisher
 export const GREENWAY_PATH = [
-  // Start at NE corner: Murrow Blvd & Fisher Ave
-  [-79.7874, 36.0793],  // Murrow & Fisher Ave (NE start)
+  // Start at NE: Murrow Blvd south of Fisher Ave
+  [-79.7868, 36.0778],  // Murrow south of Fisher (NE start)
 
   // EAST LEG - South on Murrow Blvd
-  [-79.7868, 36.0778],  // Murrow south of Fisher
   [-79.7860, 36.0762],  // Murrow near Lindsay St
   [-79.7850, 36.0745],  // Murrow between Lindsay & Friendly
   [-79.7835, 36.0730],  // Murrow & Friendly Ave
@@ -66,28 +65,19 @@ export const GREENWAY_PATH = [
   [-79.7978, 36.0755],  // approaching W Friendly area
   [-79.7968, 36.0768],  // nearing Smith St
 
-  // NORTH LEG - East along Smith St / Eugene St / Fisher Ave
+  // NORTH LEG - East along Smith St / Eugene St / Fisher Ave → Murrow Blvd
   [-79.7955, 36.0778],  // Smith St west of Eugene
   [-79.7937, 36.0783],  // N Eugene & W Smith St
   [-79.7936, 36.0790],  // N Eugene heading north toward Fisher
   [-79.7934, 36.0795],  // N Eugene & Fisher Ave
   [-79.7920, 36.0795],  // Fisher Ave heading east
   [-79.7905, 36.0794],  // Fisher Ave continuing east
-  [-79.7890, 36.0793],  // Fisher Ave approaching Murrow Blvd
 
-  // NE CORNER - Semicircle along Murrow Blvd
-  [-79.7878, 36.0793],  // Murrow Blvd at Fisher Ave
-  [-79.7872, 36.0797],  // Murrow curving north
-  [-79.7868, 36.0803],  // Murrow heading north
-  [-79.7866, 36.0810],  // Murrow north of Fisher
-  [-79.7866, 36.0816],  // Murrow approaching apex
-  [-79.7870, 36.0820],  // Murrow apex (northernmost point)
-  [-79.7876, 36.0820],  // Murrow curving back south
-  [-79.7881, 36.0816],  // Murrow heading south
-  [-79.7883, 36.0810],  // Murrow continuing south
-  [-79.7882, 36.0803],  // Murrow south of apex
-  [-79.7878, 36.0797],  // Murrow approaching Fisher again
-  [-79.7874, 36.0793]   // close loop back at Murrow & Fisher
+  // NE CORNER - Fisher Ave curves into Murrow Blvd heading south
+  [-79.7885, 36.0793],  // Fisher approaching Murrow curve
+  [-79.7875, 36.0790],  // Fisher/Murrow curve
+  [-79.7870, 36.0785],  // Murrow Blvd curving south
+  [-79.7868, 36.0778]   // Murrow Blvd heading south (connects to east leg)
 ];
 
 // Sample map markers for businesses and events
