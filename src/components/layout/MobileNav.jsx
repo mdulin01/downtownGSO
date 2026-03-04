@@ -46,7 +46,7 @@ export default function MobileNav() {
           }`}
         >
           <Store size={20} />
-          <span className="text-[10px] mt-0.5 font-medium">Local</span>
+          <span className="text-[10px] mt-0.5 font-medium">Spots</span>
         </Link>
 
         <Link

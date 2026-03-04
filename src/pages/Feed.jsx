@@ -8,11 +8,11 @@ export default function Feed() {
         <div className="max-w-6xl mx-auto">
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 rounded-xl bg-emerald-500/20 flex items-center justify-center text-2xl">
-              🗣️
+              💬
             </div>
             <div>
-              <h1 className="text-3xl font-black text-white">Community Forum</h1>
-              <p className="text-slate-400 text-sm">Discover what people are sharing about downtown Greensboro</p>
+              <h1 className="text-3xl font-black text-white">Discussion</h1>
+              <p className="text-slate-400 text-sm">Join the conversation about downtown Greensboro</p>
             </div>
           </div>
         </div>

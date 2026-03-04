@@ -29,9 +29,9 @@ export default function Header() {
 
   const navLinks = [
     { label: 'Explore', href: '/map' },
-    { label: 'Forum', href: '/forum' },
+    { label: 'Discussion', href: '/forum' },
     { label: 'Ideas', href: '/ideas' },
-    { label: 'Businesses', href: '/businesses' },
+    { label: 'Attractions', href: '/businesses' },
     { label: 'Events', href: '/events' },
     { label: 'About', href: '/about' }
   ];

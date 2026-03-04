@@ -147,8 +147,8 @@ export default function Home() {
           </button>
           <button onClick={() => navigate('/businesses')} className="group p-4 rounded-xl bg-gradient-to-br from-purple-500/20 to-purple-600/10 border border-purple-500/20 hover:border-purple-500/40 transition backdrop-blur-sm text-left">
             <Store size={24} className="text-purple-400 mb-2" />
-            <div className="text-white font-bold text-sm">Businesses</div>
-            <div className="text-slate-400 text-xs mt-1">Local directory</div>
+            <div className="text-white font-bold text-sm">Attractions</div>
+            <div className="text-slate-400 text-xs mt-1">Discover downtown</div>
           </button>
           <button onClick={() => navigate('/ideas')} className="group p-4 rounded-xl bg-gradient-to-br from-amber-500/20 to-amber-600/10 border border-amber-500/20 hover:border-amber-500/40 transition backdrop-blur-sm text-left">
             <Lightbulb size={24} className="text-amber-400 mb-2" />
@@ -193,11 +193,11 @@ export default function Home() {
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center text-xl">
-                  🏪
+                  🎭
                 </div>
                 <div>
-                  <h2 className="text-2xl font-black text-white">Discover Local</h2>
-                  <p className="text-sm text-slate-400">Businesses in downtown Greensboro</p>
+                  <h2 className="text-2xl font-black text-white">Attractions</h2>
+                  <p className="text-sm text-slate-400">Discover downtown Greensboro</p>
                 </div>
               </div>
               <button
@@ -249,10 +249,10 @@ export default function Home() {
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-lg bg-emerald-500/20 flex items-center justify-center text-xl">
-                  🗣️
+                  💬
                 </div>
                 <div>
-                  <h2 className="text-2xl font-black text-white">Recent Activity</h2>
+                  <h2 className="text-2xl font-black text-white">Discussion</h2>
                   <p className="text-sm text-slate-400">Latest from the community</p>
                 </div>
               </div>

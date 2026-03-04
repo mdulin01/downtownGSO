@@ -17,6 +17,8 @@ export default function PostFeed() {
     const sorted = [...posts];
     if (sortBy === 'trending') {
       sorted.sort((a, b) => (b.upvoteCount || 0) - (a.upvoteCount || 0));
+    } else if (sortBy === 'rated') {
+      sorted.sort((a, b) => (b.averageRating || 0) - (a.averageRating || 0));
     }
     return sorted;
   }, [posts, sortBy]);
@@ -71,6 +73,7 @@ export default function PostFeed() {
         >
           <option value="recent">Recent</option>
           <option value="trending">Trending (Most Upvotes)</option>
+          <option value="rated">Highest Rated</option>
         </select>
       </div>
 

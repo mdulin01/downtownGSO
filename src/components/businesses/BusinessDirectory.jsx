@@ -61,11 +61,11 @@ export default function BusinessDirectory() {
         <div className="max-w-7xl mx-auto space-y-6">
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center text-2xl">
-              🏪
+              🎭
             </div>
             <div>
-              <h1 className="text-3xl font-black text-white">Discover Local</h1>
-              <p className="text-slate-400 text-sm">Downtown Greensboro businesses</p>
+              <h1 className="text-3xl font-black text-white">Attractions</h1>
+              <p className="text-slate-400 text-sm">Discover downtown Greensboro</p>
             </div>
           </div>
 

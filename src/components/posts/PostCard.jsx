@@ -1,7 +1,9 @@
-import { MessageCircle, MapPin, Heart, Newspaper } from 'lucide-react';
+import { MessageCircle, MapPin, Flame } from 'lucide-react';
 import CategoryBadge from '../common/CategoryBadge';
+import StarRating from '../common/StarRating';
 import Upvote from '../common/Upvote';
 import VideoEmbed from '../common/VideoEmbed';
+import { getPostConfig } from '../../utils/categoryConfig';
 
 function timeAgo(date) {
   if (!date) return '';
@@ -25,15 +27,10 @@ function timeAgo(date) {
   return 'now';
 }
 
-const categoryGradients = {
-  'What I Love': 'from-pink-600/30 to-rose-600/10',
-  'Opportunity': 'from-emerald-600/30 to-green-600/10',
-  'Event': 'from-purple-600/30 to-violet-600/10',
-  'Business Spotlight': 'from-amber-600/30 to-yellow-600/10',
-};
-
 export default function PostCard({ post, onOpenDetail }) {
-  const gradient = categoryGradients[post.category] || 'from-emerald-600/30 to-green-600/10';
+  const config = getPostConfig(post.category);
+  const Icon = config.icon;
+  const isHot = (post.upvoteCount || 0) > 5;
 
   const handleClick = () => {
     if (onOpenDetail) onOpenDetail(post);
@@ -42,7 +39,7 @@ export default function PostCard({ post, onOpenDetail }) {
   return (
     <div
       onClick={handleClick}
-      className="group bg-slate-800/60 hover:bg-slate-800 rounded-xl overflow-hidden transition-all cursor-pointer border border-slate-700/50 hover:border-emerald-500/30 hover:shadow-lg hover:shadow-emerald-500/5"
+      className={`group bg-slate-800/60 hover:bg-slate-800 rounded-xl overflow-hidden transition-all cursor-pointer border border-slate-700/50 ${config.hoverBorder} hover:shadow-lg ${config.hoverShadow}`}
     >
       {/* Image/Video Preview or Gradient */}
       {post.imageUrl ? (
@@ -53,14 +50,32 @@ export default function PostCard({ post, onOpenDetail }) {
             className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 to-transparent" />
+          {isHot && (
+            <div className="absolute top-2 left-2 flex items-center gap-1 bg-orange-500/90 backdrop-blur-sm px-2 py-0.5 rounded-full">
+              <Flame size={12} className="text-white" />
+              <span className="text-[10px] font-bold text-white">Hot</span>
+            </div>
+          )}
         </div>
       ) : post.videoUrl ? (
-        <div className="w-full h-44 bg-black">
+        <div className="w-full h-44 bg-black relative">
           <VideoEmbed url={post.videoUrl} />
+          {isHot && (
+            <div className="absolute top-2 left-2 flex items-center gap-1 bg-orange-500/90 backdrop-blur-sm px-2 py-0.5 rounded-full z-10">
+              <Flame size={12} className="text-white" />
+              <span className="text-[10px] font-bold text-white">Hot</span>
+            </div>
+          )}
         </div>
       ) : (
-        <div className={`w-full h-24 bg-gradient-to-br ${gradient} flex items-center justify-center relative`}>
-          <Newspaper size={28} className="text-white/20" />
+        <div className={`w-full h-24 bg-gradient-to-br ${config.gradient} flex items-center justify-center relative`}>
+          <Icon size={28} className={config.iconColor} />
+          {isHot && (
+            <div className="absolute top-2 left-2 flex items-center gap-1 bg-orange-500/90 backdrop-blur-sm px-2 py-0.5 rounded-full">
+              <Flame size={12} className="text-white" />
+              <span className="text-[10px] font-bold text-white">Hot</span>
+            </div>
+          )}
         </div>
       )}
 
@@ -72,7 +87,7 @@ export default function PostCard({ post, onOpenDetail }) {
         </div>
 
         {/* Title */}
-        <h3 className="text-lg font-bold text-white line-clamp-2 group-hover:text-emerald-300 transition">{post.title}</h3>
+        <h3 className={`text-lg font-bold text-white line-clamp-2 ${config.hoverText} transition`}>{post.title}</h3>
 
         {/* Description */}
         <p className="text-slate-400 text-sm line-clamp-2">{post.description}</p>
@@ -107,6 +122,9 @@ export default function PostCard({ post, onOpenDetail }) {
           </div>
           <div className="flex items-center gap-2">
             <Upvote postId={post.id} />
+            {post.averageRating > 0 && (
+              <StarRating rating={post.averageRating} count={post.totalRatings} size="sm" />
+            )}
             <div className="flex items-center gap-1 text-slate-500 text-xs">
               <MessageCircle size={14} />
               <span>{post.commentCount || 0}</span>
