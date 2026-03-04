@@ -137,8 +137,35 @@ const defaultPostConfig = {
   iconColor: 'text-emerald-400/30',
 };
 
+// Map Firestore shorthand categories to config keys
+const businessAliases = {
+  'restaurants': 'Restaurants',
+  'restaurant': 'Restaurants',
+  'bars': 'Bars & Breweries',
+  'bar': 'Bars & Breweries',
+  'breweries': 'Bars & Breweries',
+  'coffee': 'Coffee & Cafes',
+  'cafe': 'Coffee & Cafes',
+  'cafes': 'Coffee & Cafes',
+  'retail': 'Retail',
+  'shopping': 'Retail',
+  'services': 'Services',
+  'service': 'Services',
+  'arts': 'Arts & Culture',
+  'art': 'Arts & Culture',
+  'culture': 'Arts & Culture',
+  'entertainment': 'Entertainment',
+  'fitness': 'Fitness & Wellness',
+  'wellness': 'Fitness & Wellness',
+};
+
 export function getBusinessConfig(category) {
-  return BUSINESS_CATEGORY_CONFIG[category] || defaultBusinessConfig;
+  if (!category) return defaultBusinessConfig;
+  // Try exact match first, then alias, then lowercase alias
+  return BUSINESS_CATEGORY_CONFIG[category]
+    || BUSINESS_CATEGORY_CONFIG[businessAliases[category]]
+    || BUSINESS_CATEGORY_CONFIG[businessAliases[category.toLowerCase()]]
+    || defaultBusinessConfig;
 }
 
 export function getPostConfig(category) {
