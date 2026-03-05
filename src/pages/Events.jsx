@@ -26,7 +26,7 @@ function formatDateGroup(date) {
 export default function Events() {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [filterTab, setFilterTab] = useState('week');
+  const [filterTab, setFilterTab] = useState('all');
   const [selectedEvent, setSelectedEvent] = useState(null);
 
   useEffect(() => {
@@ -71,9 +71,9 @@ export default function Events() {
   }
 
   const tabs = [
+    { key: 'all', label: 'All Upcoming' },
     { key: 'week', label: 'This Week' },
-    { key: 'month', label: 'This Month' },
-    { key: 'all', label: 'All Upcoming' }
+    { key: 'month', label: 'This Month' }
   ];
 
   return (
