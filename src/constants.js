@@ -34,17 +34,17 @@ export const DOWNTOWN_BOUNDARY = [
 // East: Murrow Blvd | South: Carolyn Coleman Way | West: Freeman Mill Rd/railroad | North: Smith/Eugene/Fisher
 export const GREENWAY_PATH = [
   // Start at NE: Murrow Blvd south of Fisher Ave
-  [-79.7868, 36.0778],  // Murrow south of Fisher (NE start)
+  [-79.7833, 36.0778],  // Murrow south of Fisher (NE start)
 
-  // EAST LEG - South on Murrow Blvd
-  [-79.7860, 36.0762],  // Murrow near Lindsay St
-  [-79.7850, 36.0745],  // Murrow between Lindsay & Friendly
-  [-79.7835, 36.0730],  // Murrow & Friendly Ave
-  [-79.7835, 36.0721],  // Murrow & Market St
-  [-79.7838, 36.0705],  // Murrow south of Market
-  [-79.7840, 36.0690],  // Murrow near Sycamore
-  [-79.7842, 36.0675],  // Murrow near Washington St
-  [-79.7846, 36.0649],  // Murrow & Gate City Blvd
+  // EAST LEG - South on Murrow Blvd (~lng -79.783)
+  [-79.7832, 36.0762],  // Murrow near Lindsay St
+  [-79.7831, 36.0745],  // Murrow between Lindsay & Friendly
+  [-79.7830, 36.0730],  // Murrow & Friendly Ave
+  [-79.7832, 36.0721],  // Murrow & Market St
+  [-79.7834, 36.0705],  // Murrow south of Market
+  [-79.7836, 36.0690],  // Murrow near Sycamore
+  [-79.7838, 36.0675],  // Murrow near Washington St
+  [-79.7842, 36.0649],  // Murrow & Gate City Blvd
 
   // SOUTH LEG - SW along Carolyn Coleman Way to Freeman Mill
   [-79.7855, 36.0642],  // trail leaves Murrow heading SW
@@ -75,11 +75,12 @@ export const GREENWAY_PATH = [
 
   // NE CORNER - Fisher Ave east to Murrow Blvd, then south
   [-79.7890, 36.0796],  // Fisher Ave east of Church St
-  [-79.7875, 36.0798],  // Fisher Ave continuing east
-  [-79.7863, 36.0800],  // Fisher Ave & N Murrow Blvd (NE corner turn)
-  [-79.7861, 36.0792],  // N Murrow Blvd heading south
-  [-79.7862, 36.0785],  // Murrow Blvd continuing south
-  [-79.7865, 36.0778]   // Murrow Blvd (connects to east leg start)
+  [-79.7870, 36.0798],  // Fisher Ave continuing east
+  [-79.7850, 36.0800],  // Fisher Ave approaching Murrow
+  [-79.7835, 36.0800],  // Fisher Ave & N Murrow Blvd (NE corner)
+  [-79.7833, 36.0792],  // N Murrow Blvd heading south
+  [-79.7833, 36.0785],  // Murrow Blvd continuing south
+  [-79.7833, 36.0778]   // Murrow Blvd (connects to east leg start)
 ];
 
 // Sample map markers for businesses and events
