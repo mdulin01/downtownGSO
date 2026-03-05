@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowRight, MapPin, Calendar, Store, Lightbulb, TrendingUp, Sparkles } from 'lucide-react';
-import { collection, query, limit, onSnapshot, orderBy } from 'firebase/firestore';
+import { collection, query, limit, onSnapshot, orderBy, getCountFromServer } from 'firebase/firestore';
 import { db } from '../firebase-config';
 import { useAuth } from '../hooks/useAuth';
 import PostCard from '../components/posts/PostCard';
@@ -20,7 +20,7 @@ export default function Home() {
   const [trendingSuggestions, setTrendingSuggestions] = useState([]);
   const [featuredBusinesses, setFeaturedBusinesses] = useState([]);
   const [upcomingEvents, setUpcomingEvents] = useState([]);
-  const [stats, setStats] = useState({ posts: 0, businesses: 0, suggestions: 0 });
+  const [stats, setStats] = useState({ posts: 0, businesses: 0, suggestions: 0, events: 0 });
   const [selectedPost, setSelectedPost] = useState(null);
   const [selectedSuggestion, setSelectedSuggestion] = useState(null);
   const [selectedBusiness, setSelectedBusiness] = useState(null);
@@ -30,7 +30,6 @@ export default function Home() {
     const q = query(collection(db, 'posts'), orderBy('createdAt', 'desc'), limit(6));
     const unsubscribe = onSnapshot(q, (snapshot) => {
       setRecentPosts(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
-      setStats((prev) => ({ ...prev, posts: snapshot.size }));
     });
     return unsubscribe;
   }, []);
@@ -39,7 +38,6 @@ export default function Home() {
     const q = query(collection(db, 'suggestions'), orderBy('upvoteCount', 'desc'), limit(3));
     const unsubscribe = onSnapshot(q, (snapshot) => {
       setTrendingSuggestions(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
-      setStats((prev) => ({ ...prev, suggestions: snapshot.size }));
     });
     return unsubscribe;
   }, []);
@@ -48,7 +46,6 @@ export default function Home() {
     const q = query(collection(db, 'businesses'), limit(4));
     const unsubscribe = onSnapshot(q, (snapshot) => {
       setFeaturedBusinesses(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
-      setStats((prev) => ({ ...prev, businesses: snapshot.size }));
     });
     return unsubscribe;
   }, []);
@@ -59,6 +56,29 @@ export default function Home() {
       setUpcomingEvents(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
     });
     return unsubscribe;
+  }, []);
+
+  // Fetch accurate total counts for all collections
+  useEffect(() => {
+    async function fetchCounts() {
+      try {
+        const [postsSnap, suggestionsSnap, businessesSnap, eventsSnap] = await Promise.all([
+          getCountFromServer(collection(db, 'posts')),
+          getCountFromServer(collection(db, 'suggestions')),
+          getCountFromServer(collection(db, 'businesses')),
+          getCountFromServer(collection(db, 'events')),
+        ]);
+        setStats({
+          posts: postsSnap.data().count,
+          suggestions: suggestionsSnap.data().count,
+          businesses: businessesSnap.data().count,
+          events: eventsSnap.data().count,
+        });
+      } catch (err) {
+        console.error('Failed to fetch counts:', err);
+      }
+    }
+    fetchCounts();
   }, []);
 
   return (
@@ -112,21 +132,26 @@ export default function Home() {
             </div>
 
             {/* Stats Row */}
-            <div className="flex items-center justify-center gap-8 pt-4">
-              <div className="text-center">
+            <div className="flex items-center justify-center gap-6 md:gap-8 pt-4">
+              <button onClick={() => navigate('/forum')} className="text-center hover:scale-105 transition-transform">
                 <div className="text-3xl font-black text-white">{stats.posts}</div>
                 <div className="text-sm text-slate-400">Posts</div>
-              </div>
+              </button>
               <div className="w-px h-10 bg-slate-700" />
-              <div className="text-center">
+              <button onClick={() => navigate('/ideas')} className="text-center hover:scale-105 transition-transform">
                 <div className="text-3xl font-black text-white">{stats.suggestions}</div>
-                <div className="text-sm text-slate-400">Suggestions</div>
-              </div>
+                <div className="text-sm text-slate-400">Ideas</div>
+              </button>
               <div className="w-px h-10 bg-slate-700" />
-              <div className="text-center">
+              <button onClick={() => navigate('/businesses')} className="text-center hover:scale-105 transition-transform">
                 <div className="text-3xl font-black text-white">{stats.businesses}</div>
-                <div className="text-sm text-slate-400">Businesses</div>
-              </div>
+                <div className="text-sm text-slate-400">Attractions</div>
+              </button>
+              <div className="w-px h-10 bg-slate-700" />
+              <button onClick={() => navigate('/events')} className="text-center hover:scale-105 transition-transform">
+                <div className="text-3xl font-black text-white">{stats.events}</div>
+                <div className="text-sm text-slate-400">Events</div>
+              </button>
             </div>
           </div>
         </div>
