@@ -73,11 +73,13 @@ export const GREENWAY_PATH = [
   [-79.7920, 36.0795],  // Fisher Ave heading east
   [-79.7905, 36.0794],  // Fisher Ave continuing east
 
-  // NE CORNER - Fisher Ave curves into Murrow Blvd heading south
-  [-79.7885, 36.0793],  // Fisher approaching Murrow curve
-  [-79.7875, 36.0790],  // Fisher/Murrow curve
-  [-79.7870, 36.0785],  // Murrow Blvd curving south
-  [-79.7868, 36.0778]   // Murrow Blvd heading south (connects to east leg)
+  // NE CORNER - Fisher Ave east to Murrow Blvd, then south
+  [-79.7890, 36.0796],  // Fisher Ave east of Church St
+  [-79.7875, 36.0798],  // Fisher Ave continuing east
+  [-79.7863, 36.0800],  // Fisher Ave & N Murrow Blvd (NE corner turn)
+  [-79.7861, 36.0792],  // N Murrow Blvd heading south
+  [-79.7862, 36.0785],  // Murrow Blvd continuing south
+  [-79.7865, 36.0778]   // Murrow Blvd (connects to east leg start)
 ];
 
 // Sample map markers for businesses and events
