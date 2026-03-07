@@ -1,15 +1,35 @@
-import { useState } from 'react';
-import { doc, updateDoc, serverTimestamp } from 'firebase/firestore';
+import { useState, useEffect } from 'react';
+import { doc, updateDoc, serverTimestamp, collection, query, where, getDocs, arrayUnion, increment } from 'firebase/firestore';
 import { db } from '../../firebase-config';
 import { useAuth } from '../../hooks/useAuth';
 import InterestsSelector from './InterestsSelector';
-import { Sparkles, ArrowRight, Loader2 } from 'lucide-react';
+import { Sparkles, ArrowRight, Loader2, Users, Building2 } from 'lucide-react';
+
+const PILOT_GROUP_NAME = 'Governors Court Condos';
 
 export default function ProfileCompletionModal({ onComplete }) {
   const { user } = useAuth();
   const [interests, setInterests] = useState([]);
   const [customText, setCustomText] = useState('');
+  const [joinGroup, setJoinGroup] = useState(true);
+  const [pilotGroup, setPilotGroup] = useState(null);
   const [saving, setSaving] = useState(false);
+
+  // Look up the Governors Court group
+  useEffect(() => {
+    const fetchGroup = async () => {
+      try {
+        const q = query(collection(db, 'groups'), where('name', '==', PILOT_GROUP_NAME));
+        const snap = await getDocs(q);
+        if (!snap.empty) {
+          setPilotGroup({ id: snap.docs[0].id, ...snap.docs[0].data() });
+        }
+      } catch (err) {
+        console.error('Error fetching pilot group:', err);
+      }
+    };
+    fetchGroup();
+  }, []);
 
   const handleSave = async () => {
     if (interests.length === 0) return;
@@ -28,6 +48,14 @@ export default function ProfileCompletionModal({ onComplete }) {
         profileCompleted: true,
         profileCompletedAt: serverTimestamp()
       });
+
+      // Join the pilot group if opted in
+      if (joinGroup && pilotGroup && !pilotGroup.members?.includes(user.uid)) {
+        await updateDoc(doc(db, 'groups', pilotGroup.id), {
+          members: arrayUnion(user.uid),
+          memberCount: increment(1)
+        });
+      }
 
       onComplete?.();
     } catch (err) {
@@ -64,6 +92,44 @@ export default function ProfileCompletionModal({ onComplete }) {
             customText={customText}
             onCustomChange={setCustomText}
           />
+
+          {/* Governors Court group invite */}
+          {pilotGroup && (
+            <button
+              type="button"
+              onClick={() => setJoinGroup(!joinGroup)}
+              className={`w-full flex items-center gap-3 p-4 rounded-xl border transition ${
+                joinGroup
+                  ? 'bg-violet-500/10 border-violet-500/30'
+                  : 'bg-slate-800/50 border-slate-700 hover:border-slate-600'
+              }`}
+            >
+              <div className={`w-10 h-10 rounded-lg flex items-center justify-center shrink-0 ${
+                joinGroup ? 'bg-violet-500/20' : 'bg-slate-700'
+              }`}>
+                <Building2 size={20} className={joinGroup ? 'text-violet-400' : 'text-slate-500'} />
+              </div>
+              <div className="flex-1 text-left">
+                <p className={`text-sm font-semibold ${joinGroup ? 'text-white' : 'text-slate-300'}`}>
+                  Join {PILOT_GROUP_NAME}
+                </p>
+                <p className="text-xs text-slate-400">
+                  {pilotGroup.memberCount || 0} neighbors already here
+                </p>
+              </div>
+              <div className={`w-5 h-5 rounded-md border-2 flex items-center justify-center shrink-0 transition ${
+                joinGroup
+                  ? 'bg-violet-500 border-violet-500'
+                  : 'border-slate-600'
+              }`}>
+                {joinGroup && (
+                  <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                    <path d="M2.5 6L5 8.5L9.5 3.5" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                  </svg>
+                )}
+              </div>
+            </button>
+          )}
 
           {/* Save */}
           <div className="flex items-center justify-between pt-2">
