@@ -196,7 +196,8 @@ export default function Groups() {
               return (
                 <div
                   key={group.id}
-                  className="bg-slate-900/50 border border-white/5 rounded-xl p-5 hover:border-white/10 transition"
+                  onClick={() => navigate(`/groups/${group.id}`)}
+                  className="bg-slate-900/50 border border-white/5 rounded-xl p-5 hover:border-white/10 transition cursor-pointer"
                 >
                   <div className="flex items-start justify-between gap-4">
                     <div className="flex-1 min-w-0">
@@ -207,6 +208,7 @@ export default function Groups() {
                         ) : (
                           <Globe size={12} className="text-emerald-400 shrink-0" />
                         )}
+                        <ChevronRight size={14} className="text-slate-600 shrink-0 ml-auto" />
                       </div>
                       {group.description && (
                         <p className="text-sm text-slate-400 line-clamp-2 mb-2">{group.description}</p>
@@ -223,7 +225,7 @@ export default function Groups() {
                       </div>
                     </div>
                     <button
-                      onClick={() => handleJoinLeave(group)}
+                      onClick={(e) => { e.stopPropagation(); handleJoinLeave(group); }}
                       className={`shrink-0 px-4 py-2 rounded-lg text-sm font-medium transition ${
                         isMember
                           ? 'bg-white/5 text-slate-400 hover:bg-red-500/10 hover:text-red-400 border border-white/10'

@@ -10,6 +10,7 @@ import Home from './pages/Home';
 import Feed from './pages/Feed';
 import News from './pages/News';
 import Groups from './pages/Groups';
+import GroupDetail from './pages/GroupDetail';
 import Suggestions from './pages/Suggestions';
 import Businesses from './pages/Businesses';
 import Events from './pages/Events';
@@ -35,6 +36,7 @@ function AppContent() {
           <Route path="/forum" element={<Feed />} />
           <Route path="/feed" element={<Feed />} />
           <Route path="/groups" element={<Groups />} />
+          <Route path="/groups/:groupId" element={<GroupDetail />} />
           <Route path="/ideas" element={<Suggestions />} />
           <Route path="/suggestions" element={<Suggestions />} />
           <Route path="/businesses" element={<Businesses />} />
