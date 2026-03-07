@@ -19,13 +19,29 @@
 
 ## Technical Stack
 
+### Core
 - **Frontend Framework:** React 18+
 - **Build Tool:** Vite
 - **Styling:** Tailwind CSS
 - **Backend/Database:** Firebase (Firestore, Authentication, Storage)
 - **Maps Integration:** Mapbox GL JS
-- **Deployment:** Vercel
+- **Deployment:** Vercel (auto-deploys from GitHub main branch)
 - **Version Control:** GitHub (mdulin01/downtownGSO)
+
+### Services & APIs
+- **Email Notifications:** Resend (API key stored in Google Cloud Secret Manager as `RESEND_API_KEY`)
+- **Cloud Functions:** Firebase Functions v2 (Node.js 20, Cloud Run-based)
+  - `onUserCreated` — sends welcome email on new user signup
+  - `onPostCreated` — sends post notification to users with matching interests
+- **Google Cloud Secret Manager:** Stores sensitive keys (Resend API key)
+- **Firebase Security Rules:** Custom rules with subcollections for comments and reactions
+
+### Key Libraries
+- `lucide-react` — Icons
+- `firebase` / `firebase-admin` — Client & server SDK
+- `resend` — Email delivery (in Cloud Functions)
+- `react-router-dom` — Routing
+- `mapbox-gl` — Interactive maps
 
 ---
 
@@ -67,9 +83,19 @@ downtowngso/
 
 ## Architecture Notes
 
-- **Pages:** Home, Feed, Businesses, Events, MapExplore, Admin, About, Suggestions
+- **Pages:** Home, Feed, News, Groups, Businesses, Events, MapExplore, Admin, About, Suggestions
 - **Component groups:** auth, businesses, common, events, layout, map, posts, suggestions
-- **Custom hooks:** useAuth, usePosts, useUpvote
+- **Custom hooks:** useAuth, usePosts, useUpvote, useComments
+- **Social engagement components:**
+  - `Reactions.jsx` — Emoji reactions (love, fire, clap, insightful, sad) for any Firestore collection
+  - `ShareButton.jsx` — Web Share API with clipboard fallback
+  - `ActivityTicker.jsx` — Real-time live activity feed on homepage
+  - `ProfileCompletionModal.jsx` — Onboarding flow with interests + Governors Court group invite
+  - `CommentsSection.jsx` / inline `NewsComments` — Comment threads on posts and news
+- **Firestore subcollections:**
+  - `news/{articleId}/comments/{commentId}`
+  - `news/{articleId}/reactions/{reactionId}`
+  - `posts/{postId}/reactions/{reactionId}`
 - Uses Mapbox GL JS for interactive map views
 
 ---
