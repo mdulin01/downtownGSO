@@ -1,4 +1,5 @@
-import { MessageCircle, MapPin, Flame } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import { MessageCircle, MapPin, Flame, Sparkles, Share2 } from 'lucide-react';
 import CategoryBadge from '../common/CategoryBadge';
 import StarRating from '../common/StarRating';
 import Upvote from '../common/Upvote';
@@ -27,10 +28,18 @@ function timeAgo(date) {
   return 'now';
 }
 
+function isNew(date) {
+  if (!date) return false;
+  const d = date.toDate ? date.toDate() : date.seconds ? new Date(date.seconds * 1000) : new Date(date);
+  return (new Date() - d) < 86400000; // 24 hours
+}
+
 export default function PostCard({ post, onOpenDetail }) {
+  const navigate = useNavigate();
   const config = getPostConfig(post.category);
   const Icon = config.icon;
   const isHot = (post.upvoteCount || 0) > 5;
+  const isRecent = isNew(post.createdAt);
 
   const handleClick = () => {
     if (onOpenDetail) onOpenDetail(post);
@@ -82,7 +91,14 @@ export default function PostCard({ post, onOpenDetail }) {
       <div className="p-4 space-y-3">
         {/* Category + Time */}
         <div className="flex items-center justify-between">
-          {post.category && <CategoryBadge category={post.category} size="sm" />}
+          <div className="flex items-center gap-1.5">
+            {post.category && <CategoryBadge category={post.category} size="sm" />}
+            {isRecent && (
+              <span className="flex items-center gap-0.5 px-1.5 py-0.5 bg-blue-500/20 text-blue-300 rounded-full text-[10px] font-medium">
+                <Sparkles size={10} /> New
+              </span>
+            )}
+          </div>
           <span className="text-xs text-slate-500">{timeAgo(post.createdAt)}</span>
         </div>
 
@@ -118,17 +134,32 @@ export default function PostCard({ post, onOpenDetail }) {
                 </span>
               </div>
             )}
-            <span className="text-xs text-slate-400 truncate">{post.authorName}</span>
+            <span
+              onClick={(e) => { e.stopPropagation(); if (post.authorId) navigate(`/profile/${post.authorId}`); }}
+              className="text-xs text-slate-400 truncate hover:text-emerald-400 cursor-pointer transition"
+            >
+              {post.authorName}
+            </span>
           </div>
           <div className="flex items-center gap-2">
             <Upvote postId={post.id} />
-            {post.averageRating > 0 && (
-              <StarRating rating={post.averageRating} count={post.totalRatings} size="sm" />
-            )}
             <div className="flex items-center gap-1 text-slate-500 text-xs">
               <MessageCircle size={14} />
               <span>{post.commentCount || 0}</span>
             </div>
+            <button
+              onClick={(e) => {
+                e.stopPropagation();
+                navigator.clipboard.writeText(`${window.location.origin}/forum`);
+                // Brief visual feedback
+                e.currentTarget.classList.add('text-emerald-400');
+                setTimeout(() => e.currentTarget.classList.remove('text-emerald-400'), 1000);
+              }}
+              className="text-slate-500 hover:text-emerald-400 transition"
+              title="Copy link"
+            >
+              <Share2 size={14} />
+            </button>
           </div>
         </div>
       </div>

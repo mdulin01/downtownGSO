@@ -13,6 +13,7 @@ import Businesses from './pages/Businesses';
 import Events from './pages/Events';
 import About from './pages/About';
 import Admin from './pages/Admin';
+import Profile from './pages/Profile';
 
 // Forms
 import CreatePost from './components/posts/CreatePost';
@@ -38,6 +39,8 @@ export default function App() {
               <Route path="/about" element={<About />} />
               <Route path="/post/new" element={<CreatePost />} />
               <Route path="/suggestion/new" element={<SuggestionForm />} />
+              <Route path="/profile/me" element={<Profile />} />
+              <Route path="/profile/:userId" element={<Profile />} />
               <Route path="/admin" element={<Admin />} />
             </Routes>
           </main>

@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
-import { Menu, X, LogOut, Plus } from 'lucide-react';
+import { Menu, X, LogOut, Plus, User } from 'lucide-react';
 import { useAuth } from '../../hooks/useAuth';
 
 export default function Header() {
@@ -95,6 +95,13 @@ export default function Header() {
                 </button>
                 <div className="absolute right-0 mt-2 w-48 bg-slate-900 rounded-xl shadow-2xl border border-white/10 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition py-1">
                   <button
+                    onClick={() => navigate('/profile/me')}
+                    className="w-full text-left px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-white/5 transition flex items-center gap-2"
+                  >
+                    <User size={14} />
+                    Profile
+                  </button>
+                  <button
                     onClick={() => navigate('/admin')}
                     className="w-full text-left px-4 py-2 text-sm text-slate-300 hover:text-white hover:bg-white/5 transition"
                   >
@@ -148,6 +155,12 @@ export default function Header() {
             <div className="pt-2 border-t border-white/5 mt-2 space-y-1">
               {user ? (
                 <>
+                  <button
+                    onClick={() => { navigate('/profile/me'); setMobileMenuOpen(false); }}
+                    className="block w-full text-left px-4 py-2.5 rounded-lg text-sm text-slate-400 hover:text-white hover:bg-white/5 transition"
+                  >
+                    Profile
+                  </button>
                   <button
                     onClick={() => { navigate('/admin'); setMobileMenuOpen(false); }}
                     className="block w-full text-left px-4 py-2.5 rounded-lg text-sm text-slate-400 hover:text-white hover:bg-white/5 transition"

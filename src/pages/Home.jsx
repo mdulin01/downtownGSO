@@ -12,10 +12,12 @@ import BusinessCard from '../components/businesses/BusinessCard';
 import BusinessDetail from '../components/businesses/BusinessDetail';
 import EventCard from '../components/events/EventCard';
 import EventDetail from '../components/events/EventDetail';
+import ProfileCompletionModal from '../components/auth/ProfileCompletionModal';
 
 export default function Home() {
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const { user, refreshUser } = useAuth();
+  const [showProfileModal, setShowProfileModal] = useState(false);
   const [recentPosts, setRecentPosts] = useState([]);
   const [trendingSuggestions, setTrendingSuggestions] = useState([]);
   const [featuredBusinesses, setFeaturedBusinesses] = useState([]);
@@ -25,6 +27,13 @@ export default function Home() {
   const [selectedSuggestion, setSelectedSuggestion] = useState(null);
   const [selectedBusiness, setSelectedBusiness] = useState(null);
   const [selectedEvent, setSelectedEvent] = useState(null);
+
+  // Show profile completion modal for new users
+  useEffect(() => {
+    if (user && !user.profileCompleted && user.interests?.length === 0) {
+      setShowProfileModal(true);
+    }
+  }, [user]);
 
   useEffect(() => {
     const q = query(collection(db, 'posts'), orderBy('createdAt', 'desc'), limit(6));
@@ -300,6 +309,9 @@ export default function Home() {
       <BusinessDetail business={selectedBusiness} isOpen={!!selectedBusiness} onClose={() => setSelectedBusiness(null)} />
       <SuggestionDetail suggestion={selectedSuggestion} isOpen={!!selectedSuggestion} onClose={() => setSelectedSuggestion(null)} />
       <PostDetail post={selectedPost} isOpen={!!selectedPost} onClose={() => setSelectedPost(null)} />
+      {showProfileModal && (
+        <ProfileCompletionModal onComplete={() => { setShowProfileModal(false); refreshUser(); }} />
+      )}
     </div>
   );
 }

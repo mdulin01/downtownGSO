@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { doc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { db } from '../../firebase-config';
 import { useAuth } from '../../hooks/useAuth';
@@ -7,7 +8,8 @@ import { POST_CATEGORIES } from '../../constants';
 import BaseModal from '../common/BaseModal';
 import Upvote from '../common/Upvote';
 import VideoEmbed from '../common/VideoEmbed';
-import { MapPin, MessageCircle, Pencil, Trash2, Save, X, Newspaper } from 'lucide-react';
+import CommentsSection from './CommentsSection';
+import { MapPin, Pencil, Trash2, Save, X, Newspaper } from 'lucide-react';
 
 function timeAgo(date) {
   if (!date) return '';
@@ -23,6 +25,7 @@ function timeAgo(date) {
 
 export default function PostDetail({ post, isOpen, onClose }) {
   const { user } = useAuth();
+  const navigate = useNavigate();
   const [editing, setEditing] = useState(false);
   const [saving, setSaving] = useState(false);
   const [form, setForm] = useState({});
@@ -144,16 +147,19 @@ export default function PostDetail({ post, isOpen, onClose }) {
                   <span className="text-xs font-bold text-emerald-400">{(post.authorName || 'U').charAt(0)}</span>
                 </div>
               )}
-              <span className="text-sm text-slate-400">{post.authorName}</span>
+              <span
+                onClick={() => { if (post.authorId) { onClose(); navigate(`/profile/${post.authorId}`); } }}
+                className="text-sm text-slate-400 hover:text-emerald-400 cursor-pointer transition"
+              >
+                {post.authorName}
+              </span>
             </div>
             <div className="flex items-center gap-3">
               <Upvote postId={post.id} />
-              <div className="flex items-center gap-1 text-slate-500 text-sm">
-                <MessageCircle size={14} />
-                <span>{post.commentCount || 0}</span>
-              </div>
             </div>
           </div>
+
+          <CommentsSection postId={post.id} />
 
           {userCanEdit && (
             <div className="flex gap-3 pt-3 border-t border-slate-700">

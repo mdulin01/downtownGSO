@@ -98,6 +98,8 @@ export const MAP_MARKERS = [
   { id: 'e1', name: 'First Friday Gallery Walk', type: 'event', lng: -79.7910, lat: 36.0745 },
   { id: 'e2', name: 'Farmers Curb Market', type: 'event', lng: -79.7935, lat: 36.0715 },
   { id: 'e3', name: 'Downtown Greenway 5K', type: 'event', lng: -79.7874, lat: 36.0793 },
+  // Residential
+  { id: 'r1', name: 'Governors Court', type: 'residential', category: 'Residential', lng: -79.7898, lat: 36.0745, description: 'Residential condominiums at 113 N Church St in the heart of downtown Greensboro.' },
 ];
 
 export const POST_CATEGORIES = [
@@ -142,4 +144,16 @@ export const SUGGESTION_STATUS = [
   'Under Discussion',
   'In Progress',
   'Completed'
+];
+
+export const INTEREST_CATEGORIES = [
+  'Parks & Green Spaces',
+  'Live Music & Nightlife',
+  'Dining & Restaurants',
+  'Arts & Culture',
+  'Shopping & Retail',
+  'Fitness & Wellness',
+  'Community Events',
+  'Coffee & Cafes',
+  'Bars & Breweries'
 ];

@@ -438,6 +438,20 @@ export const seedBusinesses = [
     featured: true,
     averageRating: 4.9,
     totalRatings: 43
+  },
+  // Residential
+  {
+    name: "Governors Court",
+    category: "residential",
+    address: "113 N Church St, Greensboro, NC 27401",
+    location: { lat: 36.0745, lng: -79.7898 },
+    description: "Premier residential condominium community in the heart of downtown Greensboro. Features 36 units across 4 stories with modern amenities, open concept living, and walkable access to downtown restaurants, shops, and entertainment.",
+    website: "",
+    hours: "",
+    photoUrl: "https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?w=600&h=400&fit=crop",
+    featured: false,
+    averageRating: 0,
+    totalRatings: 0
   }
 ];
 
