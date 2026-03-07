@@ -51,8 +51,8 @@
 downtowngso/
 ├── src/
 │   ├── components/        # React components (auth, businesses, common, events, layout, map, posts, suggestions)
-│   ├── pages/             # Page components (Home, Feed, Businesses, Events, MapExplore, Admin, etc.)
-│   ├── hooks/             # Custom hooks (useAuth, usePosts, useUpvote)
+│   ├── pages/             # Page components (Home, Feed, News, Groups, GroupDetail, Businesses, Events, Admin, About, Suggestions)
+│   ├── hooks/             # Custom hooks (useAuth, usePosts, useUpvote, useComments, useGroupComments)
 │   ├── utils/             # Utility functions (authUtils)
 │   ├── assets/            # Static assets
 │   ├── constants.js       # App constants
@@ -85,18 +85,31 @@ downtowngso/
 
 - **Pages:** Home, Feed, News, Groups, Businesses, Events, MapExplore, Admin, About, Suggestions
 - **Component groups:** auth, businesses, common, events, layout, map, posts, suggestions
-- **Custom hooks:** useAuth, usePosts, useUpvote, useComments
+- **Custom hooks:** useAuth, usePosts, useUpvote, useComments, useGroupComments
 - **Social engagement components:**
   - `Reactions.jsx` — Emoji reactions (love, fire, clap, insightful, sad) for any Firestore collection
   - `ShareButton.jsx` — Web Share API with clipboard fallback
   - `ActivityTicker.jsx` — Real-time live activity feed on homepage
   - `ProfileCompletionModal.jsx` — Onboarding flow with interests + Governors Court group invite
   - `CommentsSection.jsx` / inline `NewsComments` — Comment threads on posts and news
+- **Group Detail page** (`/groups/:groupId`) with three tabs:
+  - Discussion — real-time group chat via `groups/{groupId}/comments` subcollection
+  - Members — fetches user profiles, shows Admin badge for group creator
+  - Resources — FAQ (accordion), Links, Documents. Admin (group creator) can add/delete.
+- **News admin editing:**
+  - Admins see Edit/Delete on hover, "+ New Article" button
+  - Inline edit form with image upload to Firebase Storage (`/news/` path)
+  - Can also paste image URLs directly
+- **Admin emails:** defined in `src/utils/authUtils.js` (`ADMIN_EMAILS` array)
+  - Currently: mdulin@gmail.com, adamjosephbritten@gmail.com
 - **Firestore subcollections:**
   - `news/{articleId}/comments/{commentId}`
   - `news/{articleId}/reactions/{reactionId}`
   - `posts/{postId}/reactions/{reactionId}`
-- Uses Mapbox GL JS for interactive map views
+  - `groups/{groupId}/comments/{commentId}`
+  - `groups/{groupId}/resources/{resourceId}`
+- **Firebase Storage rules:** `/news/**` allows public read, authenticated write (images <10MB)
+- Uses Mapbox GL JS with Geocoding API for location search autocomplete in LocationPicker
 
 ---
 
