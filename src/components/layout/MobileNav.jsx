@@ -1,42 +1,53 @@
 import { Link, useLocation } from 'react-router-dom';
-import { Home, Map, Plus, Store, Calendar } from 'lucide-react';
+import { MessageCircle, Newspaper, Store, Calendar, Plus } from 'lucide-react';
 import { useAuth } from '../../hooks/useAuth';
 
 export default function MobileNav() {
   const location = useLocation();
-  const { user } = useAuth();
+  const { user, signIn } = useAuth();
 
   const isActive = (path) => location.pathname === path;
+
+  const handlePlusClick = async (e) => {
+    if (!user) {
+      e.preventDefault();
+      try {
+        await signIn();
+      } catch (error) {
+        console.error('Sign in error:', error);
+      }
+    }
+  };
 
   return (
     <nav className="fixed bottom-0 left-0 right-0 md:hidden bg-slate-950/90 backdrop-blur-xl border-t border-white/5 z-40">
       <div className="flex items-center justify-around h-16 px-2">
         <Link
-          to="/"
+          to="/forum"
           className={`flex flex-col items-center justify-center w-16 py-1 rounded-lg transition ${
-            isActive('/') ? 'text-emerald-400' : 'text-slate-500 hover:text-slate-300'
+            isActive('/forum') || isActive('/feed') ? 'text-emerald-400' : 'text-slate-500 hover:text-slate-300'
           }`}
         >
-          <Home size={20} />
-          <span className="text-[10px] mt-0.5 font-medium">Home</span>
+          <MessageCircle size={20} />
+          <span className="text-[10px] mt-0.5 font-medium">Chat</span>
         </Link>
 
         <Link
-          to="/map"
+          to="/news"
           className={`flex flex-col items-center justify-center w-16 py-1 rounded-lg transition ${
-            isActive('/map') ? 'text-emerald-400' : 'text-slate-500 hover:text-slate-300'
+            isActive('/news') ? 'text-emerald-400' : 'text-slate-500 hover:text-slate-300'
           }`}
         >
-          <Map size={20} />
-          <span className="text-[10px] mt-0.5 font-medium">Map</span>
+          <Newspaper size={20} />
+          <span className="text-[10px] mt-0.5 font-medium">News</span>
         </Link>
 
         <Link
-          to="/post/new"
-          className="flex flex-col items-center justify-center w-14 h-14 bg-emerald-500 hover:bg-emerald-400 text-white rounded-xl transition shadow-lg shadow-emerald-500/30 -mt-4"
+          to={user ? '/post/new' : '#'}
+          onClick={handlePlusClick}
+          className="flex items-center justify-center w-12 h-12 bg-emerald-500 hover:bg-emerald-400 text-white rounded-xl transition shadow-lg shadow-emerald-500/30 -mt-4"
         >
-          <Plus size={20} />
-          <span className="text-[9px] font-bold -mt-0.5">Share</span>
+          <Plus size={24} />
         </Link>
 
         <Link
@@ -46,7 +57,7 @@ export default function MobileNav() {
           }`}
         >
           <Store size={20} />
-          <span className="text-[10px] mt-0.5 font-medium">Spots</span>
+          <span className="text-[10px] mt-0.5 font-medium">Places</span>
         </Link>
 
         <Link

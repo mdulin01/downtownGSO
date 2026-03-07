@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowRight, MapPin, Calendar, Store, Lightbulb, TrendingUp, Sparkles } from 'lucide-react';
-import { collection, query, limit, onSnapshot, orderBy, getCountFromServer } from 'firebase/firestore';
+import { ArrowRight, Newspaper, Calendar, Store, Users, TrendingUp, Sparkles, Rocket } from 'lucide-react';
+import { collection, query, limit, onSnapshot, orderBy } from 'firebase/firestore';
 import { db } from '../firebase-config';
 import { useAuth } from '../hooks/useAuth';
 import PostCard from '../components/posts/PostCard';
@@ -12,33 +12,25 @@ import BusinessCard from '../components/businesses/BusinessCard';
 import BusinessDetail from '../components/businesses/BusinessDetail';
 import EventCard from '../components/events/EventCard';
 import EventDetail from '../components/events/EventDetail';
-import ProfileCompletionModal from '../components/auth/ProfileCompletionModal';
 
 export default function Home() {
   const navigate = useNavigate();
-  const { user, refreshUser } = useAuth();
-  const [showProfileModal, setShowProfileModal] = useState(false);
+  const { user, signIn } = useAuth();
   const [recentPosts, setRecentPosts] = useState([]);
   const [trendingSuggestions, setTrendingSuggestions] = useState([]);
   const [featuredBusinesses, setFeaturedBusinesses] = useState([]);
   const [upcomingEvents, setUpcomingEvents] = useState([]);
-  const [stats, setStats] = useState({ posts: 0, businesses: 0, suggestions: 0, events: 0 });
+  const [stats, setStats] = useState({ posts: 0, businesses: 0, suggestions: 0 });
   const [selectedPost, setSelectedPost] = useState(null);
   const [selectedSuggestion, setSelectedSuggestion] = useState(null);
   const [selectedBusiness, setSelectedBusiness] = useState(null);
   const [selectedEvent, setSelectedEvent] = useState(null);
 
-  // Show profile completion modal for new users
-  useEffect(() => {
-    if (user && !user.profileCompleted && user.interests?.length === 0) {
-      setShowProfileModal(true);
-    }
-  }, [user]);
-
   useEffect(() => {
     const q = query(collection(db, 'posts'), orderBy('createdAt', 'desc'), limit(6));
     const unsubscribe = onSnapshot(q, (snapshot) => {
       setRecentPosts(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+      setStats((prev) => ({ ...prev, posts: snapshot.size }));
     });
     return unsubscribe;
   }, []);
@@ -47,6 +39,7 @@ export default function Home() {
     const q = query(collection(db, 'suggestions'), orderBy('upvoteCount', 'desc'), limit(3));
     const unsubscribe = onSnapshot(q, (snapshot) => {
       setTrendingSuggestions(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+      setStats((prev) => ({ ...prev, suggestions: snapshot.size }));
     });
     return unsubscribe;
   }, []);
@@ -55,6 +48,7 @@ export default function Home() {
     const q = query(collection(db, 'businesses'), limit(4));
     const unsubscribe = onSnapshot(q, (snapshot) => {
       setFeaturedBusinesses(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
+      setStats((prev) => ({ ...prev, businesses: snapshot.size }));
     });
     return unsubscribe;
   }, []);
@@ -65,29 +59,6 @@ export default function Home() {
       setUpcomingEvents(snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() })));
     });
     return unsubscribe;
-  }, []);
-
-  // Fetch accurate total counts for all collections
-  useEffect(() => {
-    async function fetchCounts() {
-      try {
-        const [postsSnap, suggestionsSnap, businessesSnap, eventsSnap] = await Promise.all([
-          getCountFromServer(collection(db, 'posts')),
-          getCountFromServer(collection(db, 'suggestions')),
-          getCountFromServer(collection(db, 'businesses')),
-          getCountFromServer(collection(db, 'events')),
-        ]);
-        setStats({
-          posts: postsSnap.data().count,
-          suggestions: suggestionsSnap.data().count,
-          businesses: businessesSnap.data().count,
-          events: eventsSnap.data().count,
-        });
-      } catch (err) {
-        console.error('Failed to fetch counts:', err);
-      }
-    }
-    fetchCounts();
   }, []);
 
   return (
@@ -124,43 +95,49 @@ export default function Home() {
 
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <button
-                onClick={() => navigate('/map')}
+                onClick={() => navigate('/news')}
                 className="group flex items-center justify-center gap-2 px-8 py-4 bg-white/10 hover:bg-white/15 backdrop-blur-sm text-white rounded-xl font-bold transition border border-white/10"
               >
-                <MapPin size={20} />
-                Explore the Map
+                <Newspaper size={20} />
+                Latest News
                 <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
               </button>
-              <button
-                onClick={() => navigate('/post/new')}
-                className="group flex items-center justify-center gap-2 px-8 py-4 bg-emerald-500 hover:bg-emerald-400 text-white rounded-xl font-bold transition shadow-lg shadow-emerald-500/25"
-              >
-                Share
-                <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-              </button>
+              {user ? (
+                <button
+                  onClick={() => navigate('/post/new')}
+                  className="group flex items-center justify-center gap-2 px-8 py-4 bg-emerald-500 hover:bg-emerald-400 text-white rounded-xl font-bold transition shadow-lg shadow-emerald-500/25"
+                >
+                  Share Something
+                  <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                </button>
+              ) : (
+                <button
+                  onClick={() => signIn()}
+                  className="group flex items-center justify-center gap-2 px-8 py-4 bg-emerald-500 hover:bg-emerald-400 text-white rounded-xl font-bold transition shadow-lg shadow-emerald-500/25"
+                >
+                  <Rocket size={20} />
+                  Get Started
+                  <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                </button>
+              )}
             </div>
 
             {/* Stats Row */}
-            <div className="flex items-center justify-center gap-6 md:gap-8 pt-4">
-              <button onClick={() => navigate('/forum')} className="text-center hover:scale-105 transition-transform">
+            <div className="flex items-center justify-center gap-8 pt-4">
+              <div className="text-center">
                 <div className="text-3xl font-black text-white">{stats.posts}</div>
                 <div className="text-sm text-slate-400">Posts</div>
-              </button>
+              </div>
               <div className="w-px h-10 bg-slate-700" />
-              <button onClick={() => navigate('/ideas')} className="text-center hover:scale-105 transition-transform">
+              <div className="text-center">
                 <div className="text-3xl font-black text-white">{stats.suggestions}</div>
-                <div className="text-sm text-slate-400">Ideas</div>
-              </button>
+                <div className="text-sm text-slate-400">Suggestions</div>
+              </div>
               <div className="w-px h-10 bg-slate-700" />
-              <button onClick={() => navigate('/businesses')} className="text-center hover:scale-105 transition-transform">
+              <div className="text-center">
                 <div className="text-3xl font-black text-white">{stats.businesses}</div>
-                <div className="text-sm text-slate-400">Attractions</div>
-              </button>
-              <div className="w-px h-10 bg-slate-700" />
-              <button onClick={() => navigate('/events')} className="text-center hover:scale-105 transition-transform">
-                <div className="text-3xl font-black text-white">{stats.events}</div>
-                <div className="text-sm text-slate-400">Events</div>
-              </button>
+                <div className="text-sm text-slate-400">Businesses</div>
+              </div>
             </div>
           </div>
         </div>
@@ -169,10 +146,10 @@ export default function Home() {
       {/* Quick Navigation Cards */}
       <div className="max-w-6xl mx-auto px-4 -mt-8 relative z-20">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-          <button onClick={() => navigate('/map')} className="group p-4 rounded-xl bg-gradient-to-br from-emerald-500/20 to-emerald-600/10 border border-emerald-500/20 hover:border-emerald-500/40 transition backdrop-blur-sm text-left">
-            <MapPin size={24} className="text-emerald-400 mb-2" />
-            <div className="text-white font-bold text-sm">Explore Map</div>
-            <div className="text-slate-400 text-xs mt-1">Interactive downtown map</div>
+          <button onClick={() => navigate('/news')} className="group p-4 rounded-xl bg-gradient-to-br from-blue-500/20 to-blue-600/10 border border-blue-500/20 hover:border-blue-500/40 transition backdrop-blur-sm text-left">
+            <Newspaper size={24} className="text-blue-400 mb-2" />
+            <div className="text-white font-bold text-sm">News</div>
+            <div className="text-slate-400 text-xs mt-1">Community updates</div>
           </button>
           <button onClick={() => navigate('/events')} className="group p-4 rounded-xl bg-gradient-to-br from-pink-500/20 to-pink-600/10 border border-pink-500/20 hover:border-pink-500/40 transition backdrop-blur-sm text-left">
             <Calendar size={24} className="text-pink-400 mb-2" />
@@ -181,13 +158,13 @@ export default function Home() {
           </button>
           <button onClick={() => navigate('/businesses')} className="group p-4 rounded-xl bg-gradient-to-br from-purple-500/20 to-purple-600/10 border border-purple-500/20 hover:border-purple-500/40 transition backdrop-blur-sm text-left">
             <Store size={24} className="text-purple-400 mb-2" />
-            <div className="text-white font-bold text-sm">Attractions</div>
-            <div className="text-slate-400 text-xs mt-1">Discover downtown</div>
+            <div className="text-white font-bold text-sm">Places</div>
+            <div className="text-slate-400 text-xs mt-1">Local directory</div>
           </button>
-          <button onClick={() => navigate('/ideas')} className="group p-4 rounded-xl bg-gradient-to-br from-amber-500/20 to-amber-600/10 border border-amber-500/20 hover:border-amber-500/40 transition backdrop-blur-sm text-left">
-            <Lightbulb size={24} className="text-amber-400 mb-2" />
-            <div className="text-white font-bold text-sm">Ideas</div>
-            <div className="text-slate-400 text-xs mt-1">Shape downtown</div>
+          <button onClick={() => navigate('/groups')} className="group p-4 rounded-xl bg-gradient-to-br from-violet-500/20 to-violet-600/10 border border-violet-500/20 hover:border-violet-500/40 transition backdrop-blur-sm text-left">
+            <Users size={24} className="text-violet-400 mb-2" />
+            <div className="text-white font-bold text-sm">Groups</div>
+            <div className="text-slate-400 text-xs mt-1">Your community</div>
           </button>
         </div>
       </div>
@@ -198,8 +175,8 @@ export default function Home() {
           <section className="max-w-6xl mx-auto px-4">
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-lg bg-pink-500/20 flex items-center justify-center text-xl">
-                  🎉
+                <div className="w-10 h-10 rounded-lg bg-pink-500/20 flex items-center justify-center">
+                  <Calendar size={20} className="text-pink-400" />
                 </div>
                 <div>
                   <h2 className="text-2xl font-black text-white">Upcoming Events</h2>
@@ -226,12 +203,12 @@ export default function Home() {
           <section className="max-w-6xl mx-auto px-4">
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center text-xl">
-                  🎭
+                <div className="w-10 h-10 rounded-lg bg-purple-500/20 flex items-center justify-center">
+                  <Store size={20} className="text-purple-400" />
                 </div>
                 <div>
-                  <h2 className="text-2xl font-black text-white">Attractions</h2>
-                  <p className="text-sm text-slate-400">Discover downtown Greensboro</p>
+                  <h2 className="text-2xl font-black text-white">Discover Local</h2>
+                  <p className="text-sm text-slate-400">Businesses in downtown Greensboro</p>
                 </div>
               </div>
               <button
@@ -254,8 +231,8 @@ export default function Home() {
           <section className="max-w-6xl mx-auto px-4">
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-lg bg-amber-500/20 flex items-center justify-center text-xl">
-                  💡
+                <div className="w-10 h-10 rounded-lg bg-amber-500/20 flex items-center justify-center">
+                  <TrendingUp size={20} className="text-amber-400" />
                 </div>
                 <div>
                   <h2 className="text-2xl font-black text-white">Trending Ideas</h2>
@@ -282,11 +259,11 @@ export default function Home() {
           <section className="max-w-6xl mx-auto px-4">
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-lg bg-emerald-500/20 flex items-center justify-center text-xl">
-                  💬
+                <div className="w-10 h-10 rounded-lg bg-emerald-500/20 flex items-center justify-center">
+                  <Sparkles size={20} className="text-emerald-400" />
                 </div>
                 <div>
-                  <h2 className="text-2xl font-black text-white">Discussion</h2>
+                  <h2 className="text-2xl font-black text-white">Recent Activity</h2>
                   <p className="text-sm text-slate-400">Latest from the community</p>
                 </div>
               </div>
@@ -309,9 +286,6 @@ export default function Home() {
       <BusinessDetail business={selectedBusiness} isOpen={!!selectedBusiness} onClose={() => setSelectedBusiness(null)} />
       <SuggestionDetail suggestion={selectedSuggestion} isOpen={!!selectedSuggestion} onClose={() => setSelectedSuggestion(null)} />
       <PostDetail post={selectedPost} isOpen={!!selectedPost} onClose={() => setSelectedPost(null)} />
-      {showProfileModal && (
-        <ProfileCompletionModal onComplete={() => { setShowProfileModal(false); refreshUser(); }} />
-      )}
     </div>
   );
 }
