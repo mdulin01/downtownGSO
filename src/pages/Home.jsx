@@ -12,6 +12,7 @@ import BusinessCard from '../components/businesses/BusinessCard';
 import BusinessDetail from '../components/businesses/BusinessDetail';
 import EventCard from '../components/events/EventCard';
 import EventDetail from '../components/events/EventDetail';
+import ActivityTicker from '../components/common/ActivityTicker';
 
 export default function Home() {
   const navigate = useNavigate();
@@ -167,6 +168,11 @@ export default function Home() {
             <div className="text-slate-400 text-xs mt-1">Your community</div>
           </button>
         </div>
+      </div>
+
+      {/* Live Activity Ticker */}
+      <div className="max-w-6xl mx-auto px-4 mt-8">
+        <ActivityTicker />
       </div>
 
       <div className="space-y-16 mt-16">

@@ -1,9 +1,10 @@
 import { useNavigate } from 'react-router-dom';
-import { MessageCircle, MapPin, Flame, Sparkles, Share2 } from 'lucide-react';
+import { MessageCircle, MapPin, Flame, Sparkles } from 'lucide-react';
 import CategoryBadge from '../common/CategoryBadge';
 import StarRating from '../common/StarRating';
 import Upvote from '../common/Upvote';
 import VideoEmbed from '../common/VideoEmbed';
+import ShareButton from '../common/ShareButton';
 import { getPostConfig } from '../../utils/categoryConfig';
 
 function timeAgo(date) {
@@ -147,19 +148,12 @@ export default function PostCard({ post, onOpenDetail }) {
               <MessageCircle size={14} />
               <span>{post.commentCount || 0}</span>
             </div>
-            <button
-              onClick={(e) => {
-                e.stopPropagation();
-                navigator.clipboard.writeText(`${window.location.origin}/forum`);
-                // Brief visual feedback
-                e.currentTarget.classList.add('text-emerald-400');
-                setTimeout(() => e.currentTarget.classList.remove('text-emerald-400'), 1000);
-              }}
-              className="text-slate-500 hover:text-emerald-400 transition"
-              title="Copy link"
-            >
-              <Share2 size={14} />
-            </button>
+            <ShareButton
+              title={post.title}
+              text={post.description}
+              url={`${window.location.origin}/forum`}
+              size={14}
+            />
           </div>
         </div>
       </div>
