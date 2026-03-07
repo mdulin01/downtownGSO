@@ -1,13 +1,13 @@
 const { onDocumentCreated } = require("firebase-functions/v2/firestore");
-const { defineString } = require("firebase-functions/params");
+const { defineSecret } = require("firebase-functions/params");
 const admin = require("firebase-admin");
 const { Resend } = require("resend");
 
 admin.initializeApp();
 const db = admin.firestore();
 
-// Define the Resend API key as a Cloud Functions parameter
-const resendApiKey = defineString("RESEND_API_KEY");
+// Define the Resend API key from Secret Manager
+const resendApiKey = defineSecret("RESEND_API_KEY");
 
 // Map post categories to interest categories for matching
 const CATEGORY_TO_INTEREST = {
@@ -19,7 +19,7 @@ const CATEGORY_TO_INTEREST = {
 
 // ===== WELCOME EMAIL =====
 // Triggers when a new user document is created in Firestore
-exports.onUserCreated = onDocumentCreated("users/{userId}", async (event) => {
+exports.onUserCreated = onDocumentCreated({ document: "users/{userId}", secrets: [resendApiKey] }, async (event) => {
   const userData = event.data.data();
   if (!userData?.email) return;
 
@@ -44,7 +44,7 @@ exports.onUserCreated = onDocumentCreated("users/{userId}", async (event) => {
 
 // ===== NEW POST NOTIFICATION =====
 // Triggers when a new post is created
-exports.onPostCreated = onDocumentCreated("posts/{postId}", async (event) => {
+exports.onPostCreated = onDocumentCreated({ document: "posts/{postId}", secrets: [resendApiKey] }, async (event) => {
   const post = event.data.data();
   if (!post) return;
 
