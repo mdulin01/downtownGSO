@@ -1,7 +1,8 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { onAuthStateChanged, signOut, signInWithPopup, GoogleAuthProvider } from 'firebase/auth';
 import { auth, db } from '../firebase-config';
-import { doc, setDoc, getDoc, serverTimestamp } from 'firebase/firestore';
+import { doc, setDoc, serverTimestamp } from 'firebase/firestore';
+import { trackLogin } from '../utils/analytics';
 
 const AuthContext = createContext();
 
@@ -12,45 +13,21 @@ export function AuthProvider({ children }) {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
       if (firebaseUser) {
-        const userRef = doc(db, 'users', firebaseUser.uid);
-
-        // Check if user doc already exists (returning user vs new)
-        const existingDoc = await getDoc(userRef);
-        const isNewUser = !existingDoc.exists();
-
         // Create or update user doc in Firestore
-        const userData = {
+        const userRef = doc(db, 'users', firebaseUser.uid);
+        await setDoc(userRef, {
           uid: firebaseUser.uid,
           email: firebaseUser.email,
           displayName: firebaseUser.displayName,
           photoURL: firebaseUser.photoURL,
           lastSignIn: serverTimestamp()
-        };
-
-        // Only set defaults for new users
-        if (isNewUser) {
-          userData.createdAt = serverTimestamp();
-          userData.interests = [];
-          userData.customInterests = [];
-          userData.notificationsEnabled = true;
-          userData.profileCompleted = false;
-        }
-
-        await setDoc(userRef, userData, { merge: true });
-
-        // Read back the full user doc to get interests etc.
-        const updatedDoc = await getDoc(userRef);
-        const fullData = updatedDoc.data();
+        }, { merge: true });
 
         setUser({
           uid: firebaseUser.uid,
           email: firebaseUser.email,
           displayName: firebaseUser.displayName,
-          photoURL: firebaseUser.photoURL,
-          interests: fullData?.interests || [],
-          customInterests: fullData?.customInterests || [],
-          notificationsEnabled: fullData?.notificationsEnabled ?? true,
-          profileCompleted: fullData?.profileCompleted || false
+          photoURL: firebaseUser.photoURL
         });
       } else {
         setUser(null);
@@ -65,6 +42,7 @@ export function AuthProvider({ children }) {
     try {
       const provider = new GoogleAuthProvider();
       await signInWithPopup(auth, provider);
+      trackLogin('google');
     } catch (error) {
       console.error('Sign in error:', error);
       throw error;
@@ -80,28 +58,11 @@ export function AuthProvider({ children }) {
     }
   };
 
-  // Allow refreshing user data after profile updates
-  const refreshUser = async () => {
-    if (!user) return;
-    const userDoc = await getDoc(doc(db, 'users', user.uid));
-    if (userDoc.exists()) {
-      const data = userDoc.data();
-      setUser(prev => ({
-        ...prev,
-        interests: data.interests || [],
-        customInterests: data.customInterests || [],
-        notificationsEnabled: data.notificationsEnabled ?? true,
-        profileCompleted: data.profileCompleted || false
-      }));
-    }
-  };
-
   const value = {
     user,
     loading,
     signIn,
-    signOut: logOut,
-    refreshUser
+    signOut: logOut
   };
 
   return React.createElement(

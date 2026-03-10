@@ -1,7 +1,7 @@
 import { useState, useMemo } from 'react';
+import { trackBusinessDirectorySearch, trackBusinessDirectoryFilter } from '../../utils/analytics';
 import { Map, List, Store, Search } from 'lucide-react';
 import { BUSINESS_CATEGORIES } from '../../constants';
-import { getBusinessConfig, matchesBusinessCategory } from '../../utils/categoryConfig';
 import BusinessCard from './BusinessCard';
 import BusinessDetail from './BusinessDetail';
 import MapView from '../map/MapView';
@@ -26,12 +26,24 @@ export default function BusinessDirectory() {
     return unsubscribe;
   }, []);
 
+  // Track search with debounce so we only log completed searches
+  useEffect(() => {
+    if (!searchTerm) return;
+    const timer = setTimeout(() => trackBusinessDirectorySearch(searchTerm), 800);
+    return () => clearTimeout(timer);
+  }, [searchTerm]);
+
+  // Track category filter changes
+  useEffect(() => {
+    if (selectedCategory) trackBusinessDirectoryFilter(selectedCategory);
+  }, [selectedCategory]);
+
   const filteredBusinesses = useMemo(() => {
     return businesses.filter((business) => {
       const matchesSearch =
         business.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
         business.description?.toLowerCase().includes(searchTerm.toLowerCase());
-      const matchesCategory = !selectedCategory || matchesBusinessCategory(business.category, selectedCategory);
+      const matchesCategory = !selectedCategory || business.category === selectedCategory;
       return matchesSearch && matchesCategory;
     });
   }, [businesses, searchTerm, selectedCategory]);
@@ -61,12 +73,12 @@ export default function BusinessDirectory() {
       <div className="bg-gradient-to-br from-purple-900/30 via-slate-900 to-slate-900 px-4 py-10 border-b border-white/5">
         <div className="max-w-7xl mx-auto space-y-6">
           <div className="flex items-center gap-3">
-            <div className="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center text-2xl">
-              🎭
+            <div className="w-12 h-12 rounded-xl bg-purple-500/20 flex items-center justify-center">
+              <Store size={24} className="text-purple-400" />
             </div>
             <div>
-              <h1 className="text-3xl font-black text-white">Attractions</h1>
-              <p className="text-slate-400 text-sm">Discover downtown Greensboro</p>
+              <h1 className="text-3xl font-black text-white">Discover Local</h1>
+              <p className="text-slate-400 text-sm">Downtown Greensboro businesses</p>
             </div>
           </div>
 

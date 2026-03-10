@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
+import { trackViewEvent } from '../../utils/analytics';
 import { doc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { db } from '../../firebase-config';
 import { useAuth } from '../../hooks/useAuth';
@@ -40,6 +41,13 @@ export default function EventDetail({ event, isOpen, onClose }) {
   const [form, setForm] = useState({});
 
   if (!event) return null;
+
+  // Track event detail view (only when event changes)
+  const lastTrackedId = useRef(null);
+  if (event.id !== lastTrackedId.current) {
+    lastTrackedId.current = event.id;
+    trackViewEvent(event.title, event.id);
+  }
 
   const canEditEvent = isAdmin(user);
 
