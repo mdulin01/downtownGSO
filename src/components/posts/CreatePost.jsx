@@ -9,6 +9,7 @@ import { POST_CATEGORIES } from '../../constants';
 import ImageUpload from '../common/ImageUpload';
 import LocationPicker from '../map/LocationPicker';
 import CategoryBadge from '../common/CategoryBadge';
+import { compressImage } from '../../utils/imageUtils';
 
 export default function CreatePost() {
   const navigate = useNavigate();
@@ -93,12 +94,12 @@ export default function CreatePost() {
 
     setLoading(true);
     try {
-      // Upload image to Firebase Storage if one was selected
+      // Compress and upload image to Firebase Storage if one was selected
       let imageUrl = null;
       if (imageFile) {
-        const ext = imageFile.name.split('.').pop() || 'jpg';
-        const storageRef = ref(storage, `posts/${user.uid}_${Date.now()}.${ext}`);
-        await uploadBytes(storageRef, imageFile);
+        const compressed = await compressImage(imageFile);
+        const storageRef = ref(storage, `posts/${user.uid}_${Date.now()}.jpg`);
+        await uploadBytes(storageRef, compressed);
         imageUrl = await getDownloadURL(storageRef);
       }
 
