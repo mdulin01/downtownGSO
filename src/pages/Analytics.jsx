@@ -114,11 +114,18 @@ export default function Analytics() {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(true);
   const [range, setRange] = useState(7); // days
-  const userIsAdmin = user && isAdmin(user);
+
+  // Guard: admin only
+  if (!user || !isAdmin(user)) {
+    return (
+      <div className="max-w-2xl mx-auto px-4 py-20 text-center">
+        <p className="text-white/50">Admin access required.</p>
+      </div>
+    );
+  }
 
   // Real-time listener for analytics events
   useEffect(() => {
-    if (!userIsAdmin) return;
     const since = daysAgo(range);
     const q = query(
       collection(db, 'analytics_events'),
@@ -131,7 +138,7 @@ export default function Analytics() {
       setLoading(false);
     });
     return unsubscribe;
-  }, [range, userIsAdmin]);
+  }, [range]);
 
   // ── Computed stats ──────────────────────────────────
 
@@ -213,15 +220,6 @@ export default function Analytics() {
       .sort((a, b) => b.count - a.count)
       .slice(0, 8);
   }, [events]);
-
-  // Guard: admin only (must be after all hooks)
-  if (!userIsAdmin) {
-    return (
-      <div className="max-w-2xl mx-auto px-4 py-20 text-center">
-        <p className="text-white/50">Admin access required.</p>
-      </div>
-    );
-  }
 
   if (loading) {
     return (
