@@ -1,8 +1,10 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { LogIn } from 'lucide-react';
+import { ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { useAuth } from '../../hooks/useAuth';
 import { usePosts } from '../../hooks/usePosts';
+import { storage } from '../../firebase-config';
 import { POST_CATEGORIES } from '../../constants';
 import ImageUpload from '../common/ImageUpload';
 import LocationPicker from '../map/LocationPicker';
@@ -17,13 +19,14 @@ export default function CreatePost() {
     title: '',
     description: '',
     category: POST_CATEGORIES[0],
-    imageUrl: '',
     videoUrl: '',
     location: '',
     lat: null,
     lng: null
   });
 
+  const [imageFile, setImageFile] = useState(null);
+  const [imagePreview, setImagePreview] = useState(null);
   const [isVideo, setIsVideo] = useState(false);
   const [loading, setLoading] = useState(false);
 
@@ -64,12 +67,10 @@ export default function CreatePost() {
   }
 
   const handleImageSelected = (file) => {
+    setImageFile(file);
     const reader = new FileReader();
     reader.onload = (e) => {
-      setFormData((prev) => ({
-        ...prev,
-        imageUrl: e.target.result
-      }));
+      setImagePreview(e.target.result);
     };
     reader.readAsDataURL(file);
   };
@@ -92,11 +93,20 @@ export default function CreatePost() {
 
     setLoading(true);
     try {
+      // Upload image to Firebase Storage if one was selected
+      let imageUrl = null;
+      if (imageFile) {
+        const ext = imageFile.name.split('.').pop() || 'jpg';
+        const storageRef = ref(storage, `posts/${user.uid}_${Date.now()}.${ext}`);
+        await uploadBytes(storageRef, imageFile);
+        imageUrl = await getDownloadURL(storageRef);
+      }
+
       await createPost({
         title: formData.title,
         description: formData.description,
         category: formData.category,
-        imageUrl: formData.imageUrl || null,
+        imageUrl,
         videoUrl: formData.videoUrl || null,
         location: formData.location,
         lat: formData.lat,
@@ -196,7 +206,7 @@ export default function CreatePost() {
           </div>
 
           {!isVideo ? (
-            <ImageUpload onImageSelected={handleImageSelected} existingUrl={formData.imageUrl} />
+            <ImageUpload onImageSelected={handleImageSelected} existingUrl={imagePreview} />
           ) : (
             <input
               type="url"
