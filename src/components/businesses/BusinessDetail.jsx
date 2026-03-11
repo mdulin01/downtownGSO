@@ -1,4 +1,5 @@
-import { useState, useEffect, useRef } from 'react';
+import { trackViewBusiness } from '../../utils/analytics';
+import { useState, useEffect } from 'react';
 import { doc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { db } from '../../firebase-config';
 import { useAuth } from '../../hooks/useAuth';
@@ -13,20 +14,28 @@ export default function BusinessDetail({ business: businessProp, isOpen, onClose
   const [saving, setSaving] = useState(false);
   const [form, setForm] = useState({});
   const [localOverrides, setLocalOverrides] = useState(null);
+  const [lastId, setLastId] = useState(null);
 
   // Merge prop with any local edits so the view updates immediately after save
   const business = localOverrides ? { ...businessProp, ...localOverrides } : businessProp;
 
-  // Reset local overrides when a different business is opened
-  const lastIdRef = useRef(null);
+  // Track business view when business changes
   useEffect(() => {
-    const currentId = businessProp?.id ?? null;
-    if (currentId !== lastIdRef.current) {
-      lastIdRef.current = currentId;
+    if (businessProp?.id && businessProp?.id !== lastId) {
+      setLastId(businessProp.id);
+      trackViewBusiness(businessProp.name, businessProp.id);
+    } else if (!businessProp?.id) {
+      setLastId(null);
+    }
+  }, [businessProp?.id, businessProp?.name, lastId]);
+
+  // Reset local overrides and editing state when a different business is opened
+  useEffect(() => {
+    if (businessProp?.id !== lastId) {
       setLocalOverrides(null);
       setEditing(false);
     }
-  }, [businessProp?.id]);
+  }, [businessProp?.id, lastId]);
 
   if (!business) return null;
 

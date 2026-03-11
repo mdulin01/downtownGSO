@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import { trackViewEvent } from '../../utils/analytics';
 import { doc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { db } from '../../firebase-config';
 import { useAuth } from '../../hooks/useAuth';
@@ -38,10 +39,17 @@ export default function EventDetail({ event, isOpen, onClose }) {
   const [editing, setEditing] = useState(false);
   const [saving, setSaving] = useState(false);
   const [form, setForm] = useState({});
+  const [lastTrackedId, setLastTrackedId] = useState(null);
 
-  if (!event) return null;
+  // Track event detail view when event changes
+  useEffect(() => {
+    if (event?.id && event?.id !== lastTrackedId) {
+      setLastTrackedId(event.id);
+      trackViewEvent(event.title, event.id);
+    }
+  }, [event?.id, event?.title, lastTrackedId]);
 
-  const canEditEvent = isAdmin(user);
+  const canEditEvent = event ? isAdmin(user) : false;
 
   const startEdit = () => {
     setForm({
@@ -81,6 +89,8 @@ export default function EventDetail({ event, isOpen, onClose }) {
   };
 
   const inputClass = 'w-full bg-slate-700 border border-slate-600 rounded-lg px-3 py-2 text-white text-sm focus:outline-none focus:border-pink-500';
+
+  if (!event) return null;
 
   return (
     <BaseModal isOpen={isOpen} onClose={onClose} title={editing ? 'Edit Event' : event.title}>

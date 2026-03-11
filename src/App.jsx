@@ -4,6 +4,7 @@ import Header from './components/layout/Header';
 import MobileNav from './components/layout/MobileNav';
 import BuildFooter from './components/layout/BuildFooter';
 import ProfileCompletionModal from './components/auth/ProfileCompletionModal';
+import RouteTracker from './components/common/RouteTracker';
 
 // Pages
 import Home from './pages/Home';
@@ -16,6 +17,7 @@ import Businesses from './pages/Businesses';
 import Events from './pages/Events';
 import About from './pages/About';
 import Admin from './pages/Admin';
+import Analytics from './pages/Analytics';
 
 // Forms
 import CreatePost from './components/posts/CreatePost';
@@ -27,6 +29,7 @@ function AppContent() {
 
   return (
     <div className="min-h-screen bg-slate-950 text-white">
+      <RouteTracker />
       <Header />
 
       <main className="pt-16 md:pt-0">
@@ -45,6 +48,7 @@ function AppContent() {
           <Route path="/post/new" element={<CreatePost />} />
           <Route path="/suggestion/new" element={<SuggestionForm />} />
           <Route path="/admin" element={<Admin />} />
+          <Route path="/analytics" element={<Analytics />} />
         </Routes>
       </main>
 
