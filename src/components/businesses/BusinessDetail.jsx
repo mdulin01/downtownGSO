@@ -1,5 +1,4 @@
-import { trackViewBusiness } from '../../utils/analytics';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { doc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { db } from '../../firebase-config';
 import { useAuth } from '../../hooks/useAuth';
@@ -19,13 +18,15 @@ export default function BusinessDetail({ business: businessProp, isOpen, onClose
   const business = localOverrides ? { ...businessProp, ...localOverrides } : businessProp;
 
   // Reset local overrides when a different business is opened
-  const [lastId, setLastId] = useState(null);
-  if (businessProp?.id !== lastId) {
-    setLastId(businessProp?.id ?? null);
-    setLocalOverrides(null);
-    if (businessProp?.id) trackViewBusiness(businessProp.name, businessProp.id);
-    setEditing(false);
-  }
+  const lastIdRef = useRef(null);
+  useEffect(() => {
+    const currentId = businessProp?.id ?? null;
+    if (currentId !== lastIdRef.current) {
+      lastIdRef.current = currentId;
+      setLocalOverrides(null);
+      setEditing(false);
+    }
+  }, [businessProp?.id]);
 
   if (!business) return null;
 

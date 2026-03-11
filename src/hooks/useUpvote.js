@@ -8,7 +8,6 @@ import {
   increment
 } from 'firebase/firestore';
 import { db } from '../firebase-config';
-import { trackUpvote } from '../utils/analytics';
 
 export function useUpvote(postId, userId) {
   const [upvoted, setUpvoted] = useState(false);
@@ -60,7 +59,6 @@ export function useUpvote(postId, userId) {
           createdAt: new Date()
         });
         await updateDoc(postRef, { upvoteCount: increment(1) });
-        trackUpvote('post', postId);
         setUpvoted(true);
         setCount((prev) => prev + 1);
       }
