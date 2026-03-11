@@ -40,14 +40,14 @@ export default function EventDetail({ event, isOpen, onClose }) {
   const [saving, setSaving] = useState(false);
   const [form, setForm] = useState({});
 
-  if (!event) return null;
-
   // Track event detail view (only when event changes)
   const lastTrackedId = useRef(null);
-  if (event.id !== lastTrackedId.current) {
+  if (event && event.id !== lastTrackedId.current) {
     lastTrackedId.current = event.id;
     trackViewEvent(event.title, event.id);
   }
+
+  if (!event) return null;
 
   const canEditEvent = isAdmin(user);
 
