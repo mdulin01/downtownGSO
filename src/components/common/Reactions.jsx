@@ -1,4 +1,5 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
+import { createPortal } from 'react-dom';
 import { doc, setDoc, deleteDoc, collection, onSnapshot } from 'firebase/firestore';
 import { db } from '../../firebase-config';
 import { useAuth } from '../../hooks/useAuth';
@@ -16,6 +17,8 @@ export default function Reactions({ collectionName, itemId }) {
   const [reactions, setReactions] = useState({});
   const [userReaction, setUserReaction] = useState(null);
   const [showPicker, setShowPicker] = useState(false);
+  const pickerBtnRef = useRef(null);
+  const [pickerPos, setPickerPos] = useState({ top: 0, left: 0 });
 
   useEffect(() => {
     if (!itemId) return;
@@ -84,17 +87,27 @@ export default function Reactions({ collectionName, itemId }) {
       {/* Add reaction button */}
       <div className="relative">
         <button
-          onClick={() => setShowPicker(!showPicker)}
+          ref={pickerBtnRef}
+          onClick={() => {
+            if (!showPicker && pickerBtnRef.current) {
+              const rect = pickerBtnRef.current.getBoundingClientRect();
+              setPickerPos({ top: rect.top - 8, left: rect.left });
+            }
+            setShowPicker(!showPicker);
+          }}
           className="flex items-center gap-1 px-2 py-1 rounded-full text-xs bg-slate-800/40 border border-slate-700/30 text-slate-500 hover:text-slate-300 hover:border-slate-600 transition"
         >
           <span>+</span>
           <span>😀</span>
         </button>
 
-        {showPicker && (
+        {showPicker && createPortal(
           <>
             <div className="fixed inset-0 z-40" onClick={() => setShowPicker(false)} />
-            <div className="absolute bottom-full left-0 mb-2 z-50 flex items-center gap-1 p-1.5 bg-slate-800 border border-slate-700 rounded-xl shadow-xl">
+            <div
+              className="fixed z-50 flex items-center gap-1 p-1.5 bg-slate-800 border border-slate-700 rounded-xl shadow-xl"
+              style={{ top: pickerPos.top, left: pickerPos.left, transform: 'translateY(-100%)' }}
+            >
               {REACTION_TYPES.map(({ emoji, label }) => (
                 <button
                   key={emoji}
@@ -108,7 +121,8 @@ export default function Reactions({ collectionName, itemId }) {
                 </button>
               ))}
             </div>
-          </>
+          </>,
+          document.body
         )}
       </div>
 

@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowRight, Newspaper, Calendar, Store, Users, TrendingUp, Sparkles, Rocket } from 'lucide-react';
+import { ArrowRight, Newspaper, Calendar, Store, Users, TrendingUp, Sparkles, Rocket, ChevronLeft, ChevronRight } from 'lucide-react';
 import { collection, query, limit, onSnapshot, orderBy } from 'firebase/firestore';
 import { db } from '../firebase-config';
 import { useAuth } from '../hooks/useAuth';
@@ -26,6 +26,44 @@ export default function Home() {
   const [selectedSuggestion, setSelectedSuggestion] = useState(null);
   const [selectedBusiness, setSelectedBusiness] = useState(null);
   const [selectedEvent, setSelectedEvent] = useState(null);
+  const [currentSlide, setCurrentSlide] = useState(0);
+
+  const heroImages = [
+    {
+      url: 'https://images.unsplash.com/photo-1572111003510-f71cc42795d7?w=1920&q=80&fit=crop',
+      alt: 'Downtown Greensboro architecture',
+    },
+    {
+      url: 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=1920&q=80&fit=crop',
+      alt: 'Vibrant city street at dusk',
+    },
+    {
+      url: 'https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=1920&q=80&fit=crop',
+      alt: 'Urban downtown skyline',
+    },
+    {
+      url: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1920&q=80&fit=crop',
+      alt: 'Downtown restaurant and nightlife',
+    },
+    {
+      url: 'https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=1920&q=80&fit=crop',
+      alt: 'City buildings and streets',
+    },
+  ];
+
+  const nextSlide = useCallback(() => {
+    setCurrentSlide((prev) => (prev + 1) % heroImages.length);
+  }, [heroImages.length]);
+
+  const prevSlide = useCallback(() => {
+    setCurrentSlide((prev) => (prev - 1 + heroImages.length) % heroImages.length);
+  }, [heroImages.length]);
+
+  // Auto-advance carousel
+  useEffect(() => {
+    const timer = setInterval(nextSlide, 5000);
+    return () => clearInterval(timer);
+  }, [nextSlide]);
 
   useEffect(() => {
     const q = query(collection(db, 'posts'), orderBy('createdAt', 'desc'), limit(6));
@@ -64,18 +102,55 @@ export default function Home() {
 
   return (
     <div className="w-full pb-24 md:pb-8">
-      {/* Hero Section with Downtown Photo Background */}
+      {/* Hero Section with Downtown Photo Carousel */}
       <div className="relative overflow-hidden">
-        {/* Photo background */}
+        {/* Photo carousel background */}
         <div className="absolute inset-0">
-          <img
-            src="https://images.unsplash.com/photo-1572111003510-f71cc42795d7?w=1920&q=80&fit=crop"
-            alt="Downtown Greensboro"
-            className="w-full h-full object-cover"
-          />
+          {heroImages.map((img, index) => (
+            <img
+              key={img.url}
+              src={img.url}
+              alt={img.alt}
+              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-1000 ${
+                index === currentSlide ? 'opacity-100' : 'opacity-0'
+              }`}
+            />
+          ))}
         </div>
-        {/* Gradient overlay */}
-        <div className="absolute inset-0 bg-gradient-to-b from-slate-950/60 via-slate-950/75 to-slate-950" />
+        {/* Lighter gradient overlay - keeps text readable but lets photos shine */}
+        <div className="absolute inset-0 bg-gradient-to-b from-slate-950/30 via-slate-950/50 to-slate-950" />
+
+        {/* Carousel navigation arrows */}
+        <button
+          onClick={prevSlide}
+          className="absolute left-4 top-1/2 -translate-y-1/2 z-20 p-2 rounded-full bg-black/30 hover:bg-black/50 text-white/70 hover:text-white transition backdrop-blur-sm"
+          aria-label="Previous photo"
+        >
+          <ChevronLeft size={24} />
+        </button>
+        <button
+          onClick={nextSlide}
+          className="absolute right-4 top-1/2 -translate-y-1/2 z-20 p-2 rounded-full bg-black/30 hover:bg-black/50 text-white/70 hover:text-white transition backdrop-blur-sm"
+          aria-label="Next photo"
+        >
+          <ChevronRight size={24} />
+        </button>
+
+        {/* Slide indicator dots */}
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2">
+          {heroImages.map((_, index) => (
+            <button
+              key={index}
+              onClick={() => setCurrentSlide(index)}
+              className={`rounded-full transition-all ${
+                index === currentSlide
+                  ? 'w-8 h-2 bg-emerald-400'
+                  : 'w-2 h-2 bg-white/40 hover:bg-white/60'
+              }`}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
+        </div>
 
         <div className="relative z-10 px-4 py-20 md:py-32">
           <div className="max-w-4xl mx-auto text-center space-y-8">

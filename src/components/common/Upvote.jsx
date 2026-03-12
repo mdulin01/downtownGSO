@@ -6,7 +6,8 @@ export default function Upvote({ postId, showCount = true }) {
   const { user } = useAuth();
   const { upvoted, toggleUpvote, count } = useUpvote(postId, user?.uid || null);
 
-  const handleToggle = async () => {
+  const handleToggle = async (e) => {
+    e.stopPropagation();
     if (!user) {
       alert('Please sign in to upvote');
       return;
