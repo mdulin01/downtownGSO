@@ -7,6 +7,7 @@ import {
   addDoc,
   deleteDoc,
   doc,
+  getDoc,
   updateDoc,
   increment,
   serverTimestamp
@@ -30,13 +31,27 @@ export function useComments(postId) {
       orderBy('createdAt', 'asc')
     );
 
-    const unsubscribe = onSnapshot(q, (snapshot) => {
-      const data = snapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data()
+    const unsubscribe = onSnapshot(q, async (snapshot) => {
+      const data = snapshot.docs.map((d) => ({
+        id: d.id,
+        ...d.data()
       }));
       setComments(data);
       setLoading(false);
+
+      // Self-heal: sync commentCount on the post document if it drifted
+      try {
+        const postRef = doc(db, 'posts', postId);
+        const postSnap = await getDoc(postRef);
+        if (postSnap.exists()) {
+          const stored = postSnap.data().commentCount || 0;
+          if (stored !== snapshot.size) {
+            await updateDoc(postRef, { commentCount: snapshot.size });
+          }
+        }
+      } catch (e) {
+        // Non-critical — don't block the UI
+      }
     }, (error) => {
       console.error('Error fetching comments:', error);
       setLoading(false);
