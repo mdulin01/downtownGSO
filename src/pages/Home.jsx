@@ -30,24 +30,24 @@ export default function Home() {
 
   const heroImages = [
     {
-      url: 'https://images.unsplash.com/photo-1572111003510-f71cc42795d7?w=1920&q=80&fit=crop',
-      alt: 'Downtown Greensboro architecture',
+      url: 'https://images.unsplash.com/photo-1644937891142-7afa519986b1?w=1920&q=80&fit=crop',
+      alt: 'Downtown Greensboro skyline at sunset',
     },
     {
-      url: 'https://images.unsplash.com/photo-1449824913935-59a10b8d2000?w=1920&q=80&fit=crop',
-      alt: 'Vibrant city street at dusk',
+      url: 'https://images.unsplash.com/photo-1604936434224-feb31c249ef7?w=1920&q=80&fit=crop',
+      alt: 'Downtown Greensboro building under blue sky',
     },
     {
-      url: 'https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b?w=1920&q=80&fit=crop',
-      alt: 'Urban downtown skyline',
+      url: 'https://images.unsplash.com/photo-1644013974938-12bdf141bd11?w=1920&q=80&fit=crop',
+      alt: 'Historic statue in downtown Greensboro',
     },
     {
-      url: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1920&q=80&fit=crop',
-      alt: 'Downtown restaurant and nightlife',
+      url: 'https://images.unsplash.com/photo-1657771413626-85eab12703ba?w=1920&q=80&fit=crop',
+      alt: 'Aerial view of downtown Greensboro',
     },
     {
-      url: 'https://images.unsplash.com/photo-1519501025264-65ba15a82390?w=1920&q=80&fit=crop',
-      alt: 'City buildings and streets',
+      url: 'https://images.unsplash.com/photo-1579036689316-298a7daaf907?w=1920&q=80&fit=crop',
+      alt: 'Greensboro cityscape',
     },
   ];
 
