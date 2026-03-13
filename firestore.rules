@@ -7,7 +7,7 @@ service cloud.firestore {
       // Author can update/delete anything; any auth'd user can update upvoteCount only
       allow update: if request.auth != null && (
         request.auth.uid == resource.data.authorId ||
-        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['upvoteCount'])
+        request.resource.data.diff(resource.data).affectedKeys().hasOnly(['upvoteCount', 'commentCount'])
       );
       allow delete: if request.auth != null && request.auth.uid == resource.data.authorId;
     }
@@ -66,6 +66,10 @@ service cloud.firestore {
       allow read: if true;
       allow create: if request.auth != null;
       allow delete: if request.auth != null;
+    }
+    // Collection group rule for collectionGroup('comments') queries (e.g. ActivityTicker)
+    match /{path=**}/comments/{commentId} {
+      allow read: if true;
     }
   }
 }
