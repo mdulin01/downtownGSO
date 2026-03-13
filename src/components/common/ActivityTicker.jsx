@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { collection, query, orderBy, limit, onSnapshot } from 'firebase/firestore';
+import { collection, collectionGroup, query, orderBy, limit, onSnapshot } from 'firebase/firestore';
 import { db } from '../../firebase-config';
 import { MessageCircle, Heart, Users, Lightbulb, Zap } from 'lucide-react';
 
@@ -40,7 +40,7 @@ export default function ActivityTicker() {
             const aTime = a.time?.seconds || 0;
             const bTime = b.time?.seconds || 0;
             return bTime - aTime;
-          }).slice(0, 5);
+          }).slice(0, 8);
         });
       })
     );
@@ -66,7 +66,7 @@ export default function ActivityTicker() {
             const aTime = a.time?.seconds || 0;
             const bTime = b.time?.seconds || 0;
             return bTime - aTime;
-          }).slice(0, 5);
+          }).slice(0, 8);
         });
       })
     );
@@ -92,7 +92,35 @@ export default function ActivityTicker() {
             const aTime = a.time?.seconds || 0;
             const bTime = b.time?.seconds || 0;
             return bTime - aTime;
-          }).slice(0, 5);
+          }).slice(0, 8);
+        });
+      })
+    );
+
+    // Recent comments (across posts, news, groups)
+    const commentsQ = query(collectionGroup(db, 'comments'), orderBy('createdAt', 'desc'), limit(3));
+    unsubscribers.push(
+      onSnapshot(commentsQ, (snap) => {
+        const items = snap.docs.map(d => {
+          const data = d.data();
+          const firstName = data.authorName?.split(' ')[0] || 'Someone';
+          const preview = data.text?.length > 40 ? data.text.slice(0, 40) + '…' : data.text || '';
+          return {
+            id: `comment-${d.id}`,
+            type: 'comment',
+            text: `${firstName} commented "${preview}"`,
+            time: data.createdAt,
+            icon: MessageCircle,
+            color: 'text-sky-400',
+          };
+        });
+        setActivities(prev => {
+          const filtered = prev.filter(a => a.type !== 'comment');
+          return [...filtered, ...items].sort((a, b) => {
+            const aTime = a.time?.seconds || 0;
+            const bTime = b.time?.seconds || 0;
+            return bTime - aTime;
+          }).slice(0, 8);
         });
       })
     );
