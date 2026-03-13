@@ -30,24 +30,28 @@ export default function Home() {
 
   const heroImages = [
     {
+      url: '/images/downtown-hero.jpg',
+      alt: 'Downtown Greensboro',
+    },
+    {
       url: 'https://images.unsplash.com/photo-1644937891142-7afa519986b1?w=1920&q=80&fit=crop',
       alt: 'Downtown Greensboro skyline at sunset',
     },
     {
-      url: 'https://images.unsplash.com/photo-1604936434224-feb31c249ef7?w=1920&q=80&fit=crop',
-      alt: 'Downtown Greensboro building under blue sky',
-    },
-    {
       url: 'https://images.unsplash.com/photo-1644013974938-12bdf141bd11?w=1920&q=80&fit=crop',
-      alt: 'Historic statue in downtown Greensboro',
+      alt: 'Nathanael Greene statue on Elm Street',
     },
     {
-      url: 'https://images.unsplash.com/photo-1657771413626-85eab12703ba?w=1920&q=80&fit=crop',
-      alt: 'Aerial view of downtown Greensboro',
+      url: 'https://images.unsplash.com/photo-1605374781207-056153ac9926?w=1920&q=80&fit=crop',
+      alt: 'Carolina Theatre and downtown Greensboro',
     },
     {
-      url: 'https://images.unsplash.com/photo-1579036689316-298a7daaf907?w=1920&q=80&fit=crop',
-      alt: 'Greensboro cityscape',
+      url: 'https://images.unsplash.com/photo-1657771413571-fdd0a66c1cfa?w=1920&q=80&fit=crop',
+      alt: 'Aerial view of downtown Greensboro park and art installation',
+    },
+    {
+      url: 'https://images.unsplash.com/photo-1657771413591-d05c2d401756?w=1920&q=80&fit=crop',
+      alt: 'Aerial view of downtown Greensboro rooftops',
     },
   ];
 
